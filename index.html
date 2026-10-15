@@ -1,34 +1,3 @@
-# 🎤 K-GEMPAK ENT: K-Pop Agency & Survival Simulator
-**Game Design Blueprint & Single-File Playable Web Prototype**
-
----
-
-## 1. Core Gameplay Loop Overview
-
-Inspired by *Monthly Entertainment (608 Factory)* and real-world YG Entertainment trainee systems (*WIN*, *YG Treasure Box*, *Last Evaluation*), this web-first simulator runs on a **12-Month Yearly Cycle**:
-
-1. **Months 1–12 (Daily/Monthly Agency Grind):**
-   * **Global Auditions:** Scout trainees from **Kuala Lumpur (Bukit Bintang)**, **Seoul (Hapjeong)**, **Bangkok**, and **Tokyo**.
-   * **YG-Style Brutal Training:** Trainees grind **Vocal**, **Rap**, **Dance**, and **YG Swag (Star Power)** while managing **Stamina** and **Ego/Dorm Drama**.
-   * **Monthly Evaluations:** Every month, trainees face the **English Pop + 16-Bar Self-Written Rap Check**. Ranks shift from **Rank F to Rank SS+**, and Team A seats are constantly at risk.
-2. **Normal Path — In-House Permanent Group Debut & Comebacks:**
-   * Select 3–5 top trainees to form a permanent agency group.
-   * Produce albums, choose concepts (*Hip-Hop Street, Girl/Boy Crush, Cyber Y2K, Melodic Ballad*), and promote on **4 Weekly Music Shows** (*The Stage, M-Beatdown, K-Bank, Inki-Pop*).
-   * **Live Uncut Encore Vocal Check:** Winning #1 triggers an immediate unedited vocal check. High vocals go viral for "Eating the CD"; low vocals crack on stage and get roasted on K-Threads!
-3. **Month 8 Annual Sub-Event — Multi-Agency Survival Show:**
-   * Every year in Month 8, a randomly named broadcast survival show launches (e.g., *PRODUCE STARLIGHT 999*, *PLANET ODYSSEY X*).
-   * Send 1–3 trainees to battle 50+ trainees from rival Big 4 agencies in **1v1 Position Swap Battles**, survive **Mnet-style Evil Editing**, and fight for the **Top 7 Project Group** or poach eliminated SS-rank stars!
-4. **Month 12 Climax — Year-End Annual Award Shows (MAMA / MMA):**
-   * Direct your group's **7-Minute Special Rearrangement Stage** (Rock Remix, Traditional Malaysian-Korean Fusion, Hand-Mic Cypher, or Boycott Diss Track).
-   * Compete for **Rookie of the Year (ROTY)**, **Bonsang**, and the **4 Grand Daesangs**, then export your **Threads Shareable Flex Card**!
-
----
-
-## 2. Complete Single-File Playable HTML5 Game (`index.html`)
-
-Save the code block below as `index.html` and open it in any mobile or desktop browser—or drop it straight into **Netlify Drop / Vercel / GitHub Pages** to get a live link for Threads!
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,266 +6,298 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
   <title>K-GEMPAK ENT: K-Pop Agency & Survival Sim</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Press+Start+2P&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
+    
     body {
       font-family: 'Space Grotesk', sans-serif;
       background-color: #09090f;
       color: #f3f4f6;
       overflow-x: hidden;
     }
-    .pixel-font {
-      font-family: 'Press Start 2P', monospace;
+
+    /* SMOOTH LIGHTWEIGHT ANIMATIONS */
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 6px rgba(236, 72, 153, 0.6)); }
+      50% { opacity: 0.85; transform: scale(1.03); filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.8)); }
     }
-    .neon-border {
-      box-shadow: 0 0 15px rgba(236, 72, 153, 0.35), inset 0 0 10px rgba(168, 85, 247, 0.2);
+
+    @keyframes floatIcon {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
     }
-    .gold-glow {
-      box-shadow: 0 0 20px rgba(250, 204, 21, 0.45);
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
+
+    .animate-glow {
+      animation: pulseGlow 2.5s infinite ease-in-out;
+    }
+
+    .animate-float {
+      animation: floatIcon 3s infinite ease-in-out;
+    }
+
+    .tab-content {
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    .neon-card {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .neon-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px -4px rgba(236, 72, 153, 0.25);
+    }
+
+    /* CUSTOM SLEEK SCROLLBAR */
     ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
     }
     ::-webkit-scrollbar-track {
       background: #111827;
     }
     ::-webkit-scrollbar-thumb {
       background: #ec4899;
-      border-radius: 3px;
+      border-radius: 4px;
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col bg-gradient-to-b from-[#09090f] via-[#131124] to-[#09090f]">
+<body class="min-h-screen flex flex-col bg-gradient-to-b from-[#09090f] via-[#121024] to-[#09090f]">
 
-  <!-- TOP STATUS BAR -->
+  <!-- TOP HEADER STATUS BAR -->
   <header class="sticky top-0 z-30 bg-[#0d0c18]/95 backdrop-blur-md border-b border-pink-500/30 px-3 py-2.5">
     <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-2">
       <div class="flex items-center gap-2">
-        <span class="px-2 py-1 rounded bg-gradient-to-r from-pink-600 to-purple-600 text-xs font-bold tracking-wider">YG-STYLE SIM</span>
-        <h1 id="agencyNameDisplay" class="font-bold text-base sm:text-lg text-white tracking-tight">K-GEMPAK ENT</h1>
+        <span class="animate-glow px-2 py-0.5 rounded-full bg-gradient-to-r from-pink-600 to-purple-600 text-[11px] font-extrabold tracking-wider text-white shadow-md">
+          ⚡ YG-STYLE SIM
+        </span>
+        <h1 id="agencyNameDisplay" class="font-bold text-base sm:text-lg text-white tracking-tight flex items-center gap-1.5">
+          <span>K-GEMPAK ENT</span>
+          <span class="animate-float text-sm">🎤</span>
+        </h1>
       </div>
 
-      <div class="flex items-center gap-3 text-xs sm:text-sm font-semibold">
-        <div class="bg-gray-900/90 border border-gray-700 px-2.5 py-1 rounded-lg flex items-center gap-1.5">
+      <div class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold">
+        <div class="bg-gray-900/90 border border-gray-700/80 px-2.5 py-1 rounded-lg flex items-center gap-1.5 shadow-sm">
           <span>📅</span>
-          <span id="dateDisplay" class="text-cyan-400">Year 1 • Month 1</span>
+          <span id="dateDisplay" class="text-cyan-400 font-bold">Year 1 • Month 1</span>
         </div>
-        <div class="bg-gray-900/90 border border-gray-700 px-2.5 py-1 rounded-lg flex items-center gap-1.5">
+        <div class="bg-gray-900/90 border border-gray-700/80 px-2.5 py-1 rounded-lg flex items-center gap-1.5 shadow-sm">
           <span>💰</span>
-          <span id="fundsDisplay" class="text-emerald-400">$150,000</span>
+          <span id="fundsDisplay" class="text-emerald-400 font-bold">$150,000</span>
         </div>
-        <div class="bg-gray-900/90 border border-gray-700 px-2.5 py-1 rounded-lg flex items-center gap-1.5">
+        <div class="bg-gray-900/90 border border-gray-700/80 px-2.5 py-1 rounded-lg flex items-center gap-1.5 shadow-sm">
           <span>🔥</span>
-          <span id="hypeDisplay" class="text-pink-400">1,200 Clout</span>
+          <span id="hypeDisplay" class="text-pink-400 font-bold">1,200 Clout</span>
         </div>
-        <button onclick="advanceMonth()" class="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:opacity-95 active:scale-95 text-white font-bold px-3 py-1.5 rounded-lg shadow-lg transition flex items-center gap-1">
+        <button onclick="advanceMonth()" class="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:brightness-110 active:scale-95 text-white font-bold px-3 py-1.5 rounded-lg shadow-lg transition flex items-center gap-1">
           <span>NEXT MONTH</span> ⏭️
         </button>
       </div>
     </div>
   </header>
 
-  <!-- EVENT BANNER ALERT -->
-  <div id="seasonBanner" class="bg-gradient-to-r from-indigo-900/70 via-purple-900/70 to-pink-900/70 border-b border-pink-500/30 px-4 py-1.5 text-center text-xs sm:text-sm font-medium text-pink-200">
-    🌟 Tip: Train your trainees in Vocal, Rap & Swag before the Monthly Evaluation! Month 8 = Multi-Company Survival Show | Month 12 = Annual Award Show!
+  <!-- ANIMATED EVENT BANNER -->
+  <div id="seasonBanner" class="bg-gradient-to-r from-indigo-950/90 via-purple-950/90 to-pink-950/90 border-b border-pink-500/20 px-4 py-1.5 text-center text-xs sm:text-sm font-medium text-pink-200 transition-all duration-300">
+    🌟 <b>Tip:</b> Train Vocal (English Pop) & Rap (16-Bar Cypher) for the Monthly Evaluation! Month 8 = Survival Show | Month 12 = Year-End Awards!
   </div>
 
   <!-- MAIN CONTAINER -->
   <main class="flex-1 max-w-5xl w-full mx-auto p-3 sm:p-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
 
-    <!-- LEFT/CENTER 2 COLUMNS: INTERACTIVE TABS -->
+    <!-- LEFT 2 COLUMNS: GAMEPLAY TABS -->
     <div class="lg:col-span-2 flex flex-col gap-4">
 
       <!-- NAVIGATION TABS -->
-      <nav class="grid grid-cols-5 gap-1.5 bg-[#121122] p-1.5 rounded-xl border border-gray-800 text-xs sm:text-sm font-bold">
-        <button onclick="switchTab('trainees')" id="tabBtn-trainees" class="tab-btn py-2 px-2 rounded-lg bg-pink-600 text-white transition">
+      <nav class="grid grid-cols-5 gap-1.5 bg-[#121122] p-1.5 rounded-xl border border-gray-800 text-xs sm:text-sm font-bold shadow-inner">
+        <button onclick="switchTab('trainees')" id="tabBtn-trainees" class="tab-btn py-2 px-1 rounded-lg bg-pink-600 text-white transition active:scale-95">
           🥋 Trainees
         </button>
-        <button onclick="switchTab('groups')" id="tabBtn-groups" class="tab-btn py-2 px-2 rounded-lg text-gray-400 hover:text-white transition">
+        <button onclick="switchTab('groups')" id="tabBtn-groups" class="tab-btn py-2 px-1 rounded-lg text-gray-400 hover:text-white transition active:scale-95">
           💿 Studio
         </button>
-        <button onclick="switchTab('musicshow')" id="tabBtn-musicshow" class="tab-btn py-2 px-2 rounded-lg text-gray-400 hover:text-white transition">
+        <button onclick="switchTab('musicshow')" id="tabBtn-musicshow" class="tab-btn py-2 px-1 rounded-lg text-gray-400 hover:text-white transition active:scale-95">
           🎤 Music Show
         </button>
-        <button onclick="switchTab('survival')" id="tabBtn-survival" class="tab-btn py-2 px-2 rounded-lg text-gray-400 hover:text-white transition">
+        <button onclick="switchTab('survival')" id="tabBtn-survival" class="tab-btn py-2 px-1 rounded-lg text-gray-400 hover:text-white transition active:scale-95">
           🏆 Survival
         </button>
-        <button onclick="switchTab('awards')" id="tabBtn-awards" class="tab-btn py-2 px-2 rounded-lg text-gray-400 hover:text-white transition">
+        <button onclick="switchTab('awards')" id="tabBtn-awards" class="tab-btn py-2 px-1 rounded-lg text-gray-400 hover:text-white transition active:scale-95">
           👑 Awards
         </button>
       </nav>
 
-      <!-- TAB 1: TRAINEES & YG-STYLE TRAINING -->
+      <!-- TAB 1: TRAINEES & YG TRAINING -->
       <section id="tab-trainees" class="tab-content flex flex-col gap-4">
-        <div class="bg-[#151427] border border-gray-800 rounded-xl p-4 neon-border">
+        <div class="bg-[#151427] border border-gray-800/80 rounded-2xl p-4 shadow-xl">
           <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
             <div>
-              <h2 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-                🏢 Basement Practice Room (YG-Style Grind)
+              <h2 class="text-base sm:text-lg font-bold text-white flex items-center gap-1.5">
+                🏢 <span>Basement Practice Room (YG Grind)</span>
               </h2>
-              <p class="text-xs text-gray-400">Team A (Rank A–SS+) qualifies for debut. Watch out for Ego clashes & Stamina burnout!</p>
+              <p class="text-xs text-gray-400">Team A (Rank A–SS+) qualifies for debut. Balance Stamina to avoid voice cracks!</p>
             </div>
             <div class="flex gap-2">
-              <button onclick="scoutTrainee('KL')" class="bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/50 text-amber-300 text-xs font-bold px-2.5 py-1.5 rounded-lg transition">
+              <button onclick="scoutTrainee('KL')" class="bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/50 text-amber-300 text-xs font-bold px-2.5 py-1.5 rounded-lg transition active:scale-95">
                 🇲🇾 Scout KL ($15k)
               </button>
-              <button onclick="scoutTrainee('GLOBAL')" class="bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/50 text-cyan-300 text-xs font-bold px-2.5 py-1.5 rounded-lg transition">
-                🌏 Scout Seoul/Global ($20k)
+              <button onclick="scoutTrainee('GLOBAL')" class="bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/50 text-cyan-300 text-xs font-bold px-2.5 py-1.5 rounded-lg transition active:scale-95">
+                🌏 Scout Global ($20k)
               </button>
             </div>
           </div>
 
-          <!-- BULK YG SCHEDULE ACTIONS -->
-          <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-4 bg-gray-900/90 p-2.5 rounded-xl border border-gray-800">
-            <button onclick="trainAll('vocal')" class="bg-blue-600/25 hover:bg-blue-600/40 border border-blue-500/40 text-blue-200 py-2 px-2 rounded-lg text-xs font-bold transition">
+          <!-- YG SCHEDULE BULK BUTTONS -->
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-4 bg-gray-950/80 p-2.5 rounded-xl border border-gray-800">
+            <button onclick="trainAll('vocal')" class="neon-card bg-blue-600/25 hover:bg-blue-600/40 border border-blue-500/40 text-blue-200 py-2 px-1 rounded-lg text-xs font-bold text-center">
               🎵 English Vocal<br><span class="text-[10px] font-normal text-gray-300">+Vocal, -15 Stam</span>
             </button>
-            <button onclick="trainAll('rap')" class="bg-purple-600/25 hover:bg-purple-600/40 border border-purple-500/40 text-purple-200 py-2 px-2 rounded-lg text-xs font-bold transition">
+            <button onclick="trainAll('rap')" class="neon-card bg-purple-600/25 hover:bg-purple-600/40 border border-purple-500/40 text-purple-200 py-2 px-1 rounded-lg text-xs font-bold text-center">
               🔥 16-Bar Cypher<br><span class="text-[10px] font-normal text-gray-300">+Rap/Swag, -18 Stam</span>
             </button>
-            <button onclick="trainAll('dance')" class="bg-pink-600/25 hover:bg-pink-600/40 border border-pink-500/40 text-pink-200 py-2 px-2 rounded-lg text-xs font-bold transition">
+            <button onclick="trainAll('dance')" class="neon-card bg-pink-600/25 hover:bg-pink-600/40 border border-pink-500/40 text-pink-200 py-2 px-1 rounded-lg text-xs font-bold text-center">
               🕺 2AM Choreo<br><span class="text-[10px] font-normal text-gray-300">+Dance, -20 Stam</span>
             </button>
-            <button onclick="trainAll('swag')" class="bg-amber-600/25 hover:bg-amber-600/40 border border-amber-500/40 text-amber-200 py-2 px-2 rounded-lg text-xs font-bold transition">
-              😎 Self-Produce<br><span class="text-[10px] font-normal text-gray-300">+Swag/Star, -15 Stam</span>
+            <button onclick="trainAll('swag')" class="neon-card bg-amber-600/25 hover:bg-amber-600/40 border border-amber-500/40 text-amber-200 py-2 px-1 rounded-lg text-xs font-bold text-center">
+              😎 Self-Produce<br><span class="text-[10px] font-normal text-gray-300">+Swag, -15 Stam</span>
             </button>
-            <button onclick="trainAll('rest')" class="col-span-2 sm:col-span-1 bg-emerald-600/25 hover:bg-emerald-600/40 border border-emerald-500/40 text-emerald-200 py-2 px-2 rounded-lg text-xs font-bold transition">
-              🍜 Dorm & Mamak<br><span class="text-[10px] font-normal text-gray-300">+40 Stam, Calm Ego</span>
+            <button onclick="trainAll('rest')" class="neon-card col-span-2 sm:col-span-1 bg-emerald-600/25 hover:bg-emerald-600/40 border border-emerald-500/40 text-emerald-200 py-2 px-1 rounded-lg text-xs font-bold text-center">
+              🍜 Mamak Break<br><span class="text-[10px] font-normal text-gray-300">+40 Stamina</span>
             </button>
           </div>
 
-          <!-- TRAINEE LIST -->
+          <!-- TRAINEE ROSTER CARDS -->
           <div id="traineeList" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
         </div>
       </section>
 
-      <!-- TAB 2: DEBUT & COMEBACK STUDIO -->
+      <!-- TAB 2: STUDIO & DEBUT -->
       <section id="tab-groups" class="tab-content hidden flex-col gap-4">
-        <div class="bg-[#151427] border border-gray-800 rounded-xl p-4 neon-border">
+        <div class="bg-[#151427] border border-gray-800/80 rounded-2xl p-4 shadow-xl">
           <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
             <div>
               <h2 class="text-base sm:text-lg font-bold text-white">💿 Debut & Comeback Studio</h2>
-              <p class="text-xs text-gray-400">Debut permanent agency groups or produce a new Comeback Album ($30,000).</p>
+              <p class="text-xs text-gray-400">Debut permanent groups or release a Comeback Album ($30,000).</p>
             </div>
-            <button onclick="openDebutModal()" class="bg-gradient-to-r from-pink-500 to-purple-600 hover:opacity-90 text-white text-xs font-bold px-3 py-2 rounded-lg shadow">
-              ➕ Form New Idol Group ($40k)
+            <button onclick="openDebutModal()" class="bg-gradient-to-r from-pink-500 to-purple-600 hover:brightness-110 active:scale-95 text-white text-xs font-bold px-3 py-2 rounded-lg shadow transition">
+              ➕ Form New Group ($40k)
             </button>
           </div>
-
           <div id="groupList" class="flex flex-col gap-3"></div>
         </div>
       </section>
 
-      <!-- TAB 3: WEEKLY MUSIC SHOW & ENCORE STAGE -->
+      <!-- TAB 3: WEEKLY MUSIC SHOWS -->
       <section id="tab-musicshow" class="tab-content hidden flex-col gap-4">
-        <div class="bg-[#151427] border border-gray-800 rounded-xl p-4 neon-border">
+        <div class="bg-[#151427] border border-gray-800/80 rounded-2xl p-4 shadow-xl">
           <h2 class="text-base sm:text-lg font-bold text-white mb-1">🎤 Weekly Music Show Broadcasts</h2>
-          <p class="text-xs text-gray-400 mb-4">Attend a show with an active group! If you win #1, your group MUST sing the Live Uncut Encore Stage.</p>
+          <p class="text-xs text-gray-400 mb-4">Win #1 to unlock the unedited Live Encore stage! Test your group's raw live vocals.</p>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-            <div class="bg-gray-900/90 border border-gray-800 p-3 rounded-xl flex flex-col justify-between">
+            <div class="neon-card bg-gray-900/90 border border-gray-800 p-3 rounded-xl flex flex-col justify-between">
               <div>
                 <div class="flex justify-between items-center">
                   <span class="font-bold text-pink-400">1. THE STAGE</span>
-                  <span class="text-[11px] bg-pink-500/20 text-pink-300 px-2 py-0.5 rounded">Rookie Friendly</span>
+                  <span class="text-[10px] bg-pink-500/20 text-pink-300 px-2 py-0.5 rounded font-semibold">Rookie Friendly</span>
                 </div>
-                <p class="text-xs text-gray-400 mt-1">40% Album • 40% Fan Vote • 20% SNS. Big 4 rivals rarely attend—best shot for #FirstWin!</p>
+                <p class="text-xs text-gray-400 mt-1">40% Album • 40% Fan Vote. Easiest spot to grab your group's emotional #FirstWin!</p>
               </div>
-              <button onclick="attendMusicShow('THE STAGE', 55)" class="mt-3 w-full bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold py-2 rounded-lg">
+              <button onclick="attendMusicShow('THE STAGE', 55)" class="mt-3 w-full bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold py-2 rounded-lg transition active:scale-95">
                 Perform on THE STAGE
               </button>
             </div>
 
-            <div class="bg-gray-900/90 border border-gray-800 p-3 rounded-xl flex flex-col justify-between">
+            <div class="neon-card bg-gray-900/90 border border-gray-800 p-3 rounded-xl flex flex-col justify-between">
               <div>
                 <div class="flex justify-between items-center">
                   <span class="font-bold text-cyan-400">2. M-BEATDOWN</span>
-                  <span class="text-[11px] bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded">+35% MY/SEA Boost</span>
+                  <span class="text-[10px] bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded font-semibold">+35% MY Boost</span>
                 </div>
-                <p class="text-xs text-gray-400 mt-1">45% Digital • 35% Global Vote • 20% MV. Having a Malaysian member boosts global votes massively!</p>
+                <p class="text-xs text-gray-400 mt-1">45% Digital • 35% Global Vote. Malaysian trainees trigger huge global fan votes!</p>
               </div>
-              <button onclick="attendMusicShow('M-BEATDOWN', 70)" class="mt-3 w-full bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold py-2 rounded-lg">
+              <button onclick="attendMusicShow('M-BEATDOWN', 70)" class="mt-3 w-full bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold py-2 rounded-lg transition active:scale-95">
                 Perform on M-BEATDOWN
               </button>
             </div>
 
-            <div class="bg-gray-900/90 border border-gray-800 p-3 rounded-xl flex flex-col justify-between">
+            <div class="neon-card bg-gray-900/90 border border-gray-800 p-3 rounded-xl flex flex-col justify-between">
               <div>
                 <div class="flex justify-between items-center">
                   <span class="font-bold text-purple-400">3. K-BANK</span>
-                  <span class="text-[11px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded">Physical & Broadcast</span>
+                  <span class="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded font-semibold">Physical & PD Score</span>
                 </div>
-                <p class="text-xs text-gray-400 mt-1">50% Digital • 30% Physical Album • 20% Broadcast PD Score.</p>
+                <p class="text-xs text-gray-400 mt-1">50% Digital • 30% Physical Album • 20% Broadcast Score.</p>
               </div>
-              <button onclick="attendMusicShow('K-BANK', 80)" class="mt-3 w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold py-2 rounded-lg">
+              <button onclick="attendMusicShow('K-BANK', 80)" class="mt-3 w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold py-2 rounded-lg transition active:scale-95">
                 Perform on K-BANK
               </button>
             </div>
 
-            <div class="bg-gray-900/90 border border-gray-800 p-3 rounded-xl flex flex-col justify-between">
+            <div class="neon-card bg-gray-900/90 border border-gray-800 p-3 rounded-xl flex flex-col justify-between">
               <div>
                 <div class="flex justify-between items-center">
                   <span class="font-bold text-amber-400">4. INKI-POP</span>
-                  <span class="text-[11px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded">Digital Monster</span>
+                  <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-semibold">Triple Crown</span>
                 </div>
-                <p class="text-xs text-gray-400 mt-1">60% Digital Chart • 30% YouTube SNS • 10% Album. Win 3x for a Triple Crown!</p>
+                <p class="text-xs text-gray-400 mt-1">60% Digital Chart • 30% YouTube SNS. Win 3 times for a Triple Crown!</p>
               </div>
-              <button onclick="attendMusicShow('INKI-POP', 88)" class="mt-3 w-full bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold py-2 rounded-lg">
+              <button onclick="attendMusicShow('INKI-POP', 88)" class="mt-3 w-full bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold py-2 rounded-lg transition active:scale-95">
                 Perform on INKI-POP
               </button>
             </div>
           </div>
 
-          <div id="musicShowStageBox" class="bg-gray-950 border border-gray-800 rounded-xl p-4 text-sm text-gray-300">
-            Select a music show above to send your active group to perform, choose an Ending Fairy pose, and test your Live Encore vocals!
+          <div id="musicShowStageBox" class="bg-gray-950 border border-gray-800 rounded-xl p-4 text-xs sm:text-sm text-gray-300">
+            Select a music show above to send your active group to perform!
           </div>
         </div>
       </section>
 
-      <!-- TAB 4: MULTI-COMPANY SURVIVAL SHOW -->
+      <!-- TAB 4: SURVIVAL SHOW -->
       <section id="tab-survival" class="tab-content hidden flex-col gap-4">
-        <div class="bg-[#151427] border border-gray-800 rounded-xl p-4 neon-border">
+        <div class="bg-[#151427] border border-gray-800/80 rounded-2xl p-4 shadow-xl">
           <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
             <div>
               <h2 id="survivalTitleDisplay" class="text-base sm:text-lg font-bold text-amber-300">🏆 Annual Multi-Agency Survival Show</h2>
-              <p class="text-xs text-gray-400">Compete against 50 trainees from PINK KWANGYA, HYBE-ISCUS, NATION J & Indie Agencies!</p>
+              <p class="text-xs text-gray-400">Battle against 50 trainees from rival agencies in a 3-Episode TV survival show!</p>
             </div>
-            <span class="text-xs px-2.5 py-1 rounded bg-purple-500/20 border border-purple-400/40 text-purple-200 font-semibold">
-              Annual Event (Month 8 or On-Demand)
+            <span class="animate-glow text-xs px-2.5 py-1 rounded-full bg-purple-500/20 border border-purple-400/40 text-purple-200 font-bold">
+              Annual Event (Month 8)
             </span>
           </div>
-
           <div id="survivalArena" class="mt-3 bg-gray-950 border border-gray-800 rounded-xl p-4"></div>
         </div>
       </section>
 
-      <!-- TAB 5: ANNUAL AWARD SHOWS (MAMA / MMA) -->
+      <!-- TAB 5: ANNUAL AWARDS -->
       <section id="tab-awards" class="tab-content hidden flex-col gap-4">
-        <div class="bg-[#151427] border border-gray-800 rounded-xl p-4 neon-border">
+        <div class="bg-[#151427] border border-gray-800/80 rounded-2xl p-4 shadow-xl">
           <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
             <div>
-              <h2 class="text-base sm:text-lg font-bold text-yellow-400">👑 Year-End Grand Award Ceremony (K-MAMA & MMA)</h2>
-              <p class="text-xs text-gray-400">Direct your 7-minute special stage rearrangement, battle for Daesangs, or boycott the PD!</p>
+              <h2 class="text-base sm:text-lg font-bold text-yellow-400">👑 Year-End Grand Award Ceremony (MAMA & MMA)</h2>
+              <p class="text-xs text-gray-400">Direct your 7-minute rearrangement stage to sweep ROTY and Daesangs!</p>
             </div>
-            <button onclick="openFlexCardModal()" class="bg-gradient-to-r from-amber-500 to-pink-500 text-black font-bold text-xs px-3 py-1.5 rounded-lg">
+            <button onclick="openFlexCardModal()" class="bg-gradient-to-r from-amber-500 to-pink-500 text-black font-extrabold text-xs px-3 py-1.5 rounded-lg active:scale-95 transition">
               📸 Threads Flex Card
             </button>
           </div>
-
           <div id="awardShowContainer" class="mt-3 bg-gray-950 border border-gray-800 rounded-xl p-4"></div>
         </div>
       </section>
 
     </div>
 
-    <!-- RIGHT COLUMN: LIVE K-THREADS SNS FEED & RIVAL CHART -->
+    <!-- RIGHT COLUMN: SNS FEED & CHART -->
     <div class="flex flex-col gap-4">
 
-      <!-- K-THREADS LIVE NETIZEN FEED -->
-      <div class="bg-[#151427] border border-gray-800 rounded-xl p-4 flex flex-col h-[360px]">
+      <!-- LIVE K-THREADS FEED -->
+      <div class="bg-[#151427] border border-gray-800/80 rounded-2xl p-4 flex flex-col h-[360px] shadow-xl">
         <div class="flex items-center justify-between border-b border-gray-800 pb-2 mb-2">
           <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
             <h3 class="font-bold text-sm text-white">📱 K-Threads Malaysia Feed</h3>
           </div>
           <button onclick="openFlexCardModal()" class="text-xs text-pink-400 hover:underline font-semibold">Share Card ↗</button>
@@ -304,8 +305,8 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
         <div id="snsFeed" class="flex-1 overflow-y-auto space-y-2.5 pr-1 text-xs"></div>
       </div>
 
-      <!-- BIG 4 RIVAL AGENCIES & TROPHY CABINET -->
-      <div class="bg-[#151427] border border-gray-800 rounded-xl p-4">
+      <!-- INDUSTRY RIVALS & TROPHIES -->
+      <div class="bg-[#151427] border border-gray-800/80 rounded-2xl p-4 shadow-xl">
         <h3 class="font-bold text-sm text-white mb-2 flex items-center justify-between">
           <span>📊 Industry Chart & Trophy Cabinet</span>
           <span id="trophyCountBadge" class="text-xs text-amber-400 font-bold">🏆 0 Wins | 👑 0 Daesangs</span>
@@ -316,9 +317,9 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
     </div>
   </main>
 
-  <!-- MODAL: FORM NEW GROUP / COMEBACK / EVENTS / FLEX CARD -->
+  <!-- MODAL DIALOG -->
   <div id="gameModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-[#16152b] border border-pink-500/50 rounded-2xl max-w-lg w-full p-5 shadow-2xl max-h-[90vh] overflow-y-auto">
+    <div class="bg-[#16152b] border border-pink-500/50 rounded-2xl max-w-lg w-full p-5 shadow-2xl max-h-[90vh] overflow-y-auto animate-glow">
       <div class="flex justify-between items-center border-b border-gray-800 pb-3 mb-4">
         <h3 id="modalTitle" class="text-lg font-bold text-white">Modal Title</h3>
         <button onclick="closeModal()" class="text-gray-400 hover:text-white text-xl leading-none">&times;</button>
@@ -329,7 +330,7 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
 
   <script>
     // ==========================================
-    // GAME STATE & INITIAL DATA
+    // GAME STATE & DATA
     // ==========================================
     const SURVIVAL_PREFIXES = ["PRODUCE", "PLANET", "TREASURE", "STARLIGHT", "NEXT", "MIX", "DREAM"];
     const SURVIVAL_SUFFIXES = ["999", "X", "BOX", "NATION", "ODYSSEY", "101", "STAGE"];
@@ -360,7 +361,6 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
           stamina: 90,
           ego: 25,
           trait: "🔥 Underground Cypher King",
-          fans: 850,
           inGroup: false
         },
         {
@@ -374,7 +374,6 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
           stamina: 85,
           ego: 15,
           trait: "💎 Golden Maknae",
-          fans: 920,
           inGroup: false
         },
         {
@@ -388,7 +387,6 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
           stamina: 80,
           ego: 55,
           trait: "👑 Ice Princess Center",
-          fans: 780,
           inGroup: false
         },
         {
@@ -402,7 +400,6 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
           stamina: 95,
           ego: 20,
           trait: "🍜 Dorm Maggi Chef",
-          fans: 640,
           inGroup: false
         }
       ],
@@ -415,9 +412,6 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
       ]
     };
 
-    // ==========================================
-    // HELPER & RANK FUNCTIONS
-    // ==========================================
     function getAvgStat(t) {
       return Math.round((t.vocal + t.rap + t.dance + t.swag) / 4);
     }
@@ -434,8 +428,8 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
     function addSNS(handle, text, tag = "#WTMGaming", highlight = false) {
       const feed = document.getElementById("snsFeed");
       const item = document.createElement("div");
-      item.className = `p-2.5 rounded-lg border ${
-        highlight ? "bg-pink-950/40 border-pink-500/50" : "bg-gray-900/80 border-gray-800"
+      item.className = `p-2.5 rounded-xl border transition-all duration-200 ${
+        highlight ? "bg-pink-950/40 border-pink-500/50 shadow-md" : "bg-gray-900/80 border-gray-800"
       }`;
       item.innerHTML = `
         <div class="flex justify-between text-[11px] text-gray-400 mb-0.5">
@@ -454,9 +448,6 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
       return `${p} ${s}`;
     }
 
-    // ==========================================
-    // UI RENDERERS
-    // ==========================================
     function updateHeader() {
       document.getElementById("dateDisplay").textContent = `Year ${state.year} • Month ${state.month}`;
       document.getElementById("fundsDisplay").textContent = `$${state.funds.toLocaleString()}`;
@@ -465,11 +456,11 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
 
       const banner = document.getElementById("seasonBanner");
       if (state.month === 8) {
-        banner.innerHTML = `🚨 <b>ANNUAL MULTI-COMPANY SURVIVAL SHOW MONTH!</b> Open the <b>🏆 Survival</b> tab to send a trainee to <b>${state.currentSurvivalName}</b>!`;
+        banner.innerHTML = `🚨 <b>ANNUAL MULTI-COMPANY SURVIVAL SHOW MONTH!</b> Open the <b>🏆 Survival</b> tab to send your trainee to <b>${state.currentSurvivalName}</b>!`;
       } else if (state.month === 12) {
         banner.innerHTML = `👑 <b>DECEMBER YEAR-END AWARD SEASON!</b> Open the <b>👑 Awards</b> tab to direct your Special Stage at K-MAMA!`;
       } else {
-        banner.innerHTML = `🌟 YG-Style Monthly Evaluation runs every Next Month. Train Vocal (English Test) & Rap (16-Bar Cypher) to keep trainees in Team A!`;
+        banner.innerHTML = `🌟 <b>Tip:</b> Train Vocal (English Pop) & Rap (16-Bar Cypher) for the Monthly Evaluation! Month 8 = Survival Show | Month 12 = Year-End Awards!`;
       }
     }
 
@@ -479,7 +470,7 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
       const activeTrainees = state.trainees.filter(t => !t.inGroup);
 
       if (activeTrainees.length === 0) {
-        container.innerHTML = `<div class="col-span-2 text-center py-6 text-gray-400 text-xs">All trainees have debuted! Click "Scout KL" or "Scout Global" to recruit new trainees.</div>`;
+        container.innerHTML = `<div class="col-span-2 text-center py-6 text-gray-400 text-xs">All trainees have debuted! Click "Scout KL" or "Scout Global" to recruit new talent.</div>`;
         return;
       }
 
@@ -487,7 +478,7 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
         const avg = getAvgStat(t);
         const rk = getRankLetter(avg);
         const card = document.createElement("div");
-        card.className = "bg-gray-900/90 border border-gray-800 rounded-xl p-3 flex flex-col justify-between";
+        card.className = "neon-card bg-gray-900/90 border border-gray-800 rounded-xl p-3 flex flex-col justify-between";
         card.innerHTML = `
           <div>
             <div class="flex justify-between items-start gap-2">
@@ -497,31 +488,31 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
               </div>
               <span class="px-2 py-0.5 rounded text-xs font-extrabold ${rk.color}">${rk.grade}</span>
             </div>
-            <div class="mt-1.5 text-[10px] font-semibold text-pink-400">${rk.team} • Ego: ${t.ego}%</div>
+            <div class="mt-1 text-[10px] font-semibold text-pink-400">${rk.team} • Ego: ${t.ego}%</div>
 
             <div class="grid grid-cols-2 gap-x-3 gap-y-1.5 mt-2.5 text-xs">
               <div>
                 <div class="flex justify-between text-[11px]"><span>🎵 Vocal</span><span>${t.vocal}</span></div>
-                <div class="w-full bg-gray-800 h-1.5 rounded-full"><div class="bg-blue-400 h-1.5 rounded-full" style="width:${Math.min(100, t.vocal)}%"></div></div>
+                <div class="w-full bg-gray-800 h-1.5 rounded-full overflow-hidden"><div class="bg-blue-400 h-1.5 rounded-full transition-all duration-300" style="width:${Math.min(100, t.vocal)}%"></div></div>
               </div>
               <div>
                 <div class="flex justify-between text-[11px]"><span>🔥 Rap</span><span>${t.rap}</span></div>
-                <div class="w-full bg-gray-800 h-1.5 rounded-full"><div class="bg-purple-400 h-1.5 rounded-full" style="width:${Math.min(100, t.rap)}%"></div></div>
+                <div class="w-full bg-gray-800 h-1.5 rounded-full overflow-hidden"><div class="bg-purple-400 h-1.5 rounded-full transition-all duration-300" style="width:${Math.min(100, t.rap)}%"></div></div>
               </div>
               <div>
                 <div class="flex justify-between text-[11px]"><span>🕺 Dance</span><span>${t.dance}</span></div>
-                <div class="w-full bg-gray-800 h-1.5 rounded-full"><div class="bg-pink-400 h-1.5 rounded-full" style="width:${Math.min(100, t.dance)}%"></div></div>
+                <div class="w-full bg-gray-800 h-1.5 rounded-full overflow-hidden"><div class="bg-pink-400 h-1.5 rounded-full transition-all duration-300" style="width:${Math.min(100, t.dance)}%"></div></div>
               </div>
               <div>
                 <div class="flex justify-between text-[11px]"><span>😎 YG Swag</span><span>${t.swag}</span></div>
-                <div class="w-full bg-gray-800 h-1.5 rounded-full"><div class="bg-amber-400 h-1.5 rounded-full" style="width:${Math.min(100, t.swag)}%"></div></div>
+                <div class="w-full bg-gray-800 h-1.5 rounded-full overflow-hidden"><div class="bg-amber-400 h-1.5 rounded-full transition-all duration-300" style="width:${Math.min(100, t.swag)}%"></div></div>
               </div>
             </div>
           </div>
 
           <div class="mt-3 pt-2 border-t border-gray-800 flex items-center justify-between text-[11px]">
             <span class="${t.stamina < 30 ? 'text-red-400 font-bold' : 'text-emerald-400'}">⚡ Stamina: ${t.stamina}%</span>
-            <button onclick="soloTrain(${t.id})" class="bg-gray-800 hover:bg-pink-600 text-white px-2.5 py-1 rounded font-semibold transition">
+            <button onclick="soloTrain(${t.id})" class="bg-gray-800 hover:bg-pink-600 text-white px-2.5 py-1 rounded font-semibold transition active:scale-95">
               🎯 1-on-1 Coach ($3k)
             </button>
           </div>
@@ -536,8 +527,8 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
       if (state.groups.length === 0) {
         container.innerHTML = `
           <div class="text-center py-8 bg-gray-900/60 rounded-xl border border-dashed border-gray-700 p-4">
-            <p class="text-sm font-bold text-gray-300">No Debuted Idol Groups Yet!</p>
-            <p class="text-xs text-gray-400 mt-1">Train at least 3 trainees to Rank A/S and click "➕ Form New Idol Group ($40k)" above!</p>
+            <p class="text-sm font-bold text-gray-300">No Debuted Groups Yet!</p>
+            <p class="text-xs text-gray-400 mt-1">Train at least 2–3 trainees to Rank A/S and click "➕ Form New Group" above!</p>
           </div>
         `;
         return;
@@ -545,7 +536,7 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
 
       state.groups.forEach((g, idx) => {
         const div = document.createElement("div");
-        div.className = "bg-gray-900/90 border border-pink-500/40 rounded-xl p-3.5 flex flex-col gap-2";
+        div.className = "neon-card bg-gray-900/90 border border-pink-500/40 rounded-xl p-3.5 flex flex-col gap-2";
         div.innerHTML = `
           <div class="flex flex-wrap justify-between items-center gap-2">
             <div>
@@ -566,14 +557,14 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
           </div>
 
           <div class="flex flex-wrap gap-2 mt-1">
-            <button onclick="openComebackModal(${idx})" class="flex-1 bg-gradient-to-r from-pink-600 to-purple-600 hover:opacity-95 text-white text-xs font-bold py-2 px-3 rounded-lg">
-              🔥 Produce Comeback Album ($30k)
+            <button onclick="openComebackModal(${idx})" class="flex-1 bg-gradient-to-r from-pink-600 to-purple-600 hover:brightness-110 active:scale-95 text-white text-xs font-bold py-2 px-3 rounded-lg transition">
+              🔥 Produce Comeback ($30k)
             </button>
-            <button onclick="doTikTokCollab(${idx})" class="bg-gray-800 hover:bg-gray-700 text-cyan-300 border border-cyan-500/30 text-xs font-bold py-2 px-3 rounded-lg">
-              📱 Rival TikTok Challenge
+            <button onclick="doTikTokCollab(${idx})" class="bg-gray-800 hover:bg-gray-700 text-cyan-300 border border-cyan-500/30 text-xs font-bold py-2 px-3 rounded-lg transition active:scale-95">
+              📱 TikTok Challenge
             </button>
-            <button onclick="worldTourKL(${idx})" class="bg-gray-800 hover:bg-gray-700 text-amber-300 border border-amber-500/30 text-xs font-bold py-2 px-3 rounded-lg">
-              🇲🇾 Axiata Arena Concert
+            <button onclick="worldTourKL(${idx})" class="bg-gray-800 hover:bg-gray-700 text-amber-300 border border-amber-500/30 text-xs font-bold py-2 px-3 rounded-lg transition active:scale-95">
+              🇲🇾 Axiata Arena
             </button>
           </div>
         `;
@@ -593,22 +584,22 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
 
       entries.forEach((e, i) => {
         const row = document.createElement("div");
-        row.className = `p-2 rounded-lg border flex justify-between items-center ${
-          e.isPlayer ? "bg-pink-950/40 border-pink-500/60" : "bg-gray-900/70 border-gray-800"
+        row.className = `p-2 rounded-lg border flex justify-between items-center transition ${
+          e.isPlayer ? "bg-pink-950/40 border-pink-500/60 shadow-sm" : "bg-gray-900/70 border-gray-800"
         }`;
         row.innerHTML = `
           <div>
             <span class="font-bold ${i === 0 ? 'text-yellow-400' : 'text-gray-300'}">#${i + 1} ${e.group}</span>
             <span class="block text-[10px] text-gray-400">${e.name} • ${e.style}</span>
           </div>
-          <span class="font-bold text-xs ${e.isPlayer ? 'text-pink-400' : 'text-cyan-400'}">Chart Index: ${e.power}</span>
+          <span class="font-bold text-xs ${e.isPlayer ? 'text-pink-400' : 'text-cyan-400'}">Index: ${e.power}</span>
         `;
         list.appendChild(row);
       });
     }
 
     // ==========================================
-    // TRAINING & SCOUTING MECHANICS
+    // TRAINING & SCOUTING
     // ==========================================
     function trainAll(type) {
       const active = state.trainees.filter(t => !t.inGroup);
@@ -634,14 +625,14 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
       if (type === "rest") {
         addSNS("DormManager_KL", "Trainees snuck out for Maggi Kari & Teh Tarik Ice after midnight practice! Stamina restored 🍜✨", "#DormLife");
       } else {
-        addSNS("YG_TrainingFloor", `Intense ${type.toUpperCase()} drill completed in Basement Studio B! Monthly evaluation is approaching.`, "#TraineeGrind");
+        addSNS("YG_TrainingFloor", `Intense ${type.toUpperCase()} drill completed in Basement Studio B!`, "#TraineeGrind");
       }
       renderTrainees();
     }
 
     function soloTrain(id) {
       if (state.funds < 3000) {
-        alert("Not enough agency funds ($3,000 needed)!");
+        alert("Need $3,000 agency funds!");
         return;
       }
       const t = state.trainees.find(x => x.id === id);
@@ -659,7 +650,7 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
     function scoutTrainee(region) {
       const cost = region === "KL" ? 15000 : 20000;
       if (state.funds < cost) {
-        alert(`Not enough funds! Need $${cost.toLocaleString()}.`);
+        alert(`Need $${cost.toLocaleString()} to scout!`);
         return;
       }
       state.funds -= cost;
@@ -683,19 +674,15 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
         stamina: 95,
         ego: Math.floor(Math.random() * 35),
         trait: traits[Math.floor(Math.random() * traits.length)],
-        fans: region === "KL" ? 1200 : 800,
         inGroup: false
       };
       state.trainees.push(newT);
       if (region === "KL") state.hype += 400;
-      addSNS("KpopScout_MY", `BREAKING: ${state.agencyName} just scouted ${newT.name} (${newT.origin})! Malaysian netizens are already hyping their pre-debut clips 🔥`, "#WTMGaming", true);
+      addSNS("KpopScout_MY", `BREAKING: ${state.agencyName} scouted ${newT.name} (${newT.origin})! Netizens hyping them up 🔥`, "#WTMGaming", true);
       updateHeader();
       renderTrainees();
     }
 
-    // ==========================================
-    // MONTHLY EVALUATION & RANDOM DRAMA
-    // ==========================================
     function advanceMonth() {
       state.month++;
       if (state.month > 12) {
@@ -704,27 +691,18 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
         state.currentSurvivalName = randomSurvivalShowName();
       }
 
-      // Passive streaming income from debuted groups
       let royalties = 0;
       state.groups.forEach(g => {
         royalties += 12000 + g.wins * 4000;
       });
       state.funds += royalties;
 
-      // YG Monthly Evaluation Check
       const active = state.trainees.filter(t => !t.inGroup);
       if (active.length > 0) {
         const topT = [...active].sort((a, b) => getAvgStat(b) - getAvgStat(a))[0];
-        addSNS(
-          "MonthlyEvaluation_HQ",
-          `Month ${state.month} YG Evaluation Complete! Top Trainee: ${topT.name} (Avg ${getAvgStat(topT)}). ${
-            royalties > 0 ? `Royalties earned: +$${royalties.toLocaleString()}` : ""
-          }`,
-          "#LastEvaluation"
-        );
+        addSNS("Evaluation_HQ", `Month ${state.month} Evaluation: Top Trainee is ${topT.name} (Avg ${getAvgStat(topT)}). ${royalties > 0 ? `Royalties: +$${royalties.toLocaleString()}` : ""}`, "#LastEvaluation");
       }
 
-      // Trigger Random Malaysian/Seoul Drama or Special Month Events
       if (state.month === 8) {
         switchTab("survival");
         renderSurvivalArena();
@@ -745,32 +723,24 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
       const dramas = [
         {
           title: "🚨 2 AM Dorm Inspection: Smuggled Ramly Burger!",
-          desc: "The Manager caught your trainees grilling Ramly Burgers with banjir sauce in the Hapjeong dorm at 2:00 AM before tomorrow's weight & vocal check!",
+          desc: "The Manager caught your trainees grilling Ramly Burgers in the dorm at 2:00 AM before tomorrow's vocal check!",
           optA: { label: "Let them eat (+30 Stamina, +250 MY Hype)", fn: () => { state.hype += 250; trainAll("rest"); } },
           optB: { label: "Confiscate & drill 16-bar rap (+4 Rap all)", fn: () => { trainAll("rap"); } }
         },
         {
-          title: "📸 K-Dispatch Rumor at Mamak Bukit Bintang!",
-          desc: "A blurry photo of your star trainee drinking Teh Tarik at 3 AM went viral on Threads Malaysia with 15,000 quotes!",
-          optA: { label: "Drop a pre-debut dance video to capitalize! (+600 Clout)", fn: () => { state.hype += 600; addSNS("NetizenBuzz_MY", "Wait their pre-debut dance practice is actually insane?! Stanning immediately 🔥", "#PreDebut", true); } },
-          optB: { label: "Issue strict YG-style 'It's private life' statement (+Swag)", fn: () => { state.hype += 300; } }
-        },
-        {
-          title: "⚡ Ego Clash in Basement Studio A!",
-          desc: "Two high-ranking trainees are arguing over who gets the 16-bar Killing Part in this month's evaluation.",
-          optA: { label: "Settle it with a 1v1 Dance Cypher Battle (+Dance & Swag)", fn: () => { trainAll("swag"); state.hype += 200; } },
-          optB: { label: "Team Chemistry Speech (-Ego, +Stamina)", fn: () => { trainAll("rest"); } }
+          title: "📸 K-Dispatch Rumor at Bukit Bintang!",
+          desc: "A blurry photo of your star trainee drinking Teh Tarik at 3 AM went viral on Threads Malaysia!",
+          optA: { label: "Drop pre-debut dance video (+600 Clout)", fn: () => { state.hype += 600; addSNS("NetizenBuzz_MY", "Their pre-debut dance video is insane?! Stanning immediately 🔥", "#PreDebut", true); } },
+          optB: { label: "Issue YG 'It's private life' statement (+Swag)", fn: () => { state.hype += 300; } }
         }
       ];
       const d = dramas[Math.floor(Math.random() * dramas.length)];
-      const modalTitle = document.getElementById("modalTitle");
-      const modalBody = document.getElementById("modalBody");
-      modalTitle.textContent = d.title;
-      modalBody.innerHTML = `
+      document.getElementById("modalTitle").textContent = d.title;
+      document.getElementById("modalBody").innerHTML = `
         <p class="text-gray-300">${d.desc}</p>
         <div class="flex flex-col gap-2 pt-2">
-          <button id="dramaBtnA" class="w-full bg-pink-600 hover:bg-pink-500 text-white font-bold py-2.5 px-4 rounded-xl text-left">${d.optA.label}</button>
-          <button id="dramaBtnB" class="w-full bg-gray-800 hover:bg-gray-700 text-gray-200 font-bold py-2.5 px-4 rounded-xl text-left">${d.optB.label}</button>
+          <button id="dramaBtnA" class="w-full bg-pink-600 hover:bg-pink-500 text-white font-bold py-2.5 px-4 rounded-xl text-left transition">${d.optA.label}</button>
+          <button id="dramaBtnB" class="w-full bg-gray-800 hover:bg-gray-700 text-gray-200 font-bold py-2.5 px-4 rounded-xl text-left transition">${d.optB.label}</button>
         </div>
       `;
       document.getElementById("gameModal").classList.remove("hidden");
@@ -778,16 +748,13 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
       document.getElementById("dramaBtnB").onclick = () => { d.optB.fn(); closeModal(); updateHeader(); renderTrainees(); };
     }
 
-    // ==========================================
-    // GROUP DEBUT & COMEBACK STUDIO
-    // ==========================================
     function openDebutModal() {
       const available = state.trainees.filter(t => !t.inGroup);
-      if (available.length < 3) {
-        alert("You need at least 3 available trainees to form an idol group! Scout more trainees first.");
+      if (available.length < 2) {
+        alert("You need at least 2 available trainees to form an idol group! Scout more trainees first.");
         return;
       }
-      document.getElementById("modalTitle").textContent = "👑 Debut Official Agency Idol Group ($40,000)";
+      document.getElementById("modalTitle").textContent = "👑 Debut Official Idol Group ($40,000)";
       const checkboxes = available.map(t => `
         <label class="flex items-center justify-between p-2 rounded-lg bg-gray-900 border border-gray-800 cursor-pointer">
           <span class="text-xs font-bold">${t.name} <span class="text-pink-400">(${getRankLetter(getAvgStat(t)).grade})</span></span>
@@ -803,18 +770,18 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
         <div>
           <label class="text-xs text-gray-400 block mb-1">Signature Concept</label>
           <select id="newGroupConcept" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-white">
-            <option value="YG Hip-Hop Swag">🔥 YG Hip-Hop Swag (+Rap & Stage Presence)</option>
-            <option value="Monster Girl/Boy Crush">⚡ Monster Crush (+Dance & MV Views)</option>
-            <option value="Cyber Y2K Nusantara">🇲🇾 Cyber Y2K Nusantara (+SEA Global Votes)</option>
-            <option value="High-Note Vocal Kings">🎵 High-Note Vocal Kings (+Live Encore Bonus)</option>
+            <option value="YG Hip-Hop Swag">🔥 YG Hip-Hop Swag (+Rap & Swag)</option>
+            <option value="Monster Girl/Boy Crush">⚡ Monster Crush (+Dance & MV)</option>
+            <option value="Cyber Y2K Nusantara">🇲🇾 Cyber Y2K Nusantara (+MY Global Votes)</option>
+            <option value="High-Note Vocal Kings">🎵 High-Note Vocals (+Live Encore Bonus)</option>
           </select>
         </div>
         <div>
-          <label class="text-xs text-gray-400 block mb-1">Select Debut Lineup (3–5 Members)</label>
+          <label class="text-xs text-gray-400 block mb-1">Select Lineup (2–5 Members)</label>
           <div class="space-y-1.5 max-h-44 overflow-y-auto">${checkboxes}</div>
         </div>
-        <button onclick="confirmDebutGroup()" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold py-2.5 rounded-xl">
-          🚀 Launch Official Debut ($40,000)
+        <button onclick="confirmDebutGroup()" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold py-2.5 rounded-xl transition active:scale-95">
+          🚀 Launch Debut ($40,000)
         </button>
       `;
       document.getElementById("gameModal").classList.remove("hidden");
@@ -822,12 +789,12 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
 
     function confirmDebutGroup() {
       if (state.funds < 40000) {
-        alert("Need $40,000 to produce a Debut Showcase!");
+        alert("Need $40,000 to debut a group!");
         return;
       }
       const checkedIds = Array.from(document.querySelectorAll(".debut-check:checked")).map(el => Number(el.value));
       if (checkedIds.length < 2 || checkedIds.length > 5) {
-        alert("Please select between 2 and 5 members!");
+        alert("Select between 2 and 5 members!");
         return;
       }
       const gName = document.getElementById("newGroupName").value.trim() || "VELVET-MY";
@@ -856,7 +823,7 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
 
       state.groups.push(newGroup);
       state.hype += 1500;
-      addSNS("KpopHerald_MY", `OFFICIAL DEBUT: ${state.agencyName} debuts ${gName} (${members.length} members)! First-week sales hit ${newGroup.totalSales.toLocaleString()} copies! 🎉`, "#OfficialDebut", true);
+      addSNS("KpopHerald_MY", `OFFICIAL DEBUT: ${state.agencyName} debuts ${gName}! Sold ${newGroup.totalSales.toLocaleString()} copies in Week 1! 🎉`, "#OfficialDebut", true);
       closeModal();
       updateHeader();
       renderTrainees();
@@ -874,15 +841,15 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
           <input id="cbSongName" type="text" value="BINTANG MALAM (DROP IT)" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-white font-bold" />
         </div>
         <div>
-          <label class="text-xs text-gray-400 block mb-1">Producer & Styling Choice</label>
+          <label class="text-xs text-gray-400 block mb-1">Producer Choice</label>
           <select id="cbStyleBoost" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-white">
-            <option value="self">✍️ Self-Produced by Members (+Swag, +Vocal/Rap +4)</option>
-            <option value="teddy">🔥 Teddy-Style Hard Beat Drop (+Sales & Chart Power)</option>
-            <option value="vocal">🎤 Raw Live Vocal Anthem (+Encore Safety +6 Vocal)</option>
+            <option value="self">✍️ Self-Produced (+Swag & Rap +4)</option>
+            <option value="teddy">🔥 Teddy-Style Beat (+Sales & Chart Power)</option>
+            <option value="vocal">🎤 Live Vocal Track (+Encore Safety +6 Vocal)</option>
           </select>
         </div>
-        <button onclick="executeComeback(${idx})" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold py-2.5 rounded-xl">
-          Release Comeback Album ($30,000)
+        <button onclick="executeComeback(${idx})" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold py-2.5 rounded-xl transition active:scale-95">
+          Release Comeback ($30,000)
         </button>
       `;
       document.getElementById("gameModal").classList.remove("hidden");
@@ -890,7 +857,7 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
 
     function executeComeback(idx) {
       if (state.funds < 30000) {
-        alert("Need $30,000 for MV & Album production!");
+        alert("Need $30,000 for album production!");
         return;
       }
       const g = state.groups[idx];
@@ -909,7 +876,7 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
       state.funds += revenue;
       state.hype += 900;
 
-      addSNS("HanteoChart_MY", `COMEBACK ALERT: ${g.name} drops "${song}"! Sold ${newSales.toLocaleString()} albums in Week 1 (Earned +$${revenue.toLocaleString()}). Head to Music Shows now!`, "#Comeback", true);
+      addSNS("HanteoChart_MY", `COMEBACK: ${g.name} drops "${song}"! Sold ${newSales.toLocaleString()} copies (+$${revenue.toLocaleString()}).`, "#Comeback", true);
       closeModal();
       updateHeader();
       renderGroups();
@@ -920,26 +887,23 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
       const g = state.groups[idx];
       state.hype += 650;
       g.dance = Math.min(100, g.dance + 2);
-      addSNS("TikTok_MY", `${g.name} filmed a backstage dance challenge with BABY-VENOM! 2.4M views on Threads & Reels 🔥 (+650 Clout)`, "#DanceChallenge");
+      addSNS("TikTok_MY", `${g.name} filmed a dance challenge with BABY-VENOM! 2.4M views on Threads 🔥 (+650 Clout)`, "#DanceChallenge");
       updateHeader();
       renderGroups();
     }
 
     function worldTourKL(idx) {
       const g = state.groups[idx];
-      const ticketProfit = 45000 + g.wins * 8000;
-      state.funds += ticketProfit;
+      const profit = 45000 + g.wins * 8000;
+      state.funds += profit;
       state.hype += 1100;
-      addSNS("AxiataArena_KL", `SOLD OUT! ${g.name} performed a 2-night homecoming concert at Axiata Arena Bukit Jalil! Earned +$${ticketProfit.toLocaleString()} 🇲🇾👑`, "#WorldTourKL", true);
+      addSNS("AxiataArena_KL", `SOLD OUT! ${g.name} held a concert at Axiata Arena Bukit Jalil! Earned +$${profit.toLocaleString()} 🇲🇾`, "#WorldTourKL", true);
       updateHeader();
     }
 
-    // ==========================================
-    // WEEKLY MUSIC SHOWS & LIVE ENCORE CHECK
-    // ==========================================
     function attendMusicShow(showName, difficulty) {
       if (state.groups.length === 0) {
-        alert("Debut an idol group in the 💿 Studio tab first before attending a Music Show!");
+        alert("Debut an idol group in the 💿 Studio tab first!");
         switchTab("groups");
         return;
       }
@@ -955,41 +919,40 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
         state.hype += 1000;
         state.funds += 15000;
 
-        // LIVE ENCORE VOCAL CHECK!
         const encorePass = g.vocal >= (difficulty - 8);
         let encoreHTML = "";
         if (encorePass) {
           state.hype += 800;
           encoreHTML = `
-            <div class="mt-3 p-3 rounded-lg bg-emerald-950/60 border border-emerald-500/50 text-emerald-200">
-              🎤 <b>LIVE UNCUT ENCORE VERDICT: "ATE THE CD!" (Vocal ${g.vocal})</b><br>
-              The backing track turned off and ${g.name} belted the high note raw while eating Ramly burgers on stage! Malaysian & Korean netizens are praising their live vocals (+800 Bonus Clout)!
+            <div class="mt-3 p-3 rounded-xl bg-emerald-950/60 border border-emerald-500/50 text-emerald-200">
+              🎤 <b>LIVE UNCUT ENCORE: "ATE THE CD!" (Vocal ${g.vocal})</b><br>
+              The backing track turned off and ${g.name} belted the high notes raw! Netizens praise their live vocals (+800 Bonus Clout)!
             </div>
           `;
-          addSNS("KpopEncore_Live", `${g.name} won #1 on ${showName} (${groupScore} vs ${rivalScore}) and ATE THE CD during the raw encore! Real YG-level live vocals 🔥`, "#EncoreStage", true);
+          addSNS("KpopEncore_Live", `${g.name} won #1 on ${showName} and ATE THE CD during the live encore! 🔥`, "#EncoreStage", true);
         } else {
           state.hype += 300;
           encoreHTML = `
-            <div class="mt-3 p-3 rounded-lg bg-amber-950/60 border border-amber-500/50 text-amber-200">
-              💀 <b>LIVE UNCUT ENCORE VERDICT: VOICE CRACK CONTROVERSY! (Vocal ${g.vocal} < ${difficulty - 8})</b><br>
-              ${g.name} won the trophy, but cracked on the high note during the raw encore! 12,000 quote-posts on Threads are debating their vocals (+300 Noise Marketing Clout — train Vocals more!).
+            <div class="mt-3 p-3 rounded-xl bg-amber-950/60 border border-amber-500/50 text-amber-200">
+              💀 <b>LIVE ENCORE: VOICE CRACK CONTROVERSY! (Vocal ${g.vocal} < ${difficulty - 8})</b><br>
+              ${g.name} cracked on the high note unedited! Threads is debating their vocals (+300 Noise Clout — train Vocals!).
             </div>
           `;
-          addSNS("NetizenRoast_KR", `${g.name} won #1 on ${showName} but that live encore voice crack is going viral on Threads 💀`, "#EncoreControversy", true);
+          addSNS("NetizenRoast_KR", `${g.name} won #1 on ${showName} but that live encore voice crack is going viral 💀`, "#EncoreControversy", true);
         }
 
         box.innerHTML = `
           <div class="text-amber-300 font-bold text-base">🏆 #1 TROPHY WINNER ON ${showName}!</div>
-          <p class="text-xs text-gray-300 mt-1"><b>${g.name}</b> ("${g.lastSong}") scored <b>${groupScore} pts</b> vs Rival's <b>${rivalScore} pts</b>! (+$15,000 Broadcast Prize)</p>
+          <p class="text-xs text-gray-300 mt-1"><b>${g.name}</b> ("${g.lastSong}") scored <b>${groupScore} pts</b> vs Rival's <b>${rivalScore} pts</b>! (+$15,000 Prize)</p>
           ${encoreHTML}
         `;
       } else {
         state.hype += 250;
         box.innerHTML = `
           <div class="text-pink-400 font-bold text-base">🥈 Runner-Up Nominated on ${showName}</div>
-          <p class="text-xs text-gray-300 mt-1"><b>${g.name}</b> scored <b>${groupScore} pts</b> vs Rival's <b>${rivalScore} pts</b>. Train your stats or produce a new comeback to take #1 next week! (+250 Ending Fairy Clout)</p>
+          <p class="text-xs text-gray-300 mt-1"><b>${g.name}</b> scored <b>${groupScore} pts</b> vs Rival's <b>${rivalScore} pts</b>. (+250 Clout)</p>
         `;
-        addSNS("MusicShow_Updates", `${g.name}'s Ending Fairy wink on ${showName} trended in Malaysia even though they placed #2!`, "#EndingFairy");
+        addSNS("MusicShow_Updates", `${g.name}'s Ending Fairy moment on ${showName} trended in Malaysia!`, "#EndingFairy");
       }
 
       updateHeader();
@@ -997,9 +960,6 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
       renderRivals();
     }
 
-    // ==========================================
-    // MULTI-COMPANY SURVIVAL SHOW SUB-EVENT
-    // ==========================================
     function renderSurvivalArena() {
       document.getElementById("survivalTitleDisplay").textContent = `🏆 Annual Survival Show: ${state.currentSurvivalName}`;
       const arena = document.getElementById("survivalArena");
@@ -1010,8 +970,8 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
         arena.innerHTML = `
           <div class="space-y-3">
             <p class="text-xs text-gray-300">
-              50 trainees from <b>PINK KWANGYA, HYBE-ISCUS, NATION J</b> & your agency gather for <b>${state.currentSurvivalName}</b>!
-              Survive 3 interactive episodes (Class Pyramid, Mnet Evil-Edit Group Battle & 1v1 Position Swap Finale) to debut in the Global Project Group or steal eliminated SS-rank trainees!
+              50 trainees gather for <b>${state.currentSurvivalName}</b>!
+              Survive Class Grading, Mnet Evil-Edit Traps & the 1v1 Position Swap Finale!
             </p>
             <div>
               <label class="text-xs text-gray-400 block mb-1">Choose Trainee to Send:</label>
@@ -1019,8 +979,8 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
                 ${options}
               </select>
             </div>
-            <button onclick="startSurvivalShow()" class="w-full bg-gradient-to-r from-amber-500 via-pink-500 to-purple-600 text-black font-extrabold py-2.5 rounded-xl">
-              🎬 Enter ${state.currentSurvivalName} Broadcast!
+            <button onclick="startSurvivalShow()" class="w-full bg-gradient-to-r from-amber-500 via-pink-500 to-purple-600 text-black font-extrabold py-2.5 rounded-xl transition active:scale-95">
+              🎬 Enter ${state.currentSurvivalName}!
             </button>
           </div>
         `;
@@ -1032,15 +992,14 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
       if (state.survivalRound === 1) {
         arena.innerHTML = `
           <div class="space-y-3">
-            <span class="text-xs bg-pink-600 text-white px-2 py-0.5 rounded font-bold">EPISODE 1: AGENCY AUDITION & PYRAMID RANK</span>
-            <h4 class="font-bold text-white text-base">${t.name} steps onto the ${state.currentSurvivalName} stage!</h4>
-            <p class="text-xs text-gray-300">Rival trainees from PINK KWANGYA whisper about your agency's hip-hop swagger. How should ${t.name} perform the entrance evaluation?</p>
+            <span class="text-xs bg-pink-600 text-white px-2 py-0.5 rounded font-bold">EPISODE 1: ENTRANCE EVALUATION</span>
+            <h4 class="font-bold text-white text-base">${t.name} takes the stage!</h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              <button onclick="resolveSurvivalEp1('swag')" class="bg-purple-600/30 hover:bg-purple-600/50 border border-purple-400 p-3 rounded-xl text-left text-xs">
-                🔥 <b>Unleash 16-Bar Self-Written Rap & YG Swag</b><br><span class="text-gray-300">Uses Rap (${t.rap}) + Swag (${t.swag}) for Rank A Center Seat!</span>
+              <button onclick="resolveSurvivalEp1('swag')" class="neon-card bg-purple-600/30 hover:bg-purple-600/50 border border-purple-400 p-3 rounded-xl text-left text-xs transition">
+                🔥 <b>16-Bar Self-Written Rap & Swag</b><br><span class="text-gray-300">Uses Rap (${t.rap}) + Swag (${t.swag})</span>
               </button>
-              <button onclick="resolveSurvivalEp1('vocal')" class="bg-blue-600/30 hover:bg-blue-600/50 border border-blue-400 p-3 rounded-xl text-left text-xs">
-                🎵 <b>Belt Raw Acapella English High-Note</b><br><span class="text-gray-300">Uses Vocal (${t.vocal}) + Dance (${t.dance}) to shock the judges!</span>
+              <button onclick="resolveSurvivalEp1('vocal')" class="neon-card bg-blue-600/30 hover:bg-blue-600/50 border border-blue-400 p-3 rounded-xl text-left text-xs transition">
+                🎵 <b>Acapella English High-Note</b><br><span class="text-gray-300">Uses Vocal (${t.vocal}) + Dance (${t.dance})</span>
               </button>
             </div>
           </div>
@@ -1048,15 +1007,15 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
       } else if (state.survivalRound === 2) {
         arena.innerHTML = `
           <div class="space-y-3">
-            <span class="text-xs bg-amber-500 text-black px-2 py-0.5 rounded font-bold">EPISODE 2: GROUP BATTLE & MNET EVIL EDIT TRAP!</span>
-            <h4 class="font-bold text-white text-base">Current Netizen Votes: ${state.survivalVotes.toLocaleString()}</h4>
-            <p class="text-xs text-gray-300">The Broadcast PD zooms in on ${t.name} when a Rank F trainee from an Indie Agency forgets the choreography. How does ${t.name} react on camera?</p>
+            <span class="text-xs bg-amber-500 text-black px-2 py-0.5 rounded font-bold">EPISODE 2: EVIL EDIT TRAP!</span>
+            <h4 class="font-bold text-white text-base">Netizen Votes: ${state.survivalVotes.toLocaleString()}</h4>
+            <p class="text-xs text-gray-300">A rival trainee forgets the choreo during practice. How does ${t.name} react?</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              <button onclick="resolveSurvivalEp2('angel')" class="bg-emerald-600/30 hover:bg-emerald-600/50 border border-emerald-400 p-3 rounded-xl text-left text-xs">
-                😇 <b>Stay Until 4 AM Teaching the Rank F Trainee</b><br><span class="text-gray-300">Triggers "Angel Edit" (+180,000 Global Votes!)</span>
+              <button onclick="resolveSurvivalEp2('angel')" class="neon-card bg-emerald-600/30 hover:bg-emerald-600/50 border border-emerald-400 p-3 rounded-xl text-left text-xs transition">
+                😇 <b>Stay Until 4 AM Teaching Them</b><br><span class="text-gray-300">Angel Edit (+180,000 Global Votes)</span>
               </button>
-              <button onclick="resolveSurvivalEp2('savage')" class="bg-pink-600/30 hover:bg-pink-600/50 border border-pink-400 p-3 rounded-xl text-left text-xs">
-                😈 <b>Take the Killing Part Solo & Drop Mic</b><br><span class="text-gray-300">Risky Evil Edit—huge viral fancam if Swag >= 80!</span>
+              <button onclick="resolveSurvivalEp2('savage')" class="neon-card bg-pink-600/30 hover:bg-pink-600/50 border border-pink-400 p-3 rounded-xl text-left text-xs transition">
+                😈 <b>Take Killing Part Solo & Drop Mic</b><br><span class="text-gray-300">High-Risk Viral Fancam</span>
               </button>
             </div>
           </div>
@@ -1064,15 +1023,14 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
       } else if (state.survivalRound === 3) {
         arena.innerHTML = `
           <div class="space-y-3">
-            <span class="text-xs bg-yellow-400 text-black px-2 py-0.5 rounded font-bold">EPISODE 3 (LIVE FINALE): 1v1 CENTER THRONE SWAP!</span>
-            <h4 class="font-bold text-white text-base">Pre-Finale Votes: ${state.survivalVotes.toLocaleString()}</h4>
-            <p class="text-xs text-gray-300">It's the live finale of <b>${state.currentSurvivalName}</b>! ${t.name} can challenge the #1 Center from HYBE-ISCUS in a 1v1 Position Battle for a 2x Vote Multiplier!</p>
+            <span class="text-xs bg-yellow-400 text-black px-2 py-0.5 rounded font-bold">EPISODE 3: 1v1 FINALE THRONE!</span>
+            <h4 class="font-bold text-white text-base">Votes: ${state.survivalVotes.toLocaleString()}</h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              <button onclick="resolveSurvivalFinale(true)" class="bg-gradient-to-r from-amber-500 to-pink-600 text-black font-bold p-3 rounded-xl text-left text-xs">
-                ⚡ <b>Challenge #1 Rival Center 1v1 (All-Out Battle)</b><br><span>Win #1 Nation's Center or go down swinging!</span>
+              <button onclick="resolveSurvivalFinale(true)" class="neon-card bg-gradient-to-r from-amber-500 to-pink-600 text-black font-bold p-3 rounded-xl text-left text-xs transition">
+                ⚡ <b>Challenge #1 Rival Center 1v1</b><br><span>Win #1 Nation's Center!</span>
               </button>
-              <button onclick="resolveSurvivalFinale(false)" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 p-3 rounded-xl text-left text-xs">
-                🛡️ <b>Defend Safe Top 7 Debut Seat + Poach Eliminated Star</b><br><span>Secure Debut & scout an eliminated SS-rank rival!</span>
+              <button onclick="resolveSurvivalFinale(false)" class="neon-card bg-gray-800 hover:bg-gray-700 border border-gray-600 p-3 rounded-xl text-left text-xs transition">
+                🛡️ <b>Safe Top 7 Seat + Poach Rival</b><br><span>Secure debut & scout eliminated SS rival!</span>
               </button>
             </div>
           </div>
@@ -1096,7 +1054,7 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
       const bonus = score * 950;
       state.survivalVotes += bonus;
       t.swag = Math.min(100, t.swag + 3);
-      addSNS("SurvivalLive_MY", `${t.name} received ALL-A grading on ${state.currentSurvivalName} Episode 1! (+${bonus.toLocaleString()} Netizen Votes)`, "#CenterRankA");
+      addSNS("SurvivalLive_MY", `${t.name} received ALL-A grading on ${state.currentSurvivalName} Ep 1! (+${bonus.toLocaleString()} Votes)`, "#RankA");
       state.survivalRound = 2;
       renderSurvivalArena();
     }
@@ -1105,14 +1063,14 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
       const t = state.trainees.find(x => x.id === state.survivalTraineeId) || state.trainees[0];
       if (choice === "angel") {
         state.survivalVotes += 190000;
-        addSNS("MnetAngelEdit", `Crying at ${t.name} helping the Rank F trainee on ${state.currentSurvivalName} 😭 Malaysian fans are mass-voting! (+190k Votes)`, "#VoteFor" + t.name.split(" ")[0]);
+        addSNS("MnetAngelEdit", `${t.name} helping other trainees made fans cry! (+190k Votes)`, "#AngelEdit");
       } else {
         if (t.swag >= 80) {
           state.survivalVotes += 260000;
-          addSNS("FancamViral_KR", `Mnet tried to evil-edit ${t.name} but their killing part fancam just hit 5M views! (+260k Votes)`, "#MainCharacter", true);
+          addSNS("FancamViral_KR", `${t.name}'s solo killing part hit 5M views! (+260k Votes)`, "#ViralFancam", true);
         } else {
           state.survivalVotes += 75000;
-          addSNS("KNetizen_Forum", `Netizens are divided over ${t.name}'s fierce edit in Episode 2 (+75k Noise Votes).`, "#SurvivalDrama");
+          addSNS("Forum_KR", `Netizens debating ${t.name}'s fierce edit (+75k Noise Votes).`, "#SurvivalDrama");
         }
       }
       state.survivalRound = 3;
@@ -1137,28 +1095,28 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
 
         arena.innerHTML = `
           <div class="p-4 bg-gradient-to-r from-amber-500/20 to-pink-500/20 border border-amber-400 rounded-xl space-y-2">
-            <h3 class="text-lg font-extrabold text-amber-300">👑 #1 NATION'S CENTER WINNER! (${finalVotes.toLocaleString()} Votes)</h3>
-            <p class="text-xs text-gray-200">${t.name} defeated the HYBE-ISCUS rival in the 1v1 Finale and debuted #1 Center of ${state.currentSurvivalName}! Your agency earned <b>+$65,000</b> and <b>+2,500 Clout</b>!</p>
-            <button onclick="poachEliminatedStar()" class="mt-2 bg-amber-400 text-black font-bold text-xs px-3 py-2 rounded-lg">
-              💎 Bonus: Poach Fan-Favorite Eliminated SS Trainee (Free!)
+            <h3 class="text-base sm:text-lg font-extrabold text-amber-300">👑 #1 CENTER WINNER! (${finalVotes.toLocaleString()} Votes)</h3>
+            <p class="text-xs text-gray-200">${t.name} debuted #1 Center of ${state.currentSurvivalName}! Earned <b>+$65,000</b> and <b>+2,500 Clout</b>!</p>
+            <button onclick="poachEliminatedStar()" class="mt-2 bg-amber-400 text-black font-bold text-xs px-3 py-2 rounded-lg transition active:scale-95">
+              💎 Bonus: Poach Eliminated SS Trainee (Free!)
             </button>
           </div>
         `;
-        addSNS("SurvivalFinale_Official", `CONGRATS! ${t.name} (${state.agencyName}) ranked #1 CENTER on ${state.currentSurvivalName} with ${finalVotes.toLocaleString()} votes! 🇲🇾🔥`, "#DebutThrone", true);
+        addSNS("SurvivalFinale", `CONGRATS! ${t.name} ranked #1 CENTER on ${state.currentSurvivalName}! 🇲🇾🔥`, "#DebutThrone", true);
       } else {
         state.funds += 35000;
         state.hype += 1600;
         t.swag = Math.min(100, t.swag + 6);
         arena.innerHTML = `
           <div class="p-4 bg-purple-950/50 border border-purple-400 rounded-xl space-y-2">
-            <h3 class="text-base font-extrabold text-pink-300">🔥 Plot Twist Glow-Up! (${state.survivalVotes.toLocaleString()} Votes)</h3>
-            <p class="text-xs text-gray-200">Fans trended <b>#BringBack${t.name.split(" ")[0]}</b> worldwide on Threads! ${t.name} returns to ${state.agencyName} with massive viral clout (+1,600 Clout & +$35,000 broadcast fee)!</p>
-            <button onclick="poachEliminatedStar()" class="mt-2 bg-pink-500 text-white font-bold text-xs px-3 py-2 rounded-lg">
-              🤝 Poach Eliminated Rank S Rival Trainee to Your Agency!
+            <h3 class="text-base font-extrabold text-pink-300">🔥 Viral Clout Glow-Up! (${state.survivalVotes.toLocaleString()} Votes)</h3>
+            <p class="text-xs text-gray-200">Fans trended <b>#BringBack${t.name.split(" ")[0]}</b>! Returns with massive clout (+1,600 Clout & +$35,000)!</p>
+            <button onclick="poachEliminatedStar()" class="mt-2 bg-pink-500 text-white font-bold text-xs px-3 py-2 rounded-lg transition active:scale-95">
+              🤝 Poach Eliminated Rank S Rival Trainee!
             </button>
           </div>
         `;
-        addSNS("TrendsMalaysia", `#BringBack${t.name.split(" ")[0]} is #1 Trending in Malaysia! Everyone is waiting for ${state.agencyName}'s next group debut!`, "#RobbedQueen", true);
+        addSNS("TrendsMalaysia", `#BringBack${t.name.split(" ")[0]} is trending #1 in Malaysia!`, "#ViralGlowUp", true);
       }
 
       updateHeader();
@@ -1169,7 +1127,7 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
       const star = {
         id: Date.now(),
         name: "Kyujin (Poached Star)",
-        origin: "🌟 Survival Show Fan-Fav",
+        origin: "🌟 Survival Show Finalist",
         vocal: 89,
         rap: 86,
         dance: 91,
@@ -1177,22 +1135,18 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
         stamina: 90,
         ego: 30,
         trait: "👑 Survival Show Avenger",
-        fans: 3000,
         inGroup: false
       };
       state.trainees.push(star);
-      addSNS("KpopInsider", `BREAKING: ${state.agencyName} just poached eliminated survival show superstar Kyujin (Rank SS) right in front of Big 4 CEOs!`, "#HostileTakeover", true);
+      addSNS("KpopInsider", `BREAKING: ${state.agencyName} poached eliminated star Kyujin (Rank SS)!`, "#HostileTakeover", true);
       renderTrainees();
       switchTab("trainees");
     }
 
-    // ==========================================
-    // YEAR-END ANNUAL AWARD SHOW (K-MAMA / MMA)
-    // ==========================================
     function renderAwardShow() {
       const box = document.getElementById("awardShowContainer");
       if (state.groups.length === 0) {
-        box.innerHTML = `<p class="text-xs text-gray-400">Debut at least one group in the 💿 Studio tab to get invited to the Year-End Award Shows!</p>`;
+        box.innerHTML = `<p class="text-xs text-gray-400">Debut at least one group in the 💿 Studio tab to attend the Year-End Awards!</p>`;
         return;
       }
       const g = state.groups[state.groups.length - 1];
@@ -1200,23 +1154,23 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
         <div class="space-y-4">
           <div class="flex justify-between items-center bg-gray-900 p-3 rounded-xl border border-amber-500/40">
             <div>
-              <span class="text-[10px] text-amber-300 font-bold uppercase">Nominee Group</span>
-              <h4 class="text-base font-bold text-white">👑 ${g.name} • ${g.wins} Music Show Wins • ${g.totalSales.toLocaleString()} Sales</h4>
+              <span class="text-[10px] text-amber-300 font-bold uppercase">Nominee</span>
+              <h4 class="text-base font-bold text-white">👑 ${g.name} • ${g.wins} Wins • ${g.totalSales.toLocaleString()} Sales</h4>
             </div>
             <span class="text-xs font-bold text-pink-400">Clout: ${state.hype.toLocaleString()}</span>
           </div>
 
           <div>
-            <label class="text-xs text-gray-300 font-bold block mb-1.5">🎬 Direct Your 7-Minute Year-End Special Stage:</label>
+            <label class="text-xs text-gray-300 font-bold block mb-1.5">🎬 Direct Your 7-Minute Special Stage:</label>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-              <button onclick="runAwardCeremony('traditional')" class="bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400 p-3 rounded-xl text-left text-xs">
-                🇲🇾 <b>Dikir Barat x Korean Drum Intro + Pyro</b><br><span class="text-gray-300">Massive SEA & Global Vote Boost!</span>
+              <button onclick="runAwardCeremony('traditional')" class="neon-card bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400 p-3 rounded-xl text-left text-xs transition">
+                🇲🇾 <b>Dikir Barat x Korean Drum Intro</b><br><span class="text-gray-300">Global Vote Boost!</span>
               </button>
-              <button onclick="runAwardCeremony('cypher')" class="bg-pink-500/20 hover:bg-pink-500/30 border border-pink-400 p-3 rounded-xl text-left text-xs">
-                🎤 <b>100% Raw Hand-Mic Rock Remix + Cypher</b><br><span class="text-gray-300">Chart Reversal + Judges Score Boost!</span>
+              <button onclick="runAwardCeremony('cypher')" class="neon-card bg-pink-500/20 hover:bg-pink-500/30 border border-pink-400 p-3 rounded-xl text-left text-xs transition">
+                🎤 <b>Raw Hand-Mic Rock Cypher</b><br><span class="text-gray-300">Judges Score Boost!</span>
               </button>
-              <button onclick="runAwardCeremony('diss')" class="bg-purple-500/20 hover:bg-purple-500/30 border border-purple-400 p-3 rounded-xl text-left text-xs">
-                😈 <b>YG-Style MAMA Diss Track Live on Air</b><br><span class="text-gray-300">Iconic viral legend (+2,000 Clout)!</span>
+              <button onclick="runAwardCeremony('diss')" class="neon-card bg-purple-500/20 hover:bg-purple-500/30 border border-purple-400 p-3 rounded-xl text-left text-xs transition">
+                😈 <b>YG-Style Live Diss Track</b><br><span class="text-gray-300">+2,000 Viral Clout!</span>
               </button>
             </div>
           </div>
@@ -1238,7 +1192,7 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
       }
       trophiesWon.push("🏆 Bonsang (Top 10 Artist)");
 
-      if (stageStyle === "traditional") trophiesWon.push("🌍 Worldwide Icon of the Year (Daesang)");
+      if (stageStyle === "traditional") trophiesWon.push("🌍 Worldwide Icon (Daesang)");
       if (totalScore >= 340 || g.wins >= 2) {
         trophiesWon.push("👑 Song of the Year DAESANG");
         trophiesWon.push("💿 Artist of the Year DAESANG");
@@ -1251,24 +1205,21 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
       state.hype += 2200;
 
       panel.innerHTML = `
-        <div class="p-4 rounded-xl bg-gradient-to-r from-yellow-500/20 via-pink-500/20 to-purple-500/20 border border-yellow-400 gold-glow space-y-2 mt-2">
-          <div class="text-yellow-300 font-extrabold text-sm">✨ LEGENDARY S+ YEAR-END STAGE & CHART REVERSAL!</div>
-          <p><b>${g.name}</b> swept the broadcast! Trophies added to cabinet:</p>
+        <div class="p-4 rounded-xl bg-gradient-to-r from-yellow-500/20 via-pink-500/20 to-purple-500/20 border border-yellow-400 space-y-2 mt-2">
+          <div class="text-yellow-300 font-extrabold text-sm">✨ LEGENDARY S+ STAGE & CHART REVERSAL!</div>
+          <p><b>${g.name}</b> swept the awards! Trophies won:</p>
           <div class="flex flex-wrap gap-1.5">
             ${trophiesWon.map(t => `<span class="bg-black/60 border border-yellow-400/60 text-yellow-300 px-2.5 py-1 rounded-lg font-bold">${t}</span>`).join("")}
           </div>
-          <p class="text-emerald-300 font-semibold">Prize & Chart Reversal Royalties: +$50,000 | +2,200 Clout!</p>
+          <p class="text-emerald-300 font-semibold">Prize & Royalties: +$50,000 | +2,200 Clout!</p>
         </div>
       `;
 
-      addSNS("KpopAwards_Global", `HISTORY MADE: ${g.name} (${state.agencyName}) tore up the Year-End Awards with a ${stageStyle.toUpperCase()} stage and won: ${trophiesWon.join(", ")}! 👑🔥`, "#MAMADaesang", true);
+      addSNS("KpopAwards_Global", `${g.name} tore up the Year-End Awards and swept Daesangs! 👑🔥`, "#MAMADaesang", true);
       updateHeader();
       renderRivals();
     }
 
-    // ==========================================
-    // SHAREABLE THREADS MALAYSIA FLEX CARD
-    // ==========================================
     function openFlexCardModal() {
       const topG = state.groups[state.groups.length - 1];
       const topT = [...state.trainees].sort((a, b) => getAvgStat(b) - getAvgStat(a))[0];
@@ -1283,11 +1234,11 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
 
       document.getElementById("modalTitle").textContent = "📸 Shareable Threads Malaysia Flex Card";
       document.getElementById("modalBody").innerHTML = `
-        <div class="p-4 rounded-xl bg-gradient-to-br from-pink-950 via-purple-950 to-gray-950 border-2 border-pink-500 neon-border space-y-2 font-mono text-xs">
-          <div class="text-pink-400 font-bold">// OFFICIAL K-GEMPAK CEO WRAPPED CARD</div>
+        <div class="p-4 rounded-xl bg-gradient-to-br from-pink-950 via-purple-950 to-gray-950 border-2 border-pink-500 space-y-2 font-mono text-xs">
+          <div class="text-pink-400 font-bold">// OFFICIAL K-GEMPAK CEO CARD</div>
           <pre id="flexCardText" class="whitespace-pre-wrap text-gray-100 leading-relaxed">${shareText}</pre>
         </div>
-        <button onclick="copyFlexCard()" id="copyFlexBtn" class="w-full bg-gradient-to-r from-pink-500 to-amber-500 text-black font-extrabold py-2.5 rounded-xl">
+        <button onclick="copyFlexCard()" id="copyFlexBtn" class="w-full bg-gradient-to-r from-pink-500 to-amber-500 text-black font-extrabold py-2.5 rounded-xl transition active:scale-95">
           📋 Copy Result Card for Threads Malaysia
         </button>
       `;
@@ -1301,16 +1252,13 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
       btn.textContent = "✅ Copied! Paste directly on Threads!";
     }
 
-    // ==========================================
-    // NAVIGATION & INIT
-    // ==========================================
     function switchTab(tabId) {
       document.querySelectorAll(".tab-content").forEach(el => {
         el.classList.add("hidden");
         el.classList.remove("flex");
       });
       document.querySelectorAll(".tab-btn").forEach(btn => {
-        btn.className = "tab-btn py-2 px-2 rounded-lg text-gray-400 hover:text-white transition";
+        btn.className = "tab-btn py-2 px-1 rounded-lg text-gray-400 hover:text-white transition active:scale-95";
       });
 
       const target = document.getElementById(`tab-${tabId}`);
@@ -1320,7 +1268,7 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
       }
       const activeBtn = document.getElementById(`tabBtn-${tabId}`);
       if (activeBtn) {
-        activeBtn.className = "tab-btn py-2 px-2 rounded-lg bg-pink-600 text-white transition";
+        activeBtn.className = "tab-btn py-2 px-1 rounded-lg bg-pink-600 text-white transition active:scale-95";
       }
 
       if (tabId === "survival") renderSurvivalArena();
@@ -1331,7 +1279,6 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
       document.getElementById("gameModal").classList.add("hidden");
     }
 
-    // Initial boot
     window.onload = () => {
       updateHeader();
       renderTrainees();
@@ -1343,4 +1290,3 @@ Save the code block below as `index.html` and open it in any mobile or desktop b
   </script>
 </body>
 </html>
-```
