@@ -67,19 +67,19 @@
 </head>
 <body class="min-h-screen flex flex-col bg-[#101426]">
 
-  <!-- INITIAL SETUP MODAL (GENDER PREVIEW & DEDICATED NATIONALITY COLUMN) -->
+  <!-- INITIAL SETUP MODAL (KOREAN IDOL PREVIEWS & DEDICATED NATIONALITY COLUMN - NO HOMETOWN) -->
   <div id="startScreenModal" class="fixed inset-0 z-50 bg-[#0a0d1a]/95 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
     <div class="panel-card rounded-3xl max-w-xl w-full p-6 space-y-5 my-auto border border-[#8B5CF6]/40">
-      
-      <!-- LIVE CHARACTER PREVIEW HEADER (FEMALE OR MALE) -->
+
+      <!-- LIVE KOREAN IDOL PREVIEW HEADER (FEMALE OR MALE) -->
       <div class="flex items-center gap-4 border-b border-slate-800 pb-4">
-        <div class="relative w-20 h-24 rounded-2xl overflow-hidden border-2 border-[#8B5CF6] shrink-0 shadow-lg">
-          <img id="startModalPortraitPreview" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=85" alt="Character Master Reference" class="w-full h-full object-cover object-top transition-all duration-300" />
+        <div class="relative w-20 h-24 rounded-2xl overflow-hidden border-2 border-[#8B5CF6] shrink-0 shadow-lg bg-slate-900">
+          <img id="startModalPortraitPreview" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=85" alt="Character Master Reference" class="w-full h-full object-cover object-top transition-all duration-300" />
           <span id="startModalGenderPill" class="absolute bottom-1 right-1 px-1.5 py-0.5 rounded bg-[#101426]/90 text-[9px] font-bold text-[#EC4899]">♀️ FEMALE</span>
         </div>
         <div>
           <span class="px-2.5 py-0.5 rounded-full bg-[#8B5CF6]/20 text-[#22D3EE] text-[10px] font-extrabold uppercase tracking-widest">
-            2.5D CHARACTER-DRIVEN LIFE SIMULATOR
+            2.5D KOREAN IDOL LIFE SIMULATOR
           </span>
           <h2 class="text-2xl font-extrabold font-display text-white mt-1">CREATE YOUR IDOL IDENTITY</h2>
           <p class="text-xs text-slate-300">
@@ -93,8 +93,8 @@
         <div>
           <label class="font-semibold text-slate-300 block mb-1">Gender Presentation</label>
           <select id="initGender" onchange="onGenderSelectChange()" class="w-full bg-[#101426] border border-slate-700 rounded-xl px-3 py-2 text-white font-bold outline-none focus:border-[#8B5CF6]">
-            <option value="FEMALE">♀️ Female Idol (Alya - Long Dark Hair)</option>
-            <option value="MALE">♂️ Male Idol (Kael - Two-Block Dark Hair)</option>
+            <option value="FEMALE">♀️ Female Idol (Alya - K-Pop Visual)</option>
+            <option value="MALE">♂️ Male Idol (Kael - K-Pop Idol Visual)</option>
           </select>
         </div>
 
@@ -108,7 +108,7 @@
           <input id="initLegalName" type="text" value="Alya Kharisma" class="w-full bg-[#101426] border border-slate-700 rounded-xl px-3 py-2 text-white font-bold outline-none focus:border-[#8B5CF6]" />
         </div>
 
-        <!-- SEPARATE DEDICATED NATIONALITY COLUMN -->
+        <!-- SEPARATE DEDICATED NATIONALITY COLUMN (HOMETOWN REMOVED) -->
         <div>
           <label class="font-semibold text-[#22D3EE] block mb-1">Nationality / Country</label>
           <select id="initNationality" class="w-full bg-[#101426] border border-[#22D3EE]/50 rounded-xl px-3 py-2 text-white font-bold outline-none focus:border-[#22D3EE]">
@@ -122,11 +122,6 @@
             <option value="🇹🇼 Taiwan">🇹🇼 Taiwan</option>
             <option value="🌏 Global / International">🌏 Global / International</option>
           </select>
-        </div>
-
-        <div>
-          <label class="font-semibold text-slate-300 block mb-1">Hometown / City</label>
-          <input id="initHometown" type="text" value="Kuala Lumpur" class="w-full bg-[#101426] border border-slate-700 rounded-xl px-3 py-2 text-white font-bold outline-none" />
         </div>
 
         <div>
@@ -250,7 +245,7 @@
       <!-- =================================================================== -->
       <section id="tab-myidol" class="tab-content flex flex-col gap-4">
 
-        <!-- HERO 2.5D SCENE & SEMI-REALISTIC CHARACTER STAGE -->
+        <!-- HERO 2.5D SCENE & SEMI-REALISTIC KOREAN IDOL STAGE -->
         <div id="heroSceneContainer" class="relative rounded-3xl overflow-hidden border border-slate-700/80 min-h-[480px] sm:min-h-[520px] flex flex-col justify-between shadow-2xl scene-transition bg-[#101426]">
 
           <!-- LAYER 1: FULL-BLEED LOCATION SCENE -->
@@ -282,7 +277,7 @@
             </div>
           </div>
 
-          <!-- LAYER 3: CENTERPIECE CHARACTER PORTRAIT + LIVE SCENE EXPERIENCE -->
+          <!-- LAYER 3: CENTERPIECE KOREAN IDOL PORTRAIT + LIVE SCENE EXPERIENCE -->
           <div class="relative z-20 px-4 sm:px-6 pb-5 pt-2 grid grid-cols-1 md:grid-cols-12 gap-5 items-end">
 
             <!-- Persistent Semi-Realistic Character Portrait Card -->
@@ -291,7 +286,7 @@
                 <img id="characterMasterImg" src="" alt="Character Portrait" class="w-full h-full object-cover object-top transition-all duration-500" />
                 <div id="characterLightingTint" class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-[#101426]/65 via-transparent to-[#8B5CF6]/20"></div>
 
-                <!-- Top Identity & Nationality Badges -->
+                <!-- Top Identity & Nationality Badges (NO HOMETOWN) -->
                 <div class="absolute top-3 left-3 right-3 flex justify-between items-center">
                   <span class="px-2.5 py-0.5 rounded-md bg-[#101426]/85 backdrop-blur-md border border-white/15 text-[10px] font-bold text-[#22D3EE]">
                     <span id="idolNationalityFlag">🇲🇾 Malaysia</span>
@@ -420,7 +415,7 @@
             <div class="pt-2 border-t border-slate-800 grid grid-cols-3 gap-2 text-center text-[11px]" id="personalStatsGrid"></div>
           </div>
 
-          <!-- Relationships & Teammates -->
+          <!-- Relationships & Teammates (NO HOMETOWN) -->
           <div class="md:col-span-6 panel-card rounded-2xl p-4 flex flex-col justify-between space-y-3">
             <div>
               <div class="flex justify-between items-center mb-2">
@@ -446,7 +441,7 @@
         </div>
       </section>
 
-      <!-- TAB 2: TRAINEES (WITH DEDICATED NATIONALITY COLUMN & MULTIPLE COUNTRIES) -->
+      <!-- TAB 2: TRAINEES (WITH DEDICATED NATIONALITY COLUMN - NO HOMETOWN) -->
       <section id="tab-trainees" class="tab-content hidden flex-col gap-4">
         <div class="panel-card rounded-3xl p-5">
           <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
@@ -618,7 +613,7 @@
         </div>
       </section>
 
-      <!-- TAB 6: IDOL SURVIVAL: DREAM STAGE (WITH SEPARATED NATIONALITY COLUMN) -->
+      <!-- TAB 6: IDOL SURVIVAL: DREAM STAGE (WITH SEPARATED NATIONALITY COLUMN - NO HOMETOWN) -->
       <section id="tab-survival" class="tab-content hidden flex-col gap-4">
         <div class="panel-card rounded-3xl p-5">
           <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
@@ -793,7 +788,7 @@
           <div class="bg-[#101426] border border-slate-800 rounded-2xl p-4 text-xs space-y-2">
             <h3 class="font-bold text-[#22D3EE]">🗂️ Character Asset Registry (`TRN-0001`)</h3>
             <p class="text-[11px] text-slate-400">
-              Pre-integrated with semi-realistic photographic portraits and 6 scene backdrops. You can paste any custom portrait URL or local path below:
+              Pre-integrated with authentic semi-realistic Korean idol portraits and 6 atmospheric location scenes. You can paste any custom portrait URL or local path below:
             </p>
             <div class="flex gap-2">
               <input id="customPortraitUrlInput" type="text" placeholder="Optional: Paste custom portrait URL or local path..." class="flex-1 bg-[#1B2038] border border-slate-700 rounded-xl px-3 py-1.5 text-white outline-none" />
@@ -866,13 +861,14 @@
 
   <script>
     // ============================================================================
-    // VERIFIED 2.5D ASSET REGISTRY
+    // AUTHENTIC KOREAN IDOL ASSET REGISTRY (SEMI-REALISTIC K-POP AESTHETIC)
     // ============================================================================
     const ASSET_MANIFEST = {
       characters: {
         "TRN-0001": {
-          masterFemale: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85",
-          masterMale: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=85",
+          // Authentic Korean idol aesthetic portraits (female & male)
+          masterFemale: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=85",
+          masterMale: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=85",
           sceneTint: {
             "dormitory": "bg-gradient-to-tr from-[#101426]/65 via-amber-500/10 to-[#8B5CF6]/20",
             "practice-room": "bg-gradient-to-tr from-[#101426]/70 via-[#22D3EE]/15 to-[#EC4899]/25",
@@ -890,9 +886,9 @@
             "concert-arena": "Headliner Concert Look"
           }
         },
-        "TRN-0002": { portrait: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=500&q=80" },
+        "TRN-0002": { portrait: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80" },
         "TRN-0003": { portrait: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=500&q=80" },
-        "TRN-0004": { portrait: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80" },
+        "TRN-0004": { portrait: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=500&q=80" },
         "TRN-0005": { portrait: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=500&q=80" }
       },
       backgrounds: {
@@ -975,10 +971,12 @@
       const rec = ASSET_MANIFEST.characters[t.id];
       if (rec && rec.portrait) return rec.portrait;
       const pool = [
+        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=80",
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80",
         "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=500&q=80",
-        "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=500&q=80",
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80",
         "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=500&q=80",
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80"
+        "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=500&q=80"
       ];
       return pool[idx % pool.length];
     }
@@ -1064,7 +1062,7 @@
     ];
 
     // ============================================================================
-    // CENTRAL SHARED GAME STATE
+    // CENTRAL SHARED GAME STATE (HOMETOWN FIELD COMPLETELY REMOVED)
     // ============================================================================
     const G = {
       agencyName: "GEMPAK ENTERTAINMENT",
@@ -1095,7 +1093,6 @@
         legalName: "Alya Kharisma",
         gender: "FEMALE",
         nationality: "🇲🇾 Malaysia",
-        hometown: "Kuala Lumpur",
         profile: "allrounder",
         personality: "Ambitious",
         outfit: "Denim Casual Jacket",
@@ -1117,12 +1114,12 @@
         "Community Fans": 85,
         "Critical Listeners": 65
       },
-      // Trainees with SEPARATED nationality and origin
+      // Trainees with DEDICATED NATIONALITY COLUMN ONLY (NO HOMETOWN)
       trainees: [
-        { id: "TRN-0002", name: "Aiman", gender: "MALE", nationality: "🇲🇾 Malaysia", hometown: "Kuala Lumpur", trait: "Underground Rapper", vocal: 68, rap: 82, dance: 74, visual: 76, stamina: 90, trust: 72, respect: 70, rivalry: 25, memory: "Practiced late-night cypher in Studio B." },
-        { id: "TRN-0003", name: "Hana", gender: "FEMALE", nationality: "🇲🇾 Malaysia", hometown: "Penang", trait: "R&B Vocalist", vocal: 78, rap: 54, dance: 66, visual: 74, stamina: 88, trust: 76, respect: 75, rivalry: 15, memory: "Shared vocal warm-up tips before evaluation." },
-        { id: "TRN-0004", name: "Minjun", gender: "MALE", nationality: "🇰🇷 South Korea", hometown: "Seoul", trait: "Perfectionist Dancer", vocal: 62, rap: 64, dance: 80, visual: 72, stamina: 85, trust: 58, respect: 68, rivalry: 45, memory: "Competed fiercely for the center dance break." },
-        { id: "TRN-0005", name: "Sora", gender: "FEMALE", nationality: "🇯🇵 Japan", hometown: "Tokyo", trait: "Choreo Prodigy", vocal: 60, rap: 58, dance: 79, visual: 75, stamina: 92, trust: 70, respect: 72, rivalry: 20, memory: "Synchronized the group chorus formation." }
+        { id: "TRN-0002", name: "Aiman", gender: "MALE", nationality: "🇲🇾 Malaysia", trait: "Underground Rapper", vocal: 68, rap: 82, dance: 74, visual: 76, stamina: 90, trust: 72, respect: 70, rivalry: 25, memory: "Practiced late-night cypher in Studio B." },
+        { id: "TRN-0003", name: "Hana", gender: "FEMALE", nationality: "🇲🇾 Malaysia", trait: "R&B Vocalist", vocal: 78, rap: 54, dance: 66, visual: 74, stamina: 88, trust: 76, respect: 75, rivalry: 15, memory: "Shared vocal warm-up tips before evaluation." },
+        { id: "TRN-0004", name: "Minjun", gender: "MALE", nationality: "🇰🇷 South Korea", trait: "Perfectionist Dancer", vocal: 62, rap: 64, dance: 80, visual: 72, stamina: 85, trust: 58, respect: 68, rivalry: 45, memory: "Competed fiercely for the center dance break." },
+        { id: "TRN-0005", name: "Sora", gender: "FEMALE", nationality: "🇯🇵 Japan", trait: "Choreo Prodigy", vocal: 60, rap: 58, dance: 79, visual: 75, stamina: 92, trust: 70, respect: 72, rivalry: 20, memory: "Synchronized the group chorus formation." }
       ],
       groups: [],
       discography: [],
@@ -1326,7 +1323,6 @@
       G.player.stageName = (document.getElementById("initStageName").value || (G.player.gender === "MALE" ? "KAEL" : "ALYA")).trim().toUpperCase();
       G.player.legalName = (document.getElementById("initLegalName").value || (G.player.gender === "MALE" ? "Kael Rusli" : "Alya Kharisma")).trim();
       G.player.nationality = document.getElementById("initNationality").value;
-      G.player.hometown = (document.getElementById("initHometown").value || "Kuala Lumpur").trim();
       G.player.profile = document.getElementById("initArtisticProfile").value;
       G.player.personality = document.getElementById("initPersonality").value;
       G.agencyName = (document.getElementById("initAgencyInput").value || "GEMPAK ENTERTAINMENT").trim().toUpperCase();
@@ -1374,7 +1370,7 @@
       const url = (document.getElementById("customPortraitUrlInput").value || "").trim();
       G.player.customPortraitUrl = url;
       renderAll();
-      alert(url ? "🖼️ Custom Master Portrait applied!" : "Restored default semi-realistic Master Portrait.");
+      alert(url ? "🖼️ Custom Master Portrait applied!" : "Restored default semi-realistic Korean Idol Portrait.");
     }
 
     function runPersonalActivity(type) {
@@ -1974,17 +1970,17 @@
       const cost = costs[tier];
       if (G.funds < cost) { alert(`Need $${cost.toLocaleString()}!`); return; }
       G.funds -= cost;
-      
-      // Multi-country scout candidates with dedicated nationality
+
+      // Multi-country scout candidates (NO HOMETOWN FIELD)
       const pool = [
-        { name: "Zarif", gender: "MALE", nationality: "🇲🇾 Malaysia", hometown: "Kuala Lumpur", trait: "Spitfire Rapper" },
-        { name: "Dahlia", gender: "FEMALE", nationality: "🇲🇾 Malaysia", hometown: "Kuching", trait: "Power Vocalist" },
-        { name: "Haruto", gender: "MALE", nationality: "🇯🇵 Japan", hometown: "Osaka", trait: "Lead Dancer" },
-        { name: "Jisoo-K", gender: "FEMALE", nationality: "🇰🇷 South Korea", hometown: "Busan", trait: "Visual Center" },
-        { name: "Narin", gender: "FEMALE", nationality: "🇹🇭 Thailand", hometown: "Bangkok", trait: "Main Dancer" },
-        { name: "Rizky", gender: "MALE", nationality: "🇮🇩 Indonesia", hometown: "Jakarta", trait: "R&B Vocalist" },
-        { name: "Gabriel", gender: "MALE", nationality: "🇸🇬 Singapore", hometown: "Singapore", trait: "Producer-Idol" },
-        { name: "Bea", gender: "FEMALE", nationality: "🇵🇭 Philippines", hometown: "Manila", trait: "Power Vocalist" }
+        { name: "Zarif", gender: "MALE", nationality: "🇲🇾 Malaysia", trait: "Spitfire Rapper" },
+        { name: "Dahlia", gender: "FEMALE", nationality: "🇲🇾 Malaysia", trait: "Power Vocalist" },
+        { name: "Haruto", gender: "MALE", nationality: "🇯🇵 Japan", trait: "Lead Dancer" },
+        { name: "Jisoo-K", gender: "FEMALE", nationality: "🇰🇷 South Korea", trait: "Visual Center" },
+        { name: "Narin", gender: "FEMALE", nationality: "🇹🇭 Thailand", trait: "Main Dancer" },
+        { name: "Rizky", gender: "MALE", nationality: "🇮🇩 Indonesia", trait: "R&B Vocalist" },
+        { name: "Gabriel", gender: "MALE", nationality: "🇸🇬 Singapore", trait: "Producer-Idol" },
+        { name: "Bea", gender: "FEMALE", nationality: "🇵🇭 Philippines", trait: "Power Vocalist" }
       ];
       const pick = pool[Math.floor(Math.random() * pool.length)];
       const base = tier === "audition" ? 68 : tier === "academy" ? 60 : 52;
@@ -1993,7 +1989,6 @@
         name: pick.name,
         gender: pick.gender,
         nationality: pick.nationality,
-        hometown: pick.hometown,
         trait: pick.trait,
         vocal: base + 10, rap: base + 8, dance: base + 12, visual: base + 10,
         stamina: 95, trust: 65, respect: 65, rivalry: 15,
@@ -2010,7 +2005,6 @@
         name: "Chaewon-S",
         gender: "FEMALE",
         nationality: "🇰🇷 South Korea",
-        hometown: "Seoul",
         trait: "All-Rounder Ace",
         vocal: 82, rap: 78, dance: 85, visual: 84,
         stamina: 90, trust: 62, respect: 78, rivalry: 30,
@@ -2031,7 +2025,7 @@
             <img src="${getTraineePortraitUrl(t, idx)}" class="w-16 h-20 rounded-2xl object-cover border border-[#8B5CF6]" />
             <div>
               <div class="font-extrabold text-white text-sm">${t.name} <span class="text-xs">${t.gender === 'MALE' ? '♂️' : '♀️'}</span></div>
-              <div class="text-[11px] text-[#22D3EE] font-bold">🌍 Nationality: ${t.nationality} (${t.hometown || 'Global'})</div>
+              <div class="text-[11px] text-[#22D3EE] font-bold">🌍 Nationality: ${t.nationality}</div>
               <div class="text-[11px] text-slate-400">Specialty: ${t.trait} • Avg ${avg}</div>
               <div class="text-[11px] text-emerald-400 mt-0.5">Trust ${t.trust} • Respect ${t.respect}</div>
             </div>
@@ -2327,7 +2321,7 @@
       document.getElementById("idolGenderBadge").innerText = G.player.gender === "MALE" ? "♂️" : "♀️";
       document.getElementById("idolNationalityFlag").innerText = `${G.player.nationality}`;
       document.getElementById("idolRankBadge").innerText = `Rank ${grade.label} (${avg})`;
-      document.getElementById("idolSubInfoDisplay").innerText = `${G.player.legalName} • ${G.player.hometown} • ${G.player.personality}`;
+      document.getElementById("idolSubInfoDisplay").innerText = `${G.player.legalName} • ${G.player.nationality} • ${G.player.personality}`;
       document.getElementById("idolStylingDisplay").innerText = G.player.outfit;
       document.getElementById("idolChapterDisplay").innerText = stageText;
 
@@ -2359,7 +2353,7 @@
         <div class="bg-[#101426] p-2 rounded-xl border border-slate-800"><div class="text-slate-400 text-[10px]">Resilience</div><div class="font-bold text-[#8B5CF6]">${G.player.pers.resilience}%</div></div>
       `;
 
-      // Relationships in Tab 1
+      // Relationships in Tab 1 (NO HOMETOWN)
       document.getElementById("relationshipsList").innerHTML = G.trainees.map((t, idx) => `
         <div onclick="inspectTraineeProfile('${t.id}')" class="p-2 rounded-xl bg-[#101426] hover:bg-slate-900 border border-slate-800 cursor-pointer flex items-center justify-between gap-2 transition">
           <div class="flex items-center gap-2.5">
@@ -2376,7 +2370,7 @@
         </div>
       `).join("");
 
-      // Tab 2: Trainee cards with DEDICATED NATIONALITY COLUMN
+      // Tab 2: Trainee cards with DEDICATED NATIONALITY COLUMN ONLY
       document.getElementById("traineeList").innerHTML = G.trainees.map((t, idx) => {
         const tAvg = calcTraineeAvg(t);
         const tg = getGrade(tAvg);
@@ -2397,7 +2391,6 @@
                   <span class="px-2 py-0.5 rounded-md bg-[#1B2038] border border-slate-700 text-[10px] font-bold text-[#22D3EE]">
                     🌍 ${t.nationality}
                   </span>
-                  <span class="text-[10px] text-slate-400 font-medium">${t.hometown || 'Global'}</span>
                 </div>
                 <div class="text-[10px] text-slate-400 mt-1">Specialty: ${t.trait} • Trust ${t.trust} • Stamina ${t.stamina}%</div>
               </div>
@@ -2487,7 +2480,7 @@
       renderMediaPanel();
     }
 
-    // SURVIVAL ARENA WITH DEDICATED NATIONALITY COLUMN
+    // SURVIVAL ARENA WITH DEDICATED NATIONALITY COLUMN (NO HOMETOWN)
     function renderSurvivalArena() {
       const box = document.getElementById("survivalArena");
       const badge = document.getElementById("survivalStatusBadge");
@@ -2501,7 +2494,7 @@
               <div class="font-extrabold text-white text-sm">IDOL SURVIVAL: DREAM STAGE (24 Trainees → 7 Debut)</div>
               <p class="text-[11px] text-slate-300 mt-0.5">Airs annually across March (Weeks 1–4) & April (Weeks 1–4). Featuring multi-national trainees from across Asia!</p>
             </div>
-            
+
             <!-- TABLE WITH DEDICATED NATIONALITY COLUMN -->
             <div class="overflow-x-auto">
               <table class="w-full text-left text-[11px]">
@@ -2551,7 +2544,7 @@
               </button>
             `).join("")}
           </div>
-          
+
           <!-- LIVE SURVIVAL TABLE WITH DEDICATED NATIONALITY COLUMN -->
           <div class="overflow-x-auto max-h-52 overflow-y-auto">
             <table class="w-full text-left text-[11px]">
