@@ -1,5 +1,3 @@
-Note: the links and images in this document may point to external sources. Please review them before opening.
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -117,7 +115,7 @@ Note: the links and images in this document may point to external sources. Pleas
             <option value="Ambitious">Ambitious & Creative</option>
             <option value="Perfectionist">Disciplined Perfectionist</option>
             <option value="Playful">Warm & Playful</option>
-            <option value="Charismatic"> fierce Stage Charisma</option>
+            <option value="Charismatic">Fierce Stage Charisma</option>
           </select>
         </div>
         <div>
@@ -257,7 +255,6 @@ Note: the links and images in this document may point to external sources. Pleas
             <div class="md:col-span-5 flex justify-center">
               <div class="relative w-60 h-72 sm:w-64 sm:h-80 rounded-3xl overflow-hidden border-2 border-[#8B5CF6]/70 shadow-2xl bg-[#1B2038] animate-character group">
                 <img id="characterMasterImg" src="" alt="Alya Character Portrait" class="w-full h-full object-cover object-top transition-all duration-500" />
-                <!-- Subtle 2.5D Rim Lighting Overlay matching current scene -->
                 <div id="characterLightingTint" class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-[#101426]/65 via-transparent to-[#8B5CF6]/20"></div>
 
                 <!-- Top Identity Badge -->
@@ -308,7 +305,7 @@ Note: the links and images in this document may point to external sources. Pleas
                 </div>
               </div>
 
-              <!-- 6 PROMINENT QUICK ACTIONS (CHANGES VISUAL SCENE + UPDATES REAL GAME STATE) -->
+              <!-- 6 PROMINENT QUICK ACTIONS -->
               <div class="bg-[#101426]/90 backdrop-blur-md border border-slate-700/90 rounded-2xl p-3.5 space-y-2.5">
                 <div class="flex justify-between items-center">
                   <span class="text-xs font-extrabold text-white">🗓️ Today's Idol Schedule (Changes Location Scene & Stats)</span>
@@ -351,12 +348,13 @@ Note: the links and images in this document may point to external sources. Pleas
                     <div class="text-[10px] text-slate-400 mt-0.5">+Visual/Media • -10 Energy</div>
                   </button>
 
+                  <!-- Dynamic Fan Interaction Button: Busking while Trainee, Official Fansign once Debuted -->
                   <button onclick="openFansignModal()" class="action-btn bg-[#1B2038] hover:bg-slate-800 border border-slate-700 p-2.5 rounded-xl text-left">
                     <div class="font-bold text-white flex items-center justify-between">
-                      <span>💌 Fansign Event</span>
-                      <span class="text-[10px] text-[#EC4899]">Backstage</span>
+                      <span id="quickFanActionTitle">🎸 Pre-Debut Busking</span>
+                      <span id="quickFanActionTag" class="text-[10px] text-[#22D3EE]">Public PR</span>
                     </div>
-                    <div class="text-[10px] text-slate-400 mt-0.5">1-on-1 Fan Q&A • +Fame</div>
+                    <div id="quickFanActionSub" class="text-[10px] text-slate-400 mt-0.5">Street Cover • +Pre-Debut Fans</div>
                   </button>
 
                   <button onclick="runPersonalActivity('rest')" class="action-btn bg-emerald-950/50 hover:bg-emerald-900/50 border border-emerald-500/40 p-2.5 rounded-xl text-left">
@@ -833,13 +831,11 @@ Note: the links and images in this document may point to external sources. Pleas
 
   <script>
     // ============================================================================
-    // VERIFIED 2.5D CHARACTER & SCENE ASSET REGISTRY (No Cartoon Placeholders)
+    // VERIFIED 2.5D CHARACTER & SCENE ASSET REGISTRY
     // ============================================================================
     const ASSET_MANIFEST = {
       characters: {
         "TRN-0001": {
-          // Consistent semi-realistic character portrait (long dark brown hair, dark brown eyes)
-          // Uses the same approved master portrait identity across scenes with 2.5D lighting & crop states
           masterFemale: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85",
           masterMale: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=85",
           sceneTint: {
@@ -931,7 +927,7 @@ Note: the links and images in this document may point to external sources. Pleas
     }
 
     // ============================================================================
-    // IDOL SURVIVAL: DREAM STAGE — 8-WEEK / 12-EPISODE / 24-TRAINEE PLAN
+    // IDOL SURVIVAL: DREAM STAGE — 8-WEEK PLAN
     // ============================================================================
     const SURVIVAL_WEEKS_PLAN = [
       null,
@@ -942,10 +938,6 @@ Note: the links and images in this document may point to external sources. Pleas
         theme: "First impressions",
         startCount: 24,
         remainAfter: 24,
-        bullets: [
-          "Episode 1: Introduce all 24 trainees and their personalities.",
-          "Episode 2: Individual auditions and first evaluation grades (A–F)."
-        ],
         twist: "Initial rankings and first rivalries form across the 24 contestants!",
         choices: [
           { id: "vocal", label: "🎤 Vocal Audition Focus", desc: "Showcase raw high-note stability (+Live Perf & Mentor Eval)" },
@@ -961,10 +953,6 @@ Note: the links and images in this document may point to external sources. Pleas
         theme: "Prove your potential",
         startCount: 24,
         remainAfter: 24,
-        bullets: [
-          "Intensive vocal, dance, rap, and stage-presence boot camp.",
-          "Mentor feedback and trainee grade re-evaluations."
-        ],
         twist: "TWIST: One low-ranked Grade-F trainee impresses the mentors during re-evaluation!",
         choices: [
           { id: "stamina_camp", label: "🏃 All-Night Stamina & Sync Drill", desc: "Push through exhaustion for a grade jump (+Mentor Eval)" },
@@ -979,10 +967,6 @@ Note: the links and images in this document may point to external sources. Pleas
         theme: "Find your specialty (First Elimination: 24 → 20)",
         startCount: 24,
         remainAfter: 20,
-        bullets: [
-          "Trainees choose Vocal, Dance, Rap, or All-Rounder teams.",
-          "First Major Ranking Shake-up: 4 trainees are eliminated!"
-        ],
         twist: "TWIST: A trainee's assigned position causes heated team conflict during rehearsal!",
         choices: [
           { id: "center_claim", label: "👑 Claim Center & Main Position", desc: "High risk, huge live stage spotlight (+Live Perf & Fan Votes)" },
@@ -997,10 +981,6 @@ Note: the links and images in this document may point to external sources. Pleas
         theme: "Beyond the stage (20 Trainees Remain)",
         startCount: 20,
         remainAfter: 20,
-        bullets: [
-          "Dormitory life, friendships, cooking, and personal stories.",
-          "Friendship missions, interviews, and social-media challenges."
-        ],
         twist: "TWIST: A popular trainee tearfully reveals a personal struggle during the dorm interview.",
         choices: [
           { id: "dorm_chef", label: "🍜 Cook Malaysian Supper for Dorm", desc: "Wholesome viral moment (+Fan Votes & +Teamwork)" },
@@ -1015,10 +995,6 @@ Note: the links and images in this document may point to external sources. Pleas
         theme: "Can you adapt? (Second Elimination: 20 → 16)",
         startCount: 20,
         remainAfter: 16,
-        bullets: [
-          "Teams receive contrasting concepts: Cute, Elegant, Crush, Dark, or Fresh.",
-          "Elimination of 4 more trainees; 16 remain!"
-        ],
         twist: "TWIST: One team receives a difficult song and limited preparation time!",
         choices: [
           { id: "crush_dark", label: "🔥 Master Dark / Girl-Boy Crush Concept", desc: "Fierce facial expressions (+Live Perf & Fan Votes)" },
@@ -1033,10 +1009,6 @@ Note: the links and images in this document may point to external sources. Pleas
         theme: "Popularity versus talent (Third Elimination: 16 → 12)",
         startCount: 16,
         remainAfter: 12,
-        bullets: [
-          "Public voting opens! Fans create online campaigns.",
-          "Elimination of 4 trainees; 12 remain!"
-        ],
         twist: "TWIST: A technically strong trainee falls in rankings while an underdog rises!",
         choices: [
           { id: "fan_campaign", label: "💌 Host Global Fan Meeting & DearU Live", desc: "Mobilize core fandom (+30% Fan Votes)" },
@@ -1051,10 +1023,6 @@ Note: the links and images in this document may point to external sources. Pleas
         theme: "Become a real idol (Semifinal Elimination: 12 → 7 Finalists)",
         startCount: 12,
         remainAfter: 7,
-        bullets: [
-          "Remaining trainees perform original songs & film MV teasers.",
-          "Final evaluation and elimination of 5 trainees; 7 finalists remain!"
-        ],
         twist: "TWIST: A last-minute performance problem tests the team's live teamwork!",
         choices: [
           { id: "produce_hook", label: "✍️ Co-Write Original Chorus & Killing Part", desc: "Producer praise + chart-topping track (+Mentor Eval)" },
@@ -1069,10 +1037,6 @@ Note: the links and images in this document may point to external sources. Pleas
         theme: "One last chance (7 Finalists → 7 Debut Members)",
         startCount: 7,
         remainAfter: 7,
-        bullets: [
-          "Final live performances, debut song, and ranking announcement.",
-          "Seven-member debut group, group name, concept, and shareable Debut Poster!"
-        ],
         twist: "TWIST: The last debut position is decided by the final live vote!",
         choices: [
           { id: "finale_center", label: "👑 Deliver All-Out Live Finale Center Stage", desc: "Fight for #1 Center Throne (+Live Perf & Fan Votes)" },
@@ -1159,7 +1123,6 @@ Note: the links and images in this document may point to external sources. Pleas
         selectedStrategy: "vocal",
         debutGroupName: "DREAM-VII",
         debutConcept: "High-Fashion Global Pop",
-        randomEventText: "Mentors are reviewing pre-audition tapes from 24 contestants.",
         contestants: [],
         lastPoster: null
       },
@@ -1221,7 +1184,6 @@ Note: the links and images in this document may point to external sources. Pleas
       return "Stage 5: Global Superstar";
     }
 
-    // Preview any of the 6 locations directly on the home screen
     function previewLocationScene(locKey) {
       const bg = ASSET_MANIFEST.backgrounds[locKey];
       if (!bg) return;
@@ -1605,13 +1567,35 @@ Note: the links and images in this document may point to external sources. Pleas
     }
 
     // ============================================================================
-    // FANSIGN & FAN MEETINGS
+    // ADAPTIVE FAN INTERACTIONS (BUSKING FOR TRAINEE, FANSIGN FOR DEBUTED IDOL)
     // ============================================================================
-    const FAN_ENCOUNTERS = [
+    const TRAINEE_FAN_ENCOUNTERS = [
+      {
+        fanName: "AlyaSupporter_MY (Bukit Bintang 🇲🇾)",
+        archetype: "SEA / Global Fans",
+        dialogue: "We saw your pre-debut dance cover busking! Could you do a quick chorus dance snippet for our fan cam?",
+        options: [
+          { text: "💃 Perform the center killing-part dance cover flawlessly!", buff: "+280 SEA Fans, +5 Public Trust", type: "dance" },
+          { text: "🤝 Smile warmly, thank them in Malay & Korean, and take a selfie.", buff: "+200 Dedicated Fans, +4 Social", type: "sincere" },
+          { text: "🎤 Belt out an acoustic live high-note to shock the crowd!", buff: "+180 Performance Fans, +3 Vocal", type: "vocal" }
+        ]
+      },
+      {
+        fanName: "HongdaeKpopFan (Seoul 🇰🇷)",
+        archetype: "Casual Listeners",
+        dialogue: "You have insane stage presence for a trainee! Are you going on IDOL SURVIVAL: DREAM STAGE this March?",
+        options: [
+          { text: "✨ 'Yes! Please look forward to our performances and vote for me!'", buff: "+260 Fan Votes, +180 Fame", type: "aegyo" },
+          { text: "🍜 'We are practicing day and night! Thank you for stopping by our busking!'", buff: "+6 Resilience, +4 Loyalty", type: "sincere" }
+        ]
+      }
+    ];
+
+    const DEBUT_FAN_ENCOUNTERS = [
       {
         fanName: "AlyaStan (Kuala Lumpur 🇲🇾)",
         archetype: "SEA / Global Fans",
-        dialogue: "I flew from KL to attend your fansign! Will you wear this Malaysian Batik headband for our photo time?",
+        dialogue: "I flew from KL to attend your official fansign! Will you wear this Malaysian Batik headband for our photo time?",
         options: [
           { text: "👑 Wear the Batik headband and pose with a cheek-heart!", buff: "+250 SEA Fans, +5 Loyalty", type: "aegyo" },
           { text: "🤝 Hold her hands, say 'Terima kasih!', and write a long note.", buff: "+8 Public Trust, +4 Confidence", type: "sincere" },
@@ -1633,12 +1617,18 @@ Note: the links and images in this document may point to external sources. Pleas
 
     function openFansignModal() {
       currentFanmeetIdx = 0;
+      const isDebuted = G.player.debuted;
+
       G.scene = {
-        locationKey: "backstage",
-        title: "Album Fansign & Fan Meeting Hall • 17:30 KST",
-        mood: "Warm & Grateful",
-        recentMoment: `${G.player.stageName} greeted fans one-on-one at the album fansign table, signing photocards and answering questions.`,
-        lastFeedback: `💌 Scene Changed → Fansign Hall | Greeting fans face-to-face`
+        locationKey: isDebuted ? "backstage" : "company-office",
+        title: isDebuted ? "Official Album Fansign & Fan Meeting Hall • 17:30 KST" : "Pre-Debut Street Busking & Fan Meet • 18:00 KST",
+        mood: isDebuted ? "Warm & Grateful" : "Electric Street Energy",
+        recentMoment: isDebuted
+          ? `${G.player.stageName} greeted fans one-on-one at the album fansign table, signing photocards and answering questions.`
+          : `${G.player.stageName} performed a pre-debut street busking showcase in Hongdae / Bukit Bintang, meeting early supporters!`,
+        lastFeedback: isDebuted
+          ? `💌 Scene Changed → Fansign Hall | Meeting official album buyers`
+          : `🎸 Scene Changed → Street Busking | Gaining pre-debut fans before evaluation!`
       };
       renderAll();
       renderFanmeetStep();
@@ -1648,13 +1638,19 @@ Note: the links and images in this document may point to external sources. Pleas
       const modal = document.getElementById("universalModal");
       const title = document.getElementById("modalTitle");
       const body = document.getElementById("modalBody");
+      const encounters = G.player.debuted ? DEBUT_FAN_ENCOUNTERS : TRAINEE_FAN_ENCOUNTERS;
+      const isDebuted = G.player.debuted;
 
-      if (currentFanmeetIdx >= FAN_ENCOUNTERS.length) {
-        title.innerText = "🎉 Fan Meeting Complete!";
+      if (currentFanmeetIdx >= encounters.length) {
+        title.innerText = isDebuted ? "🎉 Official Fan Meeting Complete!" : "🎉 Pre-Debut Busking Showcase Complete!";
         body.innerHTML = `
           <div class="text-center space-y-3 py-2">
-            <h4 class="font-extrabold text-white text-base">Fans Loved Seeing ${G.player.stageName}!</h4>
-            <p class="text-xs text-slate-300">Fancam clips and fansign photos are trending on Pulse and StageOn (+650 Fame, +8% Loyalty).</p>
+            <h4 class="font-extrabold text-white text-base">Supporters Loved Seeing ${G.player.stageName}!</h4>
+            <p class="text-xs text-slate-300">
+              ${isDebuted
+                ? "Fancam clips and fansign photos are trending on Pulse and StageOn (+650 Fame, +8% Loyalty)."
+                : "Passersby uploaded viral street fancams to StageOn and Pulse (+450 Fame, +200 Global Fans)!"}
+            </p>
             <button onclick="finishFanmeeting()" class="w-full bg-[#8B5CF6] text-white font-extrabold py-2.5 rounded-xl">Return to My Life</button>
           </div>
         `;
@@ -1662,8 +1658,11 @@ Note: the links and images in this document may point to external sources. Pleas
         return;
       }
 
-      const enc = FAN_ENCOUNTERS[currentFanmeetIdx];
-      title.innerText = `💌 Fansign Encounter (${currentFanmeetIdx + 1}/${FAN_ENCOUNTERS.length})`;
+      const enc = encounters[currentFanmeetIdx];
+      title.innerText = isDebuted
+        ? `💌 Album Fansign Encounter (${currentFanmeetIdx + 1}/${encounters.length})`
+        : `🎸 Pre-Debut Busking Encounter (${currentFanmeetIdx + 1}/${encounters.length})`;
+
       body.innerHTML = `
         <div class="bg-[#101426] border border-slate-800 rounded-2xl p-4 space-y-3">
           <div class="font-extrabold text-white text-sm">${enc.fanName} <span class="text-[10px] text-[#22D3EE]">(${enc.archetype})</span></div>
@@ -1682,30 +1681,40 @@ Note: the links and images in this document may point to external sources. Pleas
     }
 
     function handleFanInteractionChoice(optIdx) {
-      const enc = FAN_ENCOUNTERS[currentFanmeetIdx];
+      const encounters = G.player.debuted ? DEBUT_FAN_ENCOUNTERS : TRAINEE_FAN_ENCOUNTERS;
+      const enc = encounters[currentFanmeetIdx];
       const opt = enc.options[optIdx];
-      if (opt.type === "aegyo") {
-        G.fame += 220;
+
+      if (opt.type === "aegyo" || opt.type === "dance") {
+        G.fame += 240;
         G.fanLoyalty = Math.min(100, G.fanLoyalty + 4);
-        G.fanArchetypes["SEA / Global Fans"] += 160;
+        G.fanArchetypes["SEA / Global Fans"] += 180;
       } else if (opt.type === "sincere") {
         G.publicTrust = Math.min(100, G.publicTrust + 5);
         G.fanLoyalty = Math.min(100, G.fanLoyalty + 5);
+        G.player.pers.confidence = Math.min(100, G.player.pers.confidence + 3);
       } else {
         G.player.perf.vocal = Math.min(100, G.player.perf.vocal + 2);
-        G.fanArchetypes["Performance Fans"] += 140;
+        G.fanArchetypes["Performance Fans"] += 150;
       }
       currentFanmeetIdx++;
       renderFanmeetStep();
     }
 
     function finishFanmeeting() {
-      G.fame += 650;
+      const isDebuted = G.player.debuted;
+      G.fame += isDebuted ? 650 : 450;
       G.fanLoyalty = Math.min(100, G.fanLoyalty + 8);
       const pc = G.survival.contestants.find(c => c.isPlayer);
-      if (pc) pc.fanVotes = Math.min(100, pc.fanVotes + 4);
+      if (pc) pc.fanVotes = Math.min(100, pc.fanVotes + 5);
       recalcSurvivalTotals(G.survival.contestants);
-      addPulsePost("@FansignCam", "#Fansign", `${G.player.stageName}'s warm fan service at today's fansign gained +650 Fame!`);
+
+      if (isDebuted) {
+        addPulsePost("@FansignCam", "#Fansign", `${G.player.stageName}'s warm fan service at today's official fansign gained +650 Fame!`);
+      } else {
+        addPulsePost("@BuskingScout", "#PreDebutAlya", `Viral street busking clip of trainee ${G.player.stageName} is trending! She hasn't even debuted yet! 🔥`);
+        addStageOnVideo(`[BUSKING CAM] Trainee ${G.player.stageName} Street Performance`, `${(12 + Math.floor(G.fame / 90))}K views`, "Her live vocals on the street are already better than debuted idols!");
+      }
       closeModal();
       renderAll();
     }
@@ -1921,9 +1930,6 @@ Note: the links and images in this document may point to external sources. Pleas
       renderAll();
     }
 
-    // ============================================================================
-    // WARDROBE & STYLING (Preserves Master Identity TRN-0001)
-    // ============================================================================
     function openWardrobeModal() {
       const outfits = [
         { name: "Denim Casual Jacket", scene: "dormitory", buff: "+Comfort & Youth Aura" },
@@ -1959,9 +1965,6 @@ Note: the links and images in this document may point to external sources. Pleas
       renderAll();
     }
 
-    // ============================================================================
-    // MINI-GAMES, SCOUTING, DEBUT & TOURS
-    // ============================================================================
     let mgInterval = null, mgPos = 0, mgDir = 1;
 
     function openMiniGameModal(mode) {
@@ -2307,6 +2310,24 @@ Note: the links and images in this document may point to external sources. Pleas
       document.getElementById("fundsDisplay").innerText = `$${G.funds.toLocaleString()}`;
       document.getElementById("fameDisplay").innerText = `${G.fame.toLocaleString()} Fame`;
       document.getElementById("loyaltyDisplay").innerText = `${G.fanLoyalty}% Loyalty`;
+
+      // Adapt the Quick Fan Interaction button based on Trainee vs Debuted career stage
+      const fanBtnTitle = document.getElementById("quickFanActionTitle");
+      const fanBtnTag = document.getElementById("quickFanActionTag");
+      const fanBtnSub = document.getElementById("quickFanActionSub");
+      if (fanBtnTitle && fanBtnTag && fanBtnSub) {
+        if (G.player.debuted) {
+          fanBtnTitle.innerText = "💌 Fansign & Fanmeet";
+          fanBtnTag.innerText = "Album Fanmeet";
+          fanBtnTag.className = "text-[10px] text-[#EC4899]";
+          fanBtnSub.innerText = "1-on-1 Q&A • +Album Loyalty";
+        } else {
+          fanBtnTitle.innerText = "🎸 Pre-Debut Busking";
+          fanBtnTag.innerText = "Public PR";
+          fanBtnTag.className = "text-[10px] text-[#22D3EE]";
+          fanBtnSub.innerText = "Street Cover • +Pre-Debut Fans";
+        }
+      }
 
       // Render 2.5D Location Scene & Semi-Realistic Character Portrait
       const locKey = G.scene.locationKey || "dormitory";
