@@ -67,38 +67,68 @@
 </head>
 <body class="min-h-screen flex flex-col bg-[#101426]">
 
-  <!-- INITIAL SETUP MODAL -->
+  <!-- INITIAL SETUP MODAL (GENDER PREVIEW & DEDICATED NATIONALITY COLUMN) -->
   <div id="startScreenModal" class="fixed inset-0 z-50 bg-[#0a0d1a]/95 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
     <div class="panel-card rounded-3xl max-w-xl w-full p-6 space-y-5 my-auto border border-[#8B5CF6]/40">
+      
+      <!-- LIVE CHARACTER PREVIEW HEADER (FEMALE OR MALE) -->
       <div class="flex items-center gap-4 border-b border-slate-800 pb-4">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=85" alt="Alya Master Reference" class="w-20 h-24 rounded-2xl object-cover border-2 border-[#8B5CF6]" />
+        <div class="relative w-20 h-24 rounded-2xl overflow-hidden border-2 border-[#8B5CF6] shrink-0 shadow-lg">
+          <img id="startModalPortraitPreview" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=85" alt="Character Master Reference" class="w-full h-full object-cover object-top transition-all duration-300" />
+          <span id="startModalGenderPill" class="absolute bottom-1 right-1 px-1.5 py-0.5 rounded bg-[#101426]/90 text-[9px] font-bold text-[#EC4899]">♀️ FEMALE</span>
+        </div>
         <div>
           <span class="px-2.5 py-0.5 rounded-full bg-[#8B5CF6]/20 text-[#22D3EE] text-[10px] font-extrabold uppercase tracking-widest">
             2.5D CHARACTER-DRIVEN LIFE SIMULATOR
           </span>
-          <h2 class="text-2xl font-extrabold font-display text-white mt-1">BEGIN YOUR IDOL JOURNEY</h2>
+          <h2 class="text-2xl font-extrabold font-display text-white mt-1">CREATE YOUR IDOL IDENTITY</h2>
           <p class="text-xs text-slate-300">
-            Step into the shoes of <b class="text-white">Alya (ID: TRN-0001)</b>. Train inside real studio environments, build friendships, survive the 8-week <b class="text-[#EC4899]">Dream Stage</b> broadcast, and rise from trainee to global icon.
+            Choose female or male, select your nationality, and embark on your journey from trainee dorms to global stadiums in <b class="text-[#EC4899]">IDOL SURVIVAL: DREAM STAGE</b>.
           </p>
         </div>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+        <!-- GENDER SELECTION (UPDATES PREVIEW INSTANTLY) -->
+        <div>
+          <label class="font-semibold text-slate-300 block mb-1">Gender Presentation</label>
+          <select id="initGender" onchange="onGenderSelectChange()" class="w-full bg-[#101426] border border-slate-700 rounded-xl px-3 py-2 text-white font-bold outline-none focus:border-[#8B5CF6]">
+            <option value="FEMALE">♀️ Female Idol (Alya - Long Dark Hair)</option>
+            <option value="MALE">♂️ Male Idol (Kael - Two-Block Dark Hair)</option>
+          </select>
+        </div>
+
         <div>
           <label class="font-semibold text-slate-300 block mb-1">Stage Name</label>
           <input id="initStageName" type="text" value="ALYA" class="w-full bg-[#101426] border border-slate-700 rounded-xl px-3 py-2 text-white font-bold outline-none focus:border-[#8B5CF6]" />
         </div>
+
         <div>
-          <label class="font-semibold text-slate-300 block mb-1">Full Name & Origin</label>
-          <input id="initLegalName" type="text" value="Alya Kharisma (🇲🇾 Kuala Lumpur)" class="w-full bg-[#101426] border border-slate-700 rounded-xl px-3 py-2 text-white font-bold outline-none focus:border-[#8B5CF6]" />
+          <label class="font-semibold text-slate-300 block mb-1">Legal Full Name</label>
+          <input id="initLegalName" type="text" value="Alya Kharisma" class="w-full bg-[#101426] border border-slate-700 rounded-xl px-3 py-2 text-white font-bold outline-none focus:border-[#8B5CF6]" />
         </div>
+
+        <!-- SEPARATE DEDICATED NATIONALITY COLUMN -->
         <div>
-          <label class="font-semibold text-slate-300 block mb-1">Character Archetype</label>
-          <select id="initGender" class="w-full bg-[#101426] border border-slate-700 rounded-xl px-3 py-2 text-white outline-none">
-            <option value="FEMALE">♀️ Alya Master Identity (Long Dark Brown Hair)</option>
-            <option value="MALE">♂️ Kael Master Identity (Two-Block Dark Hair)</option>
+          <label class="font-semibold text-[#22D3EE] block mb-1">Nationality / Country</label>
+          <select id="initNationality" class="w-full bg-[#101426] border border-[#22D3EE]/50 rounded-xl px-3 py-2 text-white font-bold outline-none focus:border-[#22D3EE]">
+            <option value="🇲🇾 Malaysia">🇲🇾 Malaysia</option>
+            <option value="🇰🇷 South Korea">🇰🇷 South Korea</option>
+            <option value="🇯🇵 Japan">🇯🇵 Japan</option>
+            <option value="🇹🇭 Thailand">🇹🇭 Thailand</option>
+            <option value="🇮🇩 Indonesia">🇮🇩 Indonesia</option>
+            <option value="🇸🇬 Singapore">🇸🇬 Singapore</option>
+            <option value="🇵🇭 Philippines">🇵🇭 Philippines</option>
+            <option value="🇹🇼 Taiwan">🇹🇼 Taiwan</option>
+            <option value="🌏 Global / International">🌏 Global / International</option>
           </select>
         </div>
+
+        <div>
+          <label class="font-semibold text-slate-300 block mb-1">Hometown / City</label>
+          <input id="initHometown" type="text" value="Kuala Lumpur" class="w-full bg-[#101426] border border-slate-700 rounded-xl px-3 py-2 text-white font-bold outline-none" />
+        </div>
+
         <div>
           <label class="font-semibold text-slate-300 block mb-1">Artistic Specialization</label>
           <select id="initArtisticProfile" class="w-full bg-[#101426] border border-slate-700 rounded-xl px-3 py-2 text-white outline-none">
@@ -109,6 +139,7 @@
             <option value="songwriter">✍️ Producer-Songwriter (+Songwriting)</option>
           </select>
         </div>
+
         <div>
           <label class="font-semibold text-slate-300 block mb-1">Personality</label>
           <select id="initPersonality" class="w-full bg-[#101426] border border-slate-700 rounded-xl px-3 py-2 text-white outline-none">
@@ -118,19 +149,22 @@
             <option value="Charismatic">Fierce Stage Charisma</option>
           </select>
         </div>
+
         <div>
           <label class="font-semibold text-slate-300 block mb-1">Starting Background</label>
           <select id="initBackground" class="w-full bg-[#101426] border border-slate-700 rounded-xl px-3 py-2 text-white outline-none">
-            <option value="intl">🌏 International Auditionee (+SEA Fans)</option>
+            <option value="intl">🌏 International Auditionee (+Global Fans)</option>
             <option value="scholarship">🎓 Academy Scholarship (+Skill Base)</option>
             <option value="wealthy">💎 Supported Trainee (+$100k Agency Capital)</option>
             <option value="child">🎬 Former Child Performer (+Media & Acting)</option>
           </select>
         </div>
+
         <div>
           <label class="font-semibold text-slate-300 block mb-1">Entertainment Agency</label>
           <input id="initAgencyInput" type="text" value="GEMPAK ENTERTAINMENT" class="w-full bg-[#101426] border border-slate-700 rounded-xl px-3 py-2 text-white font-bold outline-none" />
         </div>
+
         <div>
           <label class="font-semibold text-slate-300 block mb-1">Executive Producer & Focus</label>
           <div class="grid grid-cols-2 gap-1.5">
@@ -156,7 +190,7 @@
     </div>
   </div>
 
-  <!-- CLEAN, RESTRAINED HEADER BAR -->
+  <!-- CLEAN HEADER BAR -->
   <header class="sticky top-0 z-30 bg-[#101426]/95 backdrop-blur-md border-b border-slate-800/80 px-4 py-2.5">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
       <div class="flex items-center gap-3">
@@ -219,12 +253,12 @@
         <!-- HERO 2.5D SCENE & SEMI-REALISTIC CHARACTER STAGE -->
         <div id="heroSceneContainer" class="relative rounded-3xl overflow-hidden border border-slate-700/80 min-h-[480px] sm:min-h-[520px] flex flex-col justify-between shadow-2xl scene-transition bg-[#101426]">
 
-          <!-- LAYER 1: FULL-BLEED PHOTOGRAPHIC & ARCHITECTURAL LOCATION SCENE -->
+          <!-- LAYER 1: FULL-BLEED LOCATION SCENE -->
           <img id="sceneBgImage" src="" alt="Location Environment" class="absolute inset-0 w-full h-full object-cover opacity-55 transition-all duration-700" />
           <div id="sceneOverlayGradient" class="absolute inset-0 bg-gradient-to-t from-[#101426] via-[#101426]/45 to-transparent"></div>
           <div id="sceneLightingLayer" class="absolute inset-0 pointer-events-none"></div>
 
-          <!-- LAYER 2: TOP ENVIRONMENT HUD (LOCATION, TIME, MOOD, ENERGY) -->
+          <!-- LAYER 2: TOP ENVIRONMENT HUD -->
           <div class="relative z-20 p-4 sm:p-5 flex flex-wrap items-start justify-between gap-3">
             <div class="bg-[#101426]/85 backdrop-blur-md border border-slate-700/80 px-4 py-2.5 rounded-2xl">
               <div class="flex items-center gap-2.5">
@@ -236,7 +270,7 @@
               </div>
             </div>
 
-            <!-- Quick Scene Switcher & Energy Pill -->
+            <!-- Energy & Mood Info -->
             <div class="flex flex-wrap items-center gap-2">
               <div class="bg-[#101426]/85 backdrop-blur-md border border-slate-700/80 px-3 py-2 rounded-2xl flex items-center gap-3 text-xs">
                 <span>⚡ Energy: <b id="hudEnergyText" class="text-emerald-400">95%</b></span>
@@ -248,19 +282,19 @@
             </div>
           </div>
 
-          <!-- LAYER 3: CENTERPIECE SEMI-REALISTIC CHARACTER PORTRAIT + LIVE SCENE EXPERIENCE -->
+          <!-- LAYER 3: CENTERPIECE CHARACTER PORTRAIT + LIVE SCENE EXPERIENCE -->
           <div class="relative z-20 px-4 sm:px-6 pb-5 pt-2 grid grid-cols-1 md:grid-cols-12 gap-5 items-end">
 
-            <!-- Persistent Semi-Realistic Character Portrait Card (Alya TRN-0001) -->
+            <!-- Persistent Semi-Realistic Character Portrait Card -->
             <div class="md:col-span-5 flex justify-center">
               <div class="relative w-60 h-72 sm:w-64 sm:h-80 rounded-3xl overflow-hidden border-2 border-[#8B5CF6]/70 shadow-2xl bg-[#1B2038] animate-character group">
-                <img id="characterMasterImg" src="" alt="Alya Character Portrait" class="w-full h-full object-cover object-top transition-all duration-500" />
+                <img id="characterMasterImg" src="" alt="Character Portrait" class="w-full h-full object-cover object-top transition-all duration-500" />
                 <div id="characterLightingTint" class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-[#101426]/65 via-transparent to-[#8B5CF6]/20"></div>
 
-                <!-- Top Identity Badge -->
+                <!-- Top Identity & Nationality Badges -->
                 <div class="absolute top-3 left-3 right-3 flex justify-between items-center">
                   <span class="px-2.5 py-0.5 rounded-md bg-[#101426]/85 backdrop-blur-md border border-white/15 text-[10px] font-bold text-[#22D3EE]">
-                    ID: <span id="idolIdLabel">TRN-0001</span>
+                    <span id="idolNationalityFlag">🇲🇾 Malaysia</span>
                   </span>
                   <span id="idolRankBadge" class="px-2.5 py-0.5 rounded-md bg-[#EC4899] text-white text-[10px] font-extrabold">
                     Rank B (58)
@@ -271,7 +305,10 @@
                 <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-[#101426] via-[#101426]/90 to-transparent p-3.5">
                   <div class="flex items-center justify-between">
                     <div>
-                      <h2 id="idolStageNameDisplay" class="text-xl font-extrabold text-white font-display tracking-tight leading-none">ALYA</h2>
+                      <div class="flex items-center gap-1.5">
+                        <h2 id="idolStageNameDisplay" class="text-xl font-extrabold text-white font-display tracking-tight leading-none">ALYA</h2>
+                        <span id="idolGenderBadge" class="text-xs">♀️</span>
+                      </div>
                       <p id="idolSubInfoDisplay" class="text-[11px] text-slate-300 mt-1">Alya Kharisma • Trainee</p>
                     </div>
                     <button onclick="openWardrobeModal()" class="bg-[#1B2038]/90 hover:bg-[#8B5CF6] text-white text-[10px] font-bold px-2.5 py-1.5 rounded-xl border border-white/15 transition">
@@ -286,7 +323,7 @@
               </div>
             </div>
 
-            <!-- Live Story Experience, Current Objective & Prominent Quick Actions -->
+            <!-- Live Story Experience & Quick Actions -->
             <div class="md:col-span-7 flex flex-col justify-end space-y-3">
 
               <!-- Live Scene & Activity Experience Box -->
@@ -298,7 +335,7 @@
                   <span id="evalCountdownText" class="text-[11px] text-[#22D3EE] font-bold">Monthly Evaluation in 3 Weeks</span>
                 </div>
                 <p id="recentMomentText" class="text-xs sm:text-sm text-white font-medium leading-relaxed">
-                  Alya is reviewing her lyric notebook in the dormitory before heading to the dance practice studio.
+                  Preparing your daily schedule inside the dormitory.
                 </p>
                 <div id="activityFeedbackBar" class="text-[11px] text-emerald-400 font-semibold pt-1 border-t border-slate-800/80">
                   ✔ Select an activity below to visit the studio, train skills, and experience today's schedule.
@@ -308,7 +345,7 @@
               <!-- 6 PROMINENT QUICK ACTIONS -->
               <div class="bg-[#101426]/90 backdrop-blur-md border border-slate-700/90 rounded-2xl p-3.5 space-y-2.5">
                 <div class="flex justify-between items-center">
-                  <span class="text-xs font-extrabold text-white">🗓️ Today's Idol Schedule (Changes Location Scene & Stats)</span>
+                  <span class="text-xs font-extrabold text-white">🗓️ Today's Idol Schedule</span>
                   <div class="flex gap-1.5">
                     <button onclick="openMiniGameModal('dance')" class="text-[10px] bg-[#1B2038] hover:bg-slate-800 text-[#22D3EE] border border-[#22D3EE]/30 px-2.5 py-1 rounded-lg font-bold">🎮 Rhythm Practice</button>
                     <button onclick="openDocumentaryModal()" class="text-[10px] bg-[#1B2038] hover:bg-slate-800 text-amber-300 border border-amber-400/30 px-2.5 py-1 rounded-lg font-bold">📖 Career Story</button>
@@ -348,7 +385,7 @@
                     <div class="text-[10px] text-slate-400 mt-0.5">+Visual/Media • -10 Energy</div>
                   </button>
 
-                  <!-- Dynamic Fan Interaction Button: Busking while Trainee, Official Fansign once Debuted -->
+                  <!-- Dynamic Fan Interaction Button -->
                   <button onclick="openFansignModal()" class="action-btn bg-[#1B2038] hover:bg-slate-800 border border-slate-700 p-2.5 rounded-xl text-left">
                     <div class="font-bold text-white flex items-center justify-between">
                       <span id="quickFanActionTitle">🎸 Pre-Debut Busking</span>
@@ -371,10 +408,9 @@
           </div>
         </div>
 
-        <!-- SECONDARY CHARACTER STATUS: CORE SKILLS, RELATIONSHIPS & MEMORIES -->
+        <!-- SECONDARY CHARACTER STATUS: CORE SKILLS & RELATIONSHIPS -->
         <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
-
-          <!-- Core Idol Attributes (Compact & Clean) -->
+          <!-- Core Idol Attributes -->
           <div class="md:col-span-6 panel-card rounded-2xl p-4 space-y-3">
             <div class="flex justify-between items-center">
               <h3 class="text-xs font-extrabold text-white uppercase tracking-wider">🎤 Character Skills & Readiness</h3>
@@ -384,11 +420,11 @@
             <div class="pt-2 border-t border-slate-800 grid grid-cols-3 gap-2 text-center text-[11px]" id="personalStatsGrid"></div>
           </div>
 
-          <!-- Relationships, Teammates & Recent Memories -->
+          <!-- Relationships & Teammates -->
           <div class="md:col-span-6 panel-card rounded-2xl p-4 flex flex-col justify-between space-y-3">
             <div>
               <div class="flex justify-between items-center mb-2">
-                <h3 class="text-xs font-extrabold text-white uppercase tracking-wider">💞 Fellow Trainees & Memories</h3>
+                <h3 class="text-xs font-extrabold text-white uppercase tracking-wider">💞 Fellow Trainees & Nationalities</h3>
                 <span class="text-[10px] text-[#EC4899] font-semibold">Click to Practice Together</span>
               </div>
               <div id="relationshipsList" class="space-y-2 text-xs"></div>
@@ -407,22 +443,21 @@
               </div>
             </div>
           </div>
-
         </div>
       </section>
 
-      <!-- TAB 2: TRAINEES & PORTRAIT CARDS -->
+      <!-- TAB 2: TRAINEES (WITH DEDICATED NATIONALITY COLUMN & MULTIPLE COUNTRIES) -->
       <section id="tab-trainees" class="tab-content hidden flex-col gap-4">
         <div class="panel-card rounded-3xl p-5">
           <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
             <div>
-              <h2 class="text-base sm:text-lg font-extrabold text-white font-display">👥 Agency Trainees & Casting</h2>
-              <p class="text-xs text-slate-400">Each trainee has a persistent portrait, personality, and relationship history with your idol.</p>
+              <h2 class="text-base sm:text-lg font-extrabold text-white font-display">👥 Agency Trainees & Multi-National Casting</h2>
+              <p class="text-xs text-slate-400">Scout talent across Malaysia, South Korea, Japan, Thailand, Indonesia, and global markets.</p>
             </div>
             <div class="flex flex-wrap gap-1.5">
               <button onclick="openScoutModal('street')" class="bg-[#101426] hover:bg-slate-800 border border-amber-500/40 text-amber-300 text-xs font-bold px-3 py-1.5 rounded-xl">🚶 Street Cast ($8k)</button>
               <button onclick="openScoutModal('academy')" class="bg-[#101426] hover:bg-slate-800 border border-[#22D3EE]/40 text-[#22D3EE] text-xs font-bold px-3 py-1.5 rounded-xl">🏫 Academy ($15k)</button>
-              <button onclick="openScoutModal('audition')" class="bg-[#101426] hover:bg-slate-800 border border-[#EC4899]/40 text-pink-300 text-xs font-bold px-3 py-1.5 rounded-xl">🌍 Audition ($25k)</button>
+              <button onclick="openScoutModal('audition')" class="bg-[#101426] hover:bg-slate-800 border border-[#EC4899]/40 text-pink-300 text-xs font-bold px-3 py-1.5 rounded-xl">🌍 Global Audition ($25k)</button>
               <button onclick="openPoachModal()" class="bg-[#101426] hover:bg-slate-800 border border-[#8B5CF6]/40 text-purple-300 text-xs font-bold px-3 py-1.5 rounded-xl">🕵️ Poach Rival ($35k)</button>
             </div>
           </div>
@@ -583,7 +618,7 @@
         </div>
       </section>
 
-      <!-- TAB 6: IDOL SURVIVAL: DREAM STAGE -->
+      <!-- TAB 6: IDOL SURVIVAL: DREAM STAGE (WITH SEPARATED NATIONALITY COLUMN) -->
       <section id="tab-survival" class="tab-content hidden flex-col gap-4">
         <div class="panel-card rounded-3xl p-5">
           <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
@@ -592,7 +627,7 @@
                 🏆 IDOL SURVIVAL: DREAM STAGE (8 Weeks · 12 Episodes · 24 Trainees → 7 Debut)
               </h2>
               <p class="text-xs text-slate-400">
-                Airs every <b>March & April</b>. Weighted Scoring: <b>35% Live · 30% Fan Votes · 20% Mentor · 15% Teamwork</b>.
+                Airs every <b>March & April</b>. Multi-country contestants competing across Malaysia, Korea, Japan, Thailand, Singapore, and more.
               </p>
             </div>
             <span id="survivalStatusBadge" class="text-xs px-3 py-1 rounded-full bg-[#8B5CF6]/20 border border-[#8B5CF6]/40 text-[#22D3EE] font-bold">
@@ -690,13 +725,13 @@
         </div>
       </section>
 
-      <!-- TAB 8: AGENCY MANAGEMENT, FINANCES & VERIFIED ASSET REGISTRY -->
+      <!-- TAB 8: AGENCY MANAGEMENT & FINANCES -->
       <section id="tab-facilities" class="tab-content hidden flex-col gap-4">
         <div class="panel-card rounded-3xl p-5 space-y-4">
           <div class="flex flex-wrap justify-between items-center gap-2">
             <div>
-              <h2 class="text-base sm:text-lg font-extrabold text-white font-display">🏗️ Agency Management, Finances & Asset Registry</h2>
-              <p class="text-xs text-slate-400">Secondary administrative controls, facility upgrades, fan archetypes, and verified character asset paths.</p>
+              <h2 class="text-base sm:text-lg font-extrabold text-white font-display">🏗️ Agency Management & Facilities</h2>
+              <p class="text-xs text-slate-400">Facility upgrades, weekly financial reports, and fan archetypes.</p>
             </div>
             <span class="text-xs text-emerald-400 font-bold bg-[#101426] px-3 py-1 rounded-xl border border-slate-800">
               Upkeep: <span id="upkeepDisplay">-$5,900/wk</span>
@@ -758,7 +793,7 @@
           <div class="bg-[#101426] border border-slate-800 rounded-2xl p-4 text-xs space-y-2">
             <h3 class="font-bold text-[#22D3EE]">🗂️ Character Asset Registry (`TRN-0001`)</h3>
             <p class="text-[11px] text-slate-400">
-              Pre-integrated with semi-realistic 2.5D photographic portraits and 6 atmospheric scene backdrops. You can also paste any custom local path (e.g., <code>public/assets/characters/alya/master.webp</code>) or image URL below:
+              Pre-integrated with semi-realistic photographic portraits and 6 scene backdrops. You can paste any custom portrait URL or local path below:
             </p>
             <div class="flex gap-2">
               <input id="customPortraitUrlInput" type="text" placeholder="Optional: Paste custom portrait URL or local path..." class="flex-1 bg-[#1B2038] border border-slate-700 rounded-xl px-3 py-1.5 text-white outline-none" />
@@ -783,7 +818,7 @@
         <p id="gossipDesc" class="text-[11px] text-slate-300"></p>
         <div class="grid grid-cols-1 gap-1.5 pt-1 text-[11px]">
           <button onclick="resolveGossip('official')" class="bg-[#101426] hover:bg-slate-900 text-white font-bold py-1.5 px-3 rounded-xl border border-slate-700 text-left">
-            🛡️ 1. Issue Official Agency Statement ($5k • +Trust)
+            🛡️ 1. Issue Official Statement ($5k • +Trust)
           </button>
           <button onclick="resolveGossip('personal')" class="bg-[#101426] hover:bg-slate-900 text-pink-200 font-bold py-1.5 px-3 rounded-xl border border-[#EC4899]/40 text-left">
             💬 2. Address Personally on DearU Live (+Fame & Loyalty)
@@ -831,7 +866,7 @@
 
   <script>
     // ============================================================================
-    // VERIFIED 2.5D CHARACTER & SCENE ASSET REGISTRY
+    // VERIFIED 2.5D ASSET REGISTRY
     // ============================================================================
     const ASSET_MANIFEST = {
       characters: {
@@ -913,6 +948,28 @@
         : ASSET_MANIFEST.characters["TRN-0001"].masterFemale;
     }
 
+    function onGenderSelectChange() {
+      const g = document.getElementById("initGender").value;
+      const previewImg = document.getElementById("startModalPortraitPreview");
+      const pill = document.getElementById("startModalGenderPill");
+      const nameInput = document.getElementById("initStageName");
+      const legalInput = document.getElementById("initLegalName");
+
+      if (g === "MALE") {
+        previewImg.src = ASSET_MANIFEST.characters["TRN-0001"].masterMale;
+        pill.innerText = "♂️ MALE";
+        pill.className = "absolute bottom-1 right-1 px-1.5 py-0.5 rounded bg-[#101426]/90 text-[9px] font-bold text-[#22D3EE]";
+        if (nameInput.value === "ALYA") nameInput.value = "KAEL";
+        if (legalInput.value === "Alya Kharisma") legalInput.value = "Kael Rusli";
+      } else {
+        previewImg.src = ASSET_MANIFEST.characters["TRN-0001"].masterFemale;
+        pill.innerText = "♀️ FEMALE";
+        pill.className = "absolute bottom-1 right-1 px-1.5 py-0.5 rounded bg-[#101426]/90 text-[9px] font-bold text-[#EC4899]";
+        if (nameInput.value === "KAEL") nameInput.value = "ALYA";
+        if (legalInput.value === "Kael Rusli") legalInput.value = "Alya Kharisma";
+      }
+    }
+
     function getTraineePortraitUrl(t, idx) {
       if (t.portraitUrl) return t.portraitUrl;
       const rec = ASSET_MANIFEST.characters[t.id];
@@ -927,18 +984,13 @@
     }
 
     // ============================================================================
-    // IDOL SURVIVAL: DREAM STAGE — 8-WEEK PLAN
+    // IDOL SURVIVAL: DREAM STAGE — 8 WEEKS
     // ============================================================================
     const SURVIVAL_WEEKS_PLAN = [
       null,
       {
-        week: 1,
-        episodes: "Episodes 1–2",
-        title: "Week 1 — The Audition",
-        theme: "First impressions",
-        startCount: 24,
-        remainAfter: 24,
-        twist: "Initial rankings and first rivalries form across the 24 contestants!",
+        week: 1, episodes: "Episodes 1–2", title: "Week 1 — The Audition", theme: "First impressions", startCount: 24, remainAfter: 24,
+        twist: "Initial rankings and first multi-national rivalries form across 24 contestants!",
         choices: [
           { id: "vocal", label: "🎤 Vocal Audition Focus", desc: "Showcase raw high-note stability (+Live Perf & Mentor Eval)" },
           { id: "dance", label: "💃 Dance Audition Focus", desc: "Command the stage with razor-sharp choreo (+Live Perf & Fan Votes)" },
@@ -947,13 +999,8 @@
         ]
       },
       {
-        week: 2,
-        episodes: "Episode 3",
-        title: "Week 2 — Training Camp",
-        theme: "Prove your potential",
-        startCount: 24,
-        remainAfter: 24,
-        twist: "TWIST: One low-ranked Grade-F trainee impresses the mentors during re-evaluation!",
+        week: 2, episodes: "Episode 3", title: "Week 2 — Training Camp", theme: "Prove your potential", startCount: 24, remainAfter: 24,
+        twist: "TWIST: One low-ranked trainee impresses the mentors during re-evaluation!",
         choices: [
           { id: "stamina_camp", label: "🏃 All-Night Stamina & Sync Drill", desc: "Push through exhaustion for a grade jump (+Mentor Eval)" },
           { id: "coach_team", label: "🤝 Coach Struggling Teammates", desc: "Lead the practice room (+15% Teamwork Benefit)" },
@@ -961,12 +1008,7 @@
         ]
       },
       {
-        week: 3,
-        episodes: "Episodes 4–5",
-        title: "Week 3 — Position Battle",
-        theme: "Find your specialty (First Elimination: 24 → 20)",
-        startCount: 24,
-        remainAfter: 20,
+        week: 3, episodes: "Episodes 4–5", title: "Week 3 — Position Battle", theme: "Find your specialty (24 → 20)", startCount: 24, remainAfter: 20,
         twist: "TWIST: A trainee's assigned position causes heated team conflict during rehearsal!",
         choices: [
           { id: "center_claim", label: "👑 Claim Center & Main Position", desc: "High risk, huge live stage spotlight (+Live Perf & Fan Votes)" },
@@ -975,40 +1017,25 @@
         ]
       },
       {
-        week: 4,
-        episodes: "Episode 6",
-        title: "Week 4 — Dorm Life & Hidden Stories",
-        theme: "Beyond the stage (20 Trainees Remain)",
-        startCount: 20,
-        remainAfter: 20,
+        week: 4, episodes: "Episode 6", title: "Week 4 — Dorm Life & Hidden Stories", theme: "Beyond the stage (20 Remain)", startCount: 20, remainAfter: 20,
         twist: "TWIST: A popular trainee tearfully reveals a personal struggle during the dorm interview.",
         choices: [
-          { id: "dorm_chef", label: "🍜 Cook Malaysian Supper for Dorm", desc: "Wholesome viral moment (+Fan Votes & +Teamwork)" },
+          { id: "dorm_chef", label: "🍜 Cook Supper for Multi-National Dorm", desc: "Wholesome viral moment (+Fan Votes & +Teamwork)" },
           { id: "comfort_rival", label: "💜 Comfort Struggling Trainee", desc: "Heartwarming storyline trends #1 on Pulse (+Fan Votes)" },
           { id: "dance_challenge", label: "📱 Film Dorm Dance Challenge", desc: "Explodes on StageOn & Pulse (+Fan Votes)" }
         ]
       },
       {
-        week: 5,
-        episodes: "Episodes 7–8",
-        title: "Week 5 — Concept Battle",
-        theme: "Can you adapt? (Second Elimination: 20 → 16)",
-        startCount: 20,
-        remainAfter: 16,
+        week: 5, episodes: "Episodes 7–8", title: "Week 5 — Concept Battle", theme: "Can you adapt? (20 → 16)", startCount: 20, remainAfter: 16,
         twist: "TWIST: One team receives a difficult song and limited preparation time!",
         choices: [
-          { id: "crush_dark", label: "🔥 Master Dark / Girl-Boy Crush Concept", desc: "Fierce facial expressions (+Live Perf & Fan Votes)" },
+          { id: "crush_dark", label: "🔥 Master Dark / High-Crush Concept", desc: "Fierce facial expressions (+Live Perf & Fan Votes)" },
           { id: "fresh_elegant", label: "🌸 Reinvent Stage Aura (Fresh & Elegant)", desc: "Impress mentors with adaptability (+Mentor Eval)" },
           { id: "emergency_rehearsal", label: "⚡ Lead Emergency Choreography Fix", desc: "Save the team from stage mistakes (+Teamwork Benefit)" }
         ]
       },
       {
-        week: 6,
-        episodes: "Episode 9",
-        title: "Week 6 — The Fan Vote War",
-        theme: "Popularity versus talent (Third Elimination: 16 → 12)",
-        startCount: 16,
-        remainAfter: 12,
+        week: 6, episodes: "Episode 9", title: "Week 6 — The Fan Vote War", theme: "Popularity versus talent (16 → 12)", startCount: 16, remainAfter: 12,
         twist: "TWIST: A technically strong trainee falls in rankings while an underdog rises!",
         choices: [
           { id: "fan_campaign", label: "💌 Host Global Fan Meeting & DearU Live", desc: "Mobilize core fandom (+30% Fan Votes)" },
@@ -1017,12 +1044,7 @@
         ]
       },
       {
-        week: 7,
-        episodes: "Episodes 10–11",
-        title: "Week 7 — Original Song Mission",
-        theme: "Become a real idol (Semifinal Elimination: 12 → 7 Finalists)",
-        startCount: 12,
-        remainAfter: 7,
+        week: 7, episodes: "Episodes 10–11", title: "Week 7 — Original Song Mission", theme: "Become a real idol (12 → 7 Finalists)", startCount: 12, remainAfter: 7,
         twist: "TWIST: A last-minute performance problem tests the team's live teamwork!",
         choices: [
           { id: "produce_hook", label: "✍️ Co-Write Original Chorus & Killing Part", desc: "Producer praise + chart-topping track (+Mentor Eval)" },
@@ -1031,23 +1053,18 @@
         ]
       },
       {
-        week: 8,
-        episodes: "Episode 12 (LIVE FINALE)",
-        title: "Week 8 — The Grand Finale",
-        theme: "One last chance (7 Finalists → 7 Debut Members)",
-        startCount: 7,
-        remainAfter: 7,
-        twist: "TWIST: The last debut position is decided by the final live vote!",
+        week: 8, episodes: "Episode 12 (LIVE FINALE)", title: "Week 8 — The Grand Finale", theme: "7 Finalists → 7 Debut Members", startCount: 7, remainAfter: 7,
+        twist: "TWIST: The last debut position is decided by the final live global vote!",
         choices: [
           { id: "finale_center", label: "👑 Deliver All-Out Live Finale Center Stage", desc: "Fight for #1 Center Throne (+Live Perf & Fan Votes)" },
-          { id: "finale_speech", label: "🥹 Emotional Multilingual Speech (MY/KR/EN)", desc: "Surge live finale votes worldwide (+Fan Votes)" },
+          { id: "finale_speech", label: "🥹 Emotional Multilingual Speech", desc: "Surge live finale votes worldwide (+Fan Votes)" },
           { id: "finale_harmony", label: "🎶 Elevate Final 7-Member Group Harmony", desc: "Perfect mentor score & debut chemistry (+Mentor Eval)" }
         ]
       }
     ];
 
     // ============================================================================
-    // CENTRAL SHARED SIMULATION STATE (GameState)
+    // CENTRAL SHARED GAME STATE
     // ============================================================================
     const G = {
       agencyName: "GEMPAK ENTERTAINMENT",
@@ -1069,14 +1086,16 @@
         locationKey: "dormitory",
         title: "Hapjeong Shared Dormitory • 08:30 KST",
         mood: "Hopeful",
-        recentMoment: "Alya is reviewing her lyric notebook in the dormitory before heading to the dance practice studio.",
-        lastFeedback: "✔ Ready for today's schedule. Choose an activity below to transition to the studio."
+        recentMoment: "Reviewing schedules and lyric drafts inside the dormitory.",
+        lastFeedback: "✔ Ready for today's schedule."
       },
       player: {
         id: "TRN-0001",
         stageName: "ALYA",
-        legalName: "Alya Kharisma (🇲🇾 Kuala Lumpur)",
+        legalName: "Alya Kharisma",
         gender: "FEMALE",
+        nationality: "🇲🇾 Malaysia",
+        hometown: "Kuala Lumpur",
         profile: "allrounder",
         personality: "Ambitious",
         outfit: "Denim Casual Jacket",
@@ -1098,11 +1117,12 @@
         "Community Fans": 85,
         "Critical Listeners": 65
       },
+      // Trainees with SEPARATED nationality and origin
       trainees: [
-        { id: "TRN-0002", name: "Aiman", gender: "MALE", origin: "KL, Malaysia 🇲🇾", trait: "Underground Rapper", vocal: 68, rap: 82, dance: 74, visual: 76, stamina: 90, trust: 72, respect: 70, rivalry: 25, memory: "Practiced late-night cypher together in Week 1." },
-        { id: "TRN-0003", name: "Hana", gender: "FEMALE", origin: "Penang, MY 🇲🇾", trait: "R&B Vocalist", vocal: 78, rap: 54, dance: 66, visual: 74, stamina: 88, trust: 76, respect: 75, rivalry: 15, memory: "Shared vocal warm-up tips before evaluation." },
-        { id: "TRN-0004", name: "Minjun", gender: "MALE", origin: "Seoul, KR 🇰🇷", trait: "Perfectionist Dancer", vocal: 62, rap: 64, dance: 80, visual: 72, stamina: 85, trust: 58, respect: 68, rivalry: 45, memory: "Competed fiercely for the center dance break." },
-        { id: "TRN-0005", name: "Sora", gender: "FEMALE", origin: "Tokyo, JP 🇯🇵", trait: "Choreo Prodigy", vocal: 60, rap: 58, dance: 79, visual: 75, stamina: 92, trust: 70, respect: 72, rivalry: 20, memory: "Helped synchronize the group's chorus formation." }
+        { id: "TRN-0002", name: "Aiman", gender: "MALE", nationality: "🇲🇾 Malaysia", hometown: "Kuala Lumpur", trait: "Underground Rapper", vocal: 68, rap: 82, dance: 74, visual: 76, stamina: 90, trust: 72, respect: 70, rivalry: 25, memory: "Practiced late-night cypher in Studio B." },
+        { id: "TRN-0003", name: "Hana", gender: "FEMALE", nationality: "🇲🇾 Malaysia", hometown: "Penang", trait: "R&B Vocalist", vocal: 78, rap: 54, dance: 66, visual: 74, stamina: 88, trust: 76, respect: 75, rivalry: 15, memory: "Shared vocal warm-up tips before evaluation." },
+        { id: "TRN-0004", name: "Minjun", gender: "MALE", nationality: "🇰🇷 South Korea", hometown: "Seoul", trait: "Perfectionist Dancer", vocal: 62, rap: 64, dance: 80, visual: 72, stamina: 85, trust: 58, respect: 68, rivalry: 45, memory: "Competed fiercely for the center dance break." },
+        { id: "TRN-0005", name: "Sora", gender: "FEMALE", nationality: "🇯🇵 Japan", hometown: "Tokyo", trait: "Choreo Prodigy", vocal: 60, rap: 58, dance: 79, visual: 75, stamina: 92, trust: 70, respect: 72, rivalry: 20, memory: "Synchronized the group chorus formation." }
       ],
       groups: [],
       discography: [],
@@ -1134,18 +1154,17 @@
       ],
       feeds: {
         pulse: [
-          { user: "@KpopTrends_MY", tag: "#Idolverse", text: "Spotted new Malaysian trainee Alya (TRN-0001) entering the practice studio today! 🔥", time: "Y1•M1•W1" },
-          { user: "@DreamStage_Official", tag: "#DreamStage24", text: "24 trainees will enter IDOL SURVIVAL: DREAM STAGE (8 Weeks · 12 Episodes) this March! Only 7 will debut!", time: "Y1•M1•W1" }
+          { user: "@KpopTrends_MY", tag: "#Idolverse", text: "Spotted new trainee entering the practice studio today! 🔥", time: "Y1•M1•W1" },
+          { user: "@DreamStage_Official", tag: "#DreamStage24", text: "24 multi-national contestants confirmed for IDOL SURVIVAL: DREAM STAGE this March!", time: "Y1•M1•W1" }
         ],
         spotlight: [
-          { title: "INDUSTRY REPORT: 'IDOL SURVIVAL: DREAM STAGE' Announces 24-Trainee Format", body: "Producers confirm a weighted 100-point scoring formula: 35% Live Performance, 30% Fan Votes, 20% Mentor Evaluation, and 15% Mission Benefits & Teamwork.", time: "Y1•M1•W1" }
+          { title: "INDUSTRY REPORT: 'IDOL SURVIVAL: DREAM STAGE' Announces 24-Trainee Roster", body: "Trainees from Malaysia, South Korea, Japan, Thailand, Singapore and beyond will compete for 7 debut seats.", time: "Y1•M1•W1" }
         ],
         dearu: [
-          { id: "L-1", fan: "AlyaStan_MY 💜", msg: "We saw your pre-debut audition photos! Don't skip meals and rest well in the dorm!", replied: false, time: "Y1•M1•W1" },
-          { id: "L-2", fan: "SeoulStan_99 ✨", msg: "We are ready to vote for you when IDOL SURVIVAL: DREAM STAGE starts in March!", replied: false, time: "Y1•M1•W1" }
+          { id: "L-1", fan: "FanSupporter_99 💜", msg: "Don't skip meals and rest well in the dormitory! We are cheering for you!", replied: false, time: "Y1•M1•W1" }
         ],
         stageon: [
-          { title: "[PRE-DEBUT] Practice Room Evaluation Teaser #1", views: "42.5K views", comment: "Her facial expressions and synchronization are already rookie-of-the-year level!" }
+          { title: "[PRE-DEBUT] Practice Room Evaluation Clip #1", views: "42.5K views", comment: "The facial expressions and synchronization are so clean!" }
         ]
       }
     };
@@ -1194,27 +1213,28 @@
     }
 
     function initSurvivalRoster() {
-      const npcNames = [
-        ["Jayden", "Kwangya Labs", "All-Rounder", "Rival"],
-        ["Yuna-X", "Hyper Nation", "Main Dancer", "Friend"],
-        ["Haru", "Starlight Music", "Main Vocal", "Leader"],
-        ["Riku", "Neon Sounds", "Main Rapper", "Rival"],
-        ["Nadia-KL", "Bukit Bintang Indie", "Vocalist", "Underdog"],
-        ["Jihoon", "Kwangya Labs", "Visual Center", "Rival"],
-        ["Somin", "Hyper Nation", "Dancer", "Friend"],
-        ["Kaito", "Tokyo Beats", "Dancer", "Friend"],
-        ["Mali", "Bangkok Star", "Rapper", "Underdog"],
-        ["Junseo", "Seoul Academy", "Vocalist", "Leader"],
-        ["Hyejin", "Pink Label", "Visual", "Rival"],
-        ["Faris", "Nusantara Ent", "All-Rounder", "Friend"],
-        ["Chloe", "Global Audition", "Vocalist", "Friend"],
-        ["Taeo", "Basement Idol", "Rapper", "Underdog"],
-        ["Reina", "Osaka Arts", "Dancer", "Friend"],
-        ["Daehyun", "Starlight Music", "Vocalist", "Rival"],
-        ["Liyana", "Penang Arts", "Vocalist", "Underdog"],
-        ["Zack", "Cyber Labels", "Producer-Idol", "Friend"],
-        ["Eunbi", "Neon Sounds", "Dancer", "Leader"],
-        ["Kenji", "Tokyo Beats", "Rapper", "Rival"]
+      // 20 diverse multi-national contestants
+      const multiNationalNpcs = [
+        ["Jayden", "Kwangya Labs", "🇰🇷 South Korea", "All-Rounder", "Rival"],
+        ["Yuna-X", "Hyper Nation", "🇯🇵 Japan", "Main Dancer", "Friend"],
+        ["Haru", "Starlight Music", "🇯🇵 Japan", "Main Vocal", "Leader"],
+        ["Riku", "Neon Sounds", "🇰🇷 South Korea", "Main Rapper", "Rival"],
+        ["Nadia", "Bukit Bintang Indie", "🇲🇾 Malaysia", "Vocalist", "Underdog"],
+        ["Jihoon", "Kwangya Labs", "🇰🇷 South Korea", "Visual Center", "Rival"],
+        ["Somin", "Hyper Nation", "🇰🇷 South Korea", "Dancer", "Friend"],
+        ["Kaito", "Tokyo Beats", "🇯🇵 Japan", "Dancer", "Friend"],
+        ["Mali", "Bangkok Star", "🇹🇭 Thailand", "Rapper", "Underdog"],
+        ["Junseo", "Seoul Academy", "🇰🇷 South Korea", "Vocalist", "Leader"],
+        ["Hyejin", "Pink Label", "🇰🇷 South Korea", "Visual", "Rival"],
+        ["Faris", "Nusantara Ent", "🇲🇾 Malaysia", "All-Rounder", "Friend"],
+        ["Chloe", "Global Audition", "🇸🇬 Singapore", "Vocalist", "Friend"],
+        ["Taeo", "Basement Idol", "🇮🇩 Indonesia", "Rapper", "Underdog"],
+        ["Reina", "Osaka Arts", "🇯🇵 Japan", "Dancer", "Friend"],
+        ["Daehyun", "Starlight Music", "🇰🇷 South Korea", "Vocalist", "Rival"],
+        ["Liyana", "Penang Arts", "🇲🇾 Malaysia", "Vocalist", "Underdog"],
+        ["Zack", "Cyber Labels", "🇵🇭 Philippines", "Producer-Idol", "Friend"],
+        ["Eunbi", "Neon Sounds", "🇰🇷 South Korea", "Dancer", "Leader"],
+        ["Ting-An", "Taipei Talents", "🇹🇼 Taiwan", "Rapper", "Rival"]
       ];
 
       const list = [];
@@ -1223,6 +1243,8 @@
         id: G.player.id,
         name: G.player.stageName,
         agency: G.agencyName,
+        nationality: G.player.nationality,
+        gender: G.player.gender,
         specialty: G.player.profile.toUpperCase(),
         roleTag: "Player Idol 🌟",
         isPlayer: true,
@@ -1241,6 +1263,8 @@
           id: t.id,
           name: t.name,
           agency: G.agencyName,
+          nationality: t.nationality,
+          gender: t.gender,
           specialty: t.trait,
           roleTag: t.trust >= 70 ? "Close Friend 🤝" : "Teammate",
           isPlayer: false,
@@ -1254,14 +1278,16 @@
         });
       });
 
-      npcNames.forEach((n, idx) => {
+      multiNationalNpcs.forEach((n, idx) => {
         const base = 54 + (idx % 7) * 4 + Math.floor(Math.random() * 8);
         list.push({
           id: `SRV-${101 + idx}`,
           name: n[0],
           agency: n[1],
-          specialty: n[2],
-          roleTag: n[3],
+          nationality: n[2],
+          gender: idx % 2 === 0 ? "FEMALE" : "MALE",
+          specialty: n[3],
+          roleTag: n[4],
           isPlayer: false,
           isHomeAgency: false,
           eliminated: false,
@@ -1296,9 +1322,11 @@
     }
 
     function startGame() {
-      G.player.stageName = (document.getElementById("initStageName").value || "ALYA").trim().toUpperCase();
-      G.player.legalName = (document.getElementById("initLegalName").value || "Alya Kharisma (🇲🇾 Kuala Lumpur)").trim();
       G.player.gender = document.getElementById("initGender").value;
+      G.player.stageName = (document.getElementById("initStageName").value || (G.player.gender === "MALE" ? "KAEL" : "ALYA")).trim().toUpperCase();
+      G.player.legalName = (document.getElementById("initLegalName").value || (G.player.gender === "MALE" ? "Kael Rusli" : "Alya Kharisma")).trim();
+      G.player.nationality = document.getElementById("initNationality").value;
+      G.player.hometown = (document.getElementById("initHometown").value || "Kuala Lumpur").trim();
       G.player.profile = document.getElementById("initArtisticProfile").value;
       G.player.personality = document.getElementById("initPersonality").value;
       G.agencyName = (document.getElementById("initAgencyInput").value || "GEMPAK ENTERTAINMENT").trim().toUpperCase();
@@ -1323,13 +1351,13 @@
       G.player.initialAvg = calcPlayerAvg();
       initSurvivalRoster();
       document.getElementById("startScreenModal").classList.add("hidden");
-      addPulsePost("@Official_" + G.agencyName.replace(/\s+/g, ""), "#NewTrainee", `${G.ceoName} introduces trainee ${G.player.stageName} (${G.player.id}) at ${G.agencyName}!`);
+      addPulsePost("@Official_" + G.agencyName.replace(/\s+/g, ""), "#NewTrainee", `${G.ceoName} introduces ${G.player.gender === 'MALE' ? 'trainee' : 'trainee'} ${G.player.stageName} from ${G.player.nationality} at ${G.agencyName}!`);
       renderAll();
     }
 
     function saveCareer() {
       localStorage.setItem("IDOLVERSE_SAVE_V4", JSON.stringify(G));
-      alert("💾 Career & Character state saved to browser localStorage!");
+      alert("💾 Career state saved to browser localStorage!");
     }
 
     function loadSavedCareer() {
@@ -1346,12 +1374,9 @@
       const url = (document.getElementById("customPortraitUrlInput").value || "").trim();
       G.player.customPortraitUrl = url;
       renderAll();
-      alert(url ? "🖼️ Custom Master Portrait applied to TRN-0001!" : "Restored default semi-realistic Master Portrait.");
+      alert(url ? "🖼️ Custom Master Portrait applied!" : "Restored default semi-realistic Master Portrait.");
     }
 
-    // ============================================================================
-    // DAILY ACTIVITIES -> VISUAL SCENE + REAL STATE UPDATES
-    // ============================================================================
     function runPersonalActivity(type) {
       if (G.dailySlots <= 0) {
         alert("⚡ All 3 Daily Schedule actions used for this week! Click 'Next Week ⏩' in the top bar.");
@@ -1377,10 +1402,9 @@
           locationKey: "recording-studio",
           title: "Soundwave Vocal Recording Booth • 10:00 KST",
           mood: "Focused on Pitch",
-          recentMoment: `${G.player.stageName} stepped into the acoustic recording booth, practicing high-note breath control with the vocal coach.`,
+          recentMoment: `${G.player.stageName} stepped into the acoustic recording booth, practicing breath control with the vocal coach.`,
           lastFeedback: `🎤 Scene Changed → Recording Studio | +${gain} Vocal, -14 Energy`
         };
-        G.documentaryLog.unshift(`Y${G.year}•M${G.month}•W${G.week}: Completed vocal recording practice (+${gain} Vocal).`);
         addPulsePost("@VocalCoach_KR", "#StudioSession", `${G.player.stageName} recorded clean live guide vocals in the booth today (+${gain} Vocal).`);
       } else if (type === "dance") {
         const gain = Math.max(2, Math.round((5 + studioBoost) * damp));
@@ -1395,8 +1419,7 @@
           recentMoment: `${G.player.stageName} drilled choreography formations in front of the full-wall practice room mirrors.`,
           lastFeedback: `💃 Scene Changed → Practice Room | +${gain} Dance, +3 Stage Presence, -16 Energy`
         };
-        G.documentaryLog.unshift(`Y${G.year}•M${G.month}•W${G.week}: Drilled choreography synchronization in Studio B (+${gain} Dance).`);
-        addStageOnVideo(`[DANCE PRACTICE] ${G.player.stageName} Studio Mirror Cam`, `${(18 + Math.floor(G.fame / 80))}K views`, "The footwork synchronization in the practice room is so clean!");
+        addStageOnVideo(`[DANCE PRACTICE] ${G.player.stageName} Mirror Cam`, `${(18 + Math.floor(G.fame / 80))}K views`, "The footwork synchronization in the practice room is so clean!");
       } else if (type === "rap_song") {
         const gain = Math.max(2, Math.round((5 + studioBoost) * damp));
         G.player.perf.rap = Math.min(100, G.player.perf.rap + gain);
@@ -1408,10 +1431,10 @@
           locationKey: "recording-studio",
           title: "Midnight Synth & Composition Lab • 16:00 KST",
           mood: "Inspired",
-          recentMoment: `${G.player.stageName} wrote 16-bar lyrics and arranged demo beats on the studio console.`,
+          recentMoment: `${G.player.stageName} wrote lyrics and arranged demo beats on the studio console.`,
           lastFeedback: `✍️ Scene Changed → Composition Studio | +${gain} Rap & Songwriting, -12 Energy`
         };
-        addPulsePost("@ProducerInsider", "#Songwriting", `${G.player.stageName} stayed late in the studio producing original hooks (+${gain} Songwriting).`);
+        addPulsePost("@ProducerInsider", "#Songwriting", `${G.player.stageName} produced original hooks late into the night (+${gain} Songwriting).`);
       } else if (type === "acting_media") {
         G.player.perf.acting = Math.min(100, G.player.perf.acting + 5);
         G.player.perf.media = Math.min(100, G.player.perf.media + 5);
@@ -1422,10 +1445,10 @@
           locationKey: "company-office",
           title: "Agency Styling & Interview Suite • 17:00 KST",
           mood: "Confident & Poised",
-          recentMoment: `${G.player.stageName} practiced camera interviews and concept photoshoot poses at the company headquarters.`,
+          recentMoment: `${G.player.stageName} practiced camera interviews and concept photoshoot poses at company headquarters.`,
           lastFeedback: `📸 Scene Changed → Company HQ | +5 Media & Acting, +4 Confidence, -10 Energy`
         };
-        addSpotlightNews(`MEDIA TRAINING: ${G.player.stageName} Impresses Interview Coaches`, "Praised for natural camera charisma and trilingual poise.");
+        addSpotlightNews(`MEDIA TRAINING: ${G.player.stageName} Impresses Interview Coaches`, "Praised for natural camera charisma and multilingual poise.");
       } else if (type === "rest") {
         const rec = 45 + (G.facilities.dorm - 1) * 10;
         G.player.pers.energy = Math.min(100, G.player.pers.energy + rec);
@@ -1434,10 +1457,10 @@
           locationKey: "dormitory",
           title: "Hapjeong Trainee Dormitory • 22:00 KST",
           mood: "Rested & Peaceful",
-          recentMoment: `${G.player.stageName} returned to the dormitory, shared hot tea with roommates, and got a full night of sleep.`,
+          recentMoment: `${G.player.stageName} returned to the dormitory, relaxed with roommates, and recharged for the week ahead.`,
           lastFeedback: `🛌 Scene Changed → Trainee Dormitory | +${rec} Energy Restored, +4 Resilience`
         };
-        addPulsePost("@DormDiaries", "#RestWell", `${G.player.stageName} wrapped up practice and returned to the dorm for a well-deserved rest.`);
+        addPulsePost("@DormDiaries", "#RestWell", `${G.player.stageName} wrapped up practice and returned to the dorm for rest.`);
       }
 
       recalcSurvivalTotals(G.survival.contestants);
@@ -1456,10 +1479,10 @@
         locationKey: "practice-room",
         title: `Practice Studio Duet with ${t.name}`,
         mood: "High Team Chemistry",
-        recentMoment: `${G.player.stageName} and ${t.name} stayed after class to synchronize their choreography and vocal harmonies.`,
-        lastFeedback: `🤝 Practiced with ${t.name} | +8 Trust, +6 Respect, +2 Skill`
+        recentMoment: `${G.player.stageName} and ${t.name} (${t.nationality}) stayed after class to synchronize choreography.`,
+        lastFeedback: `🤝 Practiced with ${t.name} (${t.nationality}) | +8 Trust, +6 Respect, +2 Skill`
       };
-      addPulsePost("@TraineeInsider", "#Teamwork", `${G.player.stageName} and ${t.name} were spotted practicing harmonies together in Studio B!`);
+      addPulsePost("@TraineeInsider", "#Teamwork", `${G.player.stageName} and ${t.name} (${t.nationality}) were spotted practicing together in Studio B!`);
       renderAll();
     }
 
@@ -1484,80 +1507,29 @@
       const grade = getGrade(avg).label;
       const totalWins = G.groups.reduce((s, g) => s + g.wins, 0);
       const grpName = G.groups.length ? G.groups[0].name : "PRE-DEBUT TRAINEE";
-      const latestSong = G.discography.length ? G.discography[0] : { title: "DEBUT TEASER #1", concept: "Nusantara Fusion", date: `Y${G.year}•M${G.month}`, streams: 45000 };
+      const latestSong = G.discography.length ? G.discography[0] : { title: "DEBUT TEASER #1", concept: "Global Fusion", date: `Y${G.year}•M${G.month}`, streams: 45000 };
 
-      let cardTitle = "";
-      let cardSubtitle = "";
-      let cardBodyHTML = "";
-      let copyText = "";
-
-      if (activeVisualCardType === "idol") {
-        cardTitle = `${G.player.stageName} • OFFICIAL IDOL CARD`;
-        cardSubtitle = `ID: ${G.player.id} • ${grpName} • Rank ${grade} (${avg})`;
-        cardBodyHTML = `
-          <div class="grid grid-cols-2 gap-2 text-[11px] mt-2">
-            <div class="bg-[#101426] p-2 rounded-xl">👗 Outfit: <b class="text-white">${G.player.outfit}</b></div>
-            <div class="bg-[#101426] p-2 rounded-xl">💜 Loyalty: <b class="text-[#22D3EE]">${G.fanLoyalty}%</b></div>
-            <div class="bg-[#101426] p-2 rounded-xl">🎤 Vocal/Dance: <b class="text-white">${G.player.perf.vocal} / ${G.player.perf.dance}</b></div>
-            <div class="bg-[#101426] p-2 rounded-xl">🔥 Rap/Presence: <b class="text-white">${G.player.perf.rap} / ${G.player.perf.presence}</b></div>
-          </div>
-        `;
-        copyText = `🪪 MY IDOL CARD: ${G.player.stageName} (${G.player.id})\n👑 Group: ${grpName} | Rank ${grade} (${avg}/100)\n👗 Style: ${G.player.outfit} | 💜 Loyalty: ${G.fanLoyalty}%\n🔥 Fame: ${G.fame.toLocaleString()} | 🏆 Wins: ${totalWins}\n#IdolverseMY #KpopLifeSim`;
-      } else if (activeVisualCardType === "photoshoot") {
-        cardTitle = `📸 CONCEPT PHOTOSHOOT: ${G.player.outfit.toUpperCase()}`;
-        cardSubtitle = `${G.player.stageName} (${G.player.id}) • Issue Y${G.year}•M${G.month}`;
-        cardBodyHTML = `<div class="bg-[#101426] p-3 rounded-xl text-[11px] text-slate-200 mt-2">"Captured under studio lights, ${G.player.stageName} showcases ${G.player.outfit} with ${G.player.personality.toLowerCase()} aura."</div>`;
-        copyText = `📸 CONCEPT PHOTOSHOOT: ${G.player.stageName}\n✨ Concept: ${G.player.outfit} | Agency: ${G.agencyName}\n#IdolversePhotoshoot`;
-      } else if (activeVisualCardType === "group") {
-        const g = G.groups[0] || { name: "GEMPAK ROOKIES", concept: "Nusantara Fusion", members: [G.player.stageName, ...G.trainees.slice(0,3).map(x=>x.name)], chemistry: 88, wins: 0 };
-        cardTitle = `👑 GROUP PROFILE: ${g.name}`;
-        cardSubtitle = `Concept: ${g.concept} • Chemistry: ${g.chemistry}%`;
-        cardBodyHTML = `<div class="bg-[#101426] p-2.5 rounded-xl text-[11px] mt-2"><b>Lineup:</b> ${g.members.join(" • ")}<br><b>Wins:</b> 🏆 ${g.wins}</div>`;
-        copyText = `👑 GROUP PROFILE: ${g.name} (${g.concept})\n🌟 Lineup: ${g.members.join(", ")}\n#IdolverseGroup`;
-      } else if (activeVisualCardType === "comeback") {
-        cardTitle = `💿 COMEBACK POSTER: "${latestSong.title}"`;
-        cardSubtitle = `${latestSong.concept} • ${latestSong.date}`;
-        cardBodyHTML = `<div class="bg-[#101426] p-2.5 rounded-xl text-[11px] mt-2 flex justify-between"><span>🎧 Streams:</span><b class="text-[#22D3EE]">${latestSong.streams.toLocaleString()}</b></div>`;
-        copyText = `💿 COMEBACK POSTER: "${latestSong.title}" (${latestSong.concept})\n🌟 Center: ${G.player.stageName} | 🎧 ${latestSong.streams.toLocaleString()} streams\n#IdolverseComeback`;
-      } else if (activeVisualCardType === "transformation") {
-        cardTitle = `✨ TRAINEE → SUPERSTAR TRANSFORMATION`;
-        cardSubtitle = `${G.player.stageName} (${G.player.id})`;
-        cardBodyHTML = `
-          <div class="grid grid-cols-2 gap-2 text-[11px] mt-2">
-            <div class="bg-[#101426] p-2.5 rounded-xl">Day 1 Trainee: <b>${G.player.initialAvg}/100</b></div>
-            <div class="bg-[#101426] p-2.5 rounded-xl text-[#22D3EE]">Now: <b>${avg}/100 (Rank ${grade})</b></div>
-          </div>
-        `;
-        copyText = `✨ IDOL TRANSFORMATION (${G.player.stageName}): Day 1 Avg ${G.player.initialAvg} → Now Avg ${avg} (Rank ${grade}) | ${G.fame.toLocaleString()} Fame!`;
-      } else {
-        const headline = G.feeds.spotlight[0] ? G.feeds.spotlight[0].title : `${G.player.stageName} Trends #1 on Pulse!`;
-        cardTitle = `🔥 VIRAL MOMENT CARD`;
-        cardSubtitle = `Spotlight Breaking News`;
-        cardBodyHTML = `<div class="bg-[#101426] p-3 rounded-xl text-xs font-bold text-white mt-2">"${headline}"</div>`;
-        copyText = `🔥 VIRAL MOMENT: "${headline}" — ${G.player.stageName} (${G.agencyName})`;
-      }
+      let cardTitle = `${G.player.stageName} • OFFICIAL IDOL CARD`;
+      let cardSubtitle = `ID: ${G.player.id} • ${grpName} • ${G.player.nationality} • Rank ${grade}`;
+      let copyText = `🪪 MY IDOL CARD: ${G.player.stageName} (${G.player.id})\n🌍 Nationality: ${G.player.nationality}\n👑 Group: ${grpName} | Rank ${grade} (${avg}/100)\n👗 Style: ${G.player.outfit} | 💜 Loyalty: ${G.fanLoyalty}%\n🔥 Fame: ${G.fame.toLocaleString()} | 🏆 Wins: ${totalWins}\n#IdolverseMY #KpopLifeSim`;
 
       document.getElementById("modalTitle").innerText = "📸 Shareable Idol Cards";
       document.getElementById("modalBody").innerHTML = `
-        <div class="grid grid-cols-3 gap-1 text-[10px] font-bold">
-          <button onclick="switchVisualCardType('idol')" class="py-1.5 rounded-lg ${activeVisualCardType==='idol'?'bg-[#8B5CF6] text-white':'bg-[#101426] text-slate-400'}">Idol Card</button>
-          <button onclick="switchVisualCardType('photoshoot')" class="py-1.5 rounded-lg ${activeVisualCardType==='photoshoot'?'bg-[#8B5CF6] text-white':'bg-[#101426] text-slate-400'}">Photoshoot</button>
-          <button onclick="switchVisualCardType('group')" class="py-1.5 rounded-lg ${activeVisualCardType==='group'?'bg-[#8B5CF6] text-white':'bg-[#101426] text-slate-400'}">Group</button>
-          <button onclick="switchVisualCardType('comeback')" class="py-1.5 rounded-lg ${activeVisualCardType==='comeback'?'bg-[#8B5CF6] text-white':'bg-[#101426] text-slate-400'}">Comeback</button>
-          <button onclick="switchVisualCardType('transformation')" class="py-1.5 rounded-lg ${activeVisualCardType==='transformation'?'bg-[#8B5CF6] text-white':'bg-[#101426] text-slate-400'}">Before/After</button>
-          <button onclick="switchVisualCardType('viral')" class="py-1.5 rounded-lg ${activeVisualCardType==='viral'?'bg-[#8B5CF6] text-white':'bg-[#101426] text-slate-400'}">Viral News</button>
-        </div>
-
         <div class="p-4 rounded-2xl bg-[#101426] border border-[#8B5CF6]/50 space-y-2">
           <div class="flex items-center gap-3">
             <img src="${getMasterPortraitUrl()}" alt="Card Portrait" class="w-16 h-20 rounded-2xl object-cover border border-[#EC4899]/50 shrink-0" />
             <div>
-              <div class="text-[10px] font-extrabold text-[#22D3EE] uppercase">${G.agencyName}</div>
+              <div class="text-[10px] font-extrabold text-[#22D3EE] uppercase">${G.agencyName} • ${G.player.nationality}</div>
               <h4 class="text-sm font-black text-white font-display">${cardTitle}</h4>
               <p class="text-[11px] text-[#EC4899] font-semibold">${cardSubtitle}</p>
             </div>
           </div>
-          ${cardBodyHTML}
+          <div class="grid grid-cols-2 gap-2 text-[11px] mt-2">
+            <div class="bg-[#1B2038] p-2 rounded-xl">🌍 Country: <b class="text-white">${G.player.nationality}</b></div>
+            <div class="bg-[#1B2038] p-2 rounded-xl">👗 Outfit: <b class="text-white">${G.player.outfit}</b></div>
+            <div class="bg-[#1B2038] p-2 rounded-xl">🎤 Vocal/Dance: <b class="text-white">${G.player.perf.vocal} / ${G.player.perf.dance}</b></div>
+            <div class="bg-[#1B2038] p-2 rounded-xl">🔥 Rap/Presence: <b class="text-white">${G.player.perf.rap} / ${G.player.perf.presence}</b></div>
+          </div>
         </div>
 
         <button onclick="navigator.clipboard.writeText(\`${copyText}\`); alert('✅ Card copied to clipboard for Threads / TikTok!');" class="w-full bg-[#8B5CF6] hover:bg-[#7c4dff] text-white font-extrabold py-2.5 rounded-xl">
@@ -1567,16 +1539,16 @@
     }
 
     // ============================================================================
-    // ADAPTIVE FAN INTERACTIONS (BUSKING FOR TRAINEE, FANSIGN FOR DEBUTED IDOL)
+    // ADAPTIVE FAN INTERACTIONS
     // ============================================================================
     const TRAINEE_FAN_ENCOUNTERS = [
       {
-        fanName: "AlyaSupporter_MY (Bukit Bintang 🇲🇾)",
+        fanName: "InternationalFan (SEA 🌏)",
         archetype: "SEA / Global Fans",
         dialogue: "We saw your pre-debut dance cover busking! Could you do a quick chorus dance snippet for our fan cam?",
         options: [
-          { text: "💃 Perform the center killing-part dance cover flawlessly!", buff: "+280 SEA Fans, +5 Public Trust", type: "dance" },
-          { text: "🤝 Smile warmly, thank them in Malay & Korean, and take a selfie.", buff: "+200 Dedicated Fans, +4 Social", type: "sincere" },
+          { text: "💃 Perform the center killing-part dance cover flawlessly!", buff: "+280 Global Fans, +5 Public Trust", type: "dance" },
+          { text: "🤝 Smile warmly, thank them, and take a quick selfie.", buff: "+200 Dedicated Fans, +4 Social", type: "sincere" },
           { text: "🎤 Belt out an acoustic live high-note to shock the crowd!", buff: "+180 Performance Fans, +3 Vocal", type: "vocal" }
         ]
       },
@@ -1586,19 +1558,19 @@
         dialogue: "You have insane stage presence for a trainee! Are you going on IDOL SURVIVAL: DREAM STAGE this March?",
         options: [
           { text: "✨ 'Yes! Please look forward to our performances and vote for me!'", buff: "+260 Fan Votes, +180 Fame", type: "aegyo" },
-          { text: "🍜 'We are practicing day and night! Thank you for stopping by our busking!'", buff: "+6 Resilience, +4 Loyalty", type: "sincere" }
+          { text: "🍜 'We are practicing day and night! Thank you for stopping by!'", buff: "+6 Resilience, +4 Loyalty", type: "sincere" }
         ]
       }
     ];
 
     const DEBUT_FAN_ENCOUNTERS = [
       {
-        fanName: "AlyaStan (Kuala Lumpur 🇲🇾)",
+        fanName: "GlobalStan (Asia Tour 🌏)",
         archetype: "SEA / Global Fans",
-        dialogue: "I flew from KL to attend your official fansign! Will you wear this Malaysian Batik headband for our photo time?",
+        dialogue: "I flew to attend your official fansign! Will you wear this custom souvenir headband for our photo time?",
         options: [
-          { text: "👑 Wear the Batik headband and pose with a cheek-heart!", buff: "+250 SEA Fans, +5 Loyalty", type: "aegyo" },
-          { text: "🤝 Hold her hands, say 'Terima kasih!', and write a long note.", buff: "+8 Public Trust, +4 Confidence", type: "sincere" },
+          { text: "👑 Wear the headband and pose with a cheek-heart!", buff: "+250 Global Fans, +5 Loyalty", type: "aegyo" },
+          { text: "🤝 Hold their hands, express heartfelt thanks, and write a note.", buff: "+8 Public Trust, +4 Confidence", type: "sincere" },
           { text: "🎤 Sing a live acoustic chorus snippet right at the table!", buff: "+150 Performance Fans, +3 Vocal", type: "vocal" }
         ]
       },
@@ -1624,8 +1596,8 @@
         title: isDebuted ? "Official Album Fansign & Fan Meeting Hall • 17:30 KST" : "Pre-Debut Street Busking & Fan Meet • 18:00 KST",
         mood: isDebuted ? "Warm & Grateful" : "Electric Street Energy",
         recentMoment: isDebuted
-          ? `${G.player.stageName} greeted fans one-on-one at the album fansign table, signing photocards and answering questions.`
-          : `${G.player.stageName} performed a pre-debut street busking showcase in Hongdae / Bukit Bintang, meeting early supporters!`,
+          ? `${G.player.stageName} greeted fans one-on-one at the album fansign table, signing photocards.`
+          : `${G.player.stageName} performed a pre-debut street busking showcase, meeting early supporters!`,
         lastFeedback: isDebuted
           ? `💌 Scene Changed → Fansign Hall | Meeting official album buyers`
           : `🎸 Scene Changed → Street Busking | Gaining pre-debut fans before evaluation!`
@@ -1710,10 +1682,10 @@
       recalcSurvivalTotals(G.survival.contestants);
 
       if (isDebuted) {
-        addPulsePost("@FansignCam", "#Fansign", `${G.player.stageName}'s warm fan service at today's official fansign gained +650 Fame!`);
+        addPulsePost("@FansignCam", "#Fansign", `${G.player.stageName}'s fan service at today's fansign gained +650 Fame!`);
       } else {
-        addPulsePost("@BuskingScout", "#PreDebutAlya", `Viral street busking clip of trainee ${G.player.stageName} is trending! She hasn't even debuted yet! 🔥`);
-        addStageOnVideo(`[BUSKING CAM] Trainee ${G.player.stageName} Street Performance`, `${(12 + Math.floor(G.fame / 90))}K views`, "Her live vocals on the street are already better than debuted idols!");
+        addPulsePost("@BuskingScout", "#PreDebutTalent", `Viral street busking clip of ${G.player.stageName} (${G.player.nationality}) is trending! 🔥`);
+        addStageOnVideo(`[BUSKING CAM] Trainee ${G.player.stageName} Performance`, `${(12 + Math.floor(G.fame / 90))}K views`, "Live vocals on the street are already impressive!");
       }
       closeModal();
       renderAll();
@@ -1746,9 +1718,6 @@
       renderAll();
     }
 
-    // ============================================================================
-    // GROUP ROSTER COACHING & WEEKLY PROGRESSION
-    // ============================================================================
     function trainWeekly(type) {
       const boost = (G.facilities.studio - 1) * 2;
       if (type === "rest") {
@@ -1824,7 +1793,7 @@
         G.survival.active = true;
         G.survival.weekIndex = 1;
         G.survival.selectedStrategy = SURVIVAL_WEEKS_PLAN[1].choices[0].id;
-        addSpotlightNews(`📺 PREMIERE: 'IDOL SURVIVAL: DREAM STAGE' Begins!`, "24 trainees enter Week 1 competing for 7 final debut seats!");
+        addSpotlightNews(`📺 PREMIERE: 'IDOL SURVIVAL: DREAM STAGE' Begins!`, "24 multi-national trainees enter Week 1 competing for 7 final debut seats!");
       } else if (isSurvivalActive()) {
         G.survival.weekIndex = getSurvivalWeekIndex(G.month, G.week);
         const plan = SURVIVAL_WEEKS_PLAN[G.survival.weekIndex];
@@ -1840,11 +1809,6 @@
 
     function setSurvivalStrategy(choiceId) {
       G.survival.selectedStrategy = choiceId;
-      renderAll();
-    }
-
-    function setSupportedTrainee(id) {
-      G.survival.supportedTraineeId = id;
       renderAll();
     }
 
@@ -1885,7 +1849,7 @@
           name: G.survival.debutGroupName,
           type: "7-Member Survival Supergroup 🏆",
           concept: G.survival.debutConcept,
-          members: finalSeven.map(c => `${c.name} (#${c.rank})`),
+          members: finalSeven.map(c => `${c.name} (${c.nationality})`),
           leader: finalSeven[0].name,
           center: finalSeven[0].name,
           avgStat: Math.round(finalSeven.reduce((s, c) => s + c.totalScore, 0) / 7),
@@ -1899,7 +1863,7 @@
           locationKey: "concert-arena",
           title: "Dream Stage Grand Finale Broadcast Arena",
           mood: "Debut Finale Winner",
-          recentMoment: `${G.player.stageName} debuted in the 7-member supergroup ${G.survival.debutGroupName} under confetti and stage spotlights!`,
+          recentMoment: `${G.player.stageName} debuted in the 7-member multi-national supergroup ${G.survival.debutGroupName}!`,
           lastFeedback: `🏆 Grand Finale Complete! 7-Member Group '${G.survival.debutGroupName}' Debuted!`
         };
       }
@@ -1908,7 +1872,7 @@
     function runMonthlyEvaluation() {
       const avg = calcPlayerAvg();
       const grade = getGrade(avg).label;
-      const comment = `Y${G.year}•M${G.month}: Grade ${grade} (${avg}/100) — Judges evaluated ${G.player.stageName}'s vocal control and dance synchronization.`;
+      const comment = `Y${G.year}•M${G.month}: Grade ${grade} (${avg}/100) — Judges evaluated ${G.player.stageName}'s vocal and dance synchronization.`;
       G.evalHistory.unshift(comment);
       G.fame += 180;
     }
@@ -1916,7 +1880,7 @@
     function triggerContextEvent() {
       G.gossip = {
         cred: "Credibility: High • Source: Spotlight",
-        headline: `${G.player.stageName} Spotted Filming Late-Night Practice Clip`,
+        headline: `${G.player.stageName} Spotted Filming Practice Clip`,
         desc: "Fans and critics are debating your upcoming concept direction and live stage readiness."
       };
     }
@@ -1934,13 +1898,13 @@
       const outfits = [
         { name: "Denim Casual Jacket", scene: "dormitory", buff: "+Comfort & Youth Aura" },
         { name: "Oversized Practice Sweatshirt", scene: "practice-room", buff: "+Dance Rehearsal Sync" },
-        { name: "Kuala Lumpur Batik Streetwear", scene: "company-office", buff: "+SEA / Global Fan Hype" },
+        { name: "Traditional / Modern Fusion Look", scene: "company-office", buff: "+Global Fan Hype" },
         { name: "Silver Metallic Debut Dress", scene: "backstage", buff: "+Stage Presence & Visual" },
         { name: "Royal Concert Headliner Couture", scene: "concert-arena", buff: "+World Tour Star Aura" }
       ];
       document.getElementById("modalTitle").innerText = "👗 Character Outfit & Scene Styling";
       document.getElementById("modalBody").innerHTML = `
-        <p class="text-slate-400">Select an outfit for <b>${G.player.stageName} (${G.player.id})</b>. Her face and identity remain consistent across every look:</p>
+        <p class="text-slate-400">Select an outfit for <b>${G.player.stageName}</b> (${G.player.nationality}):</p>
         <div class="space-y-2 mt-2">
           ${outfits.map(o => `
             <button onclick="selectOutfit('${o.name}', '${o.scene}')" class="w-full p-3 rounded-2xl bg-[#101426] hover:bg-slate-900 border border-slate-700 flex justify-between items-center text-left">
@@ -2010,11 +1974,17 @@
       const cost = costs[tier];
       if (G.funds < cost) { alert(`Need $${cost.toLocaleString()}!`); return; }
       G.funds -= cost;
+      
+      // Multi-country scout candidates with dedicated nationality
       const pool = [
-        { name: "Zarif", gender: "MALE", origin: "Bukit Bintang, KL 🇲🇾", trait: "Rapper" },
-        { name: "Dahlia", gender: "FEMALE", origin: "Kuching, MY 🇲🇾", trait: "Power Vocal" },
-        { name: "Haruto", gender: "MALE", origin: "Osaka, JP 🇯🇵", trait: "Lead Dancer" },
-        { name: "Jisoo-K", gender: "FEMALE", origin: "Busan, KR 🇰🇷", trait: "Visual Center" }
+        { name: "Zarif", gender: "MALE", nationality: "🇲🇾 Malaysia", hometown: "Kuala Lumpur", trait: "Spitfire Rapper" },
+        { name: "Dahlia", gender: "FEMALE", nationality: "🇲🇾 Malaysia", hometown: "Kuching", trait: "Power Vocalist" },
+        { name: "Haruto", gender: "MALE", nationality: "🇯🇵 Japan", hometown: "Osaka", trait: "Lead Dancer" },
+        { name: "Jisoo-K", gender: "FEMALE", nationality: "🇰🇷 South Korea", hometown: "Busan", trait: "Visual Center" },
+        { name: "Narin", gender: "FEMALE", nationality: "🇹🇭 Thailand", hometown: "Bangkok", trait: "Main Dancer" },
+        { name: "Rizky", gender: "MALE", nationality: "🇮🇩 Indonesia", hometown: "Jakarta", trait: "R&B Vocalist" },
+        { name: "Gabriel", gender: "MALE", nationality: "🇸🇬 Singapore", hometown: "Singapore", trait: "Producer-Idol" },
+        { name: "Bea", gender: "FEMALE", nationality: "🇵🇭 Philippines", hometown: "Manila", trait: "Power Vocalist" }
       ];
       const pick = pool[Math.floor(Math.random() * pool.length)];
       const base = tier === "audition" ? 68 : tier === "academy" ? 60 : 52;
@@ -2022,11 +1992,12 @@
         id: "TRN-000" + (G.trainees.length + 2),
         name: pick.name,
         gender: pick.gender,
-        origin: pick.origin,
+        nationality: pick.nationality,
+        hometown: pick.hometown,
         trait: pick.trait,
         vocal: base + 10, rap: base + 8, dance: base + 12, visual: base + 10,
         stamina: 95, trust: 65, respect: 65, rivalry: 15,
-        memory: `Joined via ${tier} casting in Y${G.year}•M${G.month}.`
+        memory: `Scouted via ${tier} in Y${G.year}•M${G.month}.`
       });
       renderAll();
     }
@@ -2038,8 +2009,9 @@
         id: "TRN-000" + (G.trainees.length + 2),
         name: "Chaewon-S",
         gender: "FEMALE",
-        origin: "Former Rival Ace 🌟",
-        trait: "All-Rounder Center",
+        nationality: "🇰🇷 South Korea",
+        hometown: "Seoul",
+        trait: "All-Rounder Ace",
         vocal: 82, rap: 78, dance: 85, visual: 84,
         stamina: 90, trust: 62, respect: 78, rivalry: 30,
         memory: `Recruited from rival agency in Y${G.year}•M${G.month}.`
@@ -2052,15 +2024,16 @@
       const t = G.trainees[idx];
       if (!t) return;
       const avg = calcTraineeAvg(t);
-      document.getElementById("modalTitle").innerText = `🪪 Trainee Profile • ${t.name} (${t.id})`;
+      document.getElementById("modalTitle").innerText = `🪪 Profile • ${t.name} (${t.id})`;
       document.getElementById("modalBody").innerHTML = `
         <div class="bg-[#101426] p-4 rounded-2xl border border-slate-800 space-y-3">
           <div class="flex items-center gap-3">
             <img src="${getTraineePortraitUrl(t, idx)}" class="w-16 h-20 rounded-2xl object-cover border border-[#8B5CF6]" />
             <div>
-              <div class="font-extrabold text-white text-sm">${t.name} • Avg ${avg}</div>
-              <div class="text-[11px] text-slate-400">${t.origin} • ${t.trait}</div>
-              <div class="text-[11px] text-emerald-400 mt-1">Trust ${t.trust} • Respect ${t.respect}</div>
+              <div class="font-extrabold text-white text-sm">${t.name} <span class="text-xs">${t.gender === 'MALE' ? '♂️' : '♀️'}</span></div>
+              <div class="text-[11px] text-[#22D3EE] font-bold">🌍 Nationality: ${t.nationality} (${t.hometown || 'Global'})</div>
+              <div class="text-[11px] text-slate-400">Specialty: ${t.trait} • Avg ${avg}</div>
+              <div class="text-[11px] text-emerald-400 mt-0.5">Trust ${t.trust} • Respect ${t.respect}</div>
             </div>
           </div>
           <div class="text-xs text-slate-300 italic">"${t.memory}"</div>
@@ -2093,7 +2066,7 @@
         locationKey: "backstage",
         title: "Solo Debut Showcase Stage",
         mood: "Radiant Debut Star",
-        recentMoment: `${G.player.stageName} made her official solo debut under the stage spotlights!`,
+        recentMoment: `${G.player.stageName} made their official solo debut!`,
         lastFeedback: `🌟 Officially Debuted as a Solo Artist!`
       };
       renderAll();
@@ -2172,7 +2145,7 @@
         locationKey: "recording-studio",
         title: `Comeback Release • "${title}"`,
         mood: "Charting Artist",
-        recentMoment: `Released "${title}" (${concept}) with ${streams.toLocaleString()} first-week streams!`,
+        recentMoment: `Released "${title}" (${concept}) with ${streams.toLocaleString()} streams!`,
         lastFeedback: `💿 Comeback "${title}" Released! +$${rev.toLocaleString()} Revenue`
       };
       renderAll();
@@ -2189,7 +2162,7 @@
         locationKey: "backstage",
         title: `${showName} Broadcast Stage & Encore`,
         mood: "#1 Trophy Winner",
-        recentMoment: `${G.player.stageName} won #1 on ${showName} with "${song.title}" and nailed the live encore stage!`,
+        recentMoment: `${G.player.stageName} won #1 on ${showName} with "${song.title}"!`,
         lastFeedback: `🏆 Won #1 Trophy on ${showName}! +600 Fame`
       };
       addPulsePost("@MusicShowLive", "#1stWin", `🏆 ${group.name} wins #1 on ${showName} with "${song.title}"!`);
@@ -2217,7 +2190,7 @@
         locationKey: "concert-arena",
         title: `${v.name} • Live Concert Stage`,
         mood: "Global Headliner",
-        recentMoment: `${G.player.stageName} performed in front of a sold-out ocean of lightsticks at ${v.name}!`,
+        recentMoment: `${G.player.stageName} performed in front of a sold-out crowd at ${v.name}!`,
         lastFeedback: `🏟️ Sold Out ${v.name}! Net Profit: +$${(v.payout - v.cost).toLocaleString()}`
       };
       renderAll();
@@ -2230,7 +2203,7 @@
         locationKey: "concert-arena",
         title: "Year-End Grand Award Ceremony",
         mood: "Award Winner",
-        recentMoment: `${G.player.stageName} walked the red carpet and accepted the Year-End Main Trophy on stage!`,
+        recentMoment: `${G.player.stageName} accepted the Year-End Main Trophy on stage!`,
         lastFeedback: `🏆 Year-End Award Ceremony Complete! +$75,000 Prize`
       };
       renderAll();
@@ -2248,7 +2221,7 @@
     }
 
     function openDocumentaryModal() {
-      document.getElementById("modalTitle").innerText = `📖 ${G.player.stageName}'s Personal Career Story`;
+      document.getElementById("modalTitle").innerText = `📖 ${G.player.stageName}'s Career Story`;
       document.getElementById("modalBody").innerHTML = `
         <div class="space-y-2">
           ${G.documentaryLog.map(item => `<div class="p-2.5 rounded-xl bg-[#101426] border border-slate-800 text-white">✨ ${item}</div>`).join("")}
@@ -2300,7 +2273,7 @@
     }
 
     // ============================================================================
-    // MASTER RENDERER (CHARACTER-CENTERED 2.5D PRESENTATION)
+    // MASTER RENDERER
     // ============================================================================
     function renderAll() {
       const stageText = getCareerStage();
@@ -2311,7 +2284,6 @@
       document.getElementById("fameDisplay").innerText = `${G.fame.toLocaleString()} Fame`;
       document.getElementById("loyaltyDisplay").innerText = `${G.fanLoyalty}% Loyalty`;
 
-      // Adapt the Quick Fan Interaction button based on Trainee vs Debuted career stage
       const fanBtnTitle = document.getElementById("quickFanActionTitle");
       const fanBtnTag = document.getElementById("quickFanActionTag");
       const fanBtnSub = document.getElementById("quickFanActionSub");
@@ -2329,7 +2301,7 @@
         }
       }
 
-      // Render 2.5D Location Scene & Semi-Realistic Character Portrait
+      // Render 2.5D Scene & Character
       const locKey = G.scene.locationKey || "dormitory";
       const bgDef = ASSET_MANIFEST.backgrounds[locKey] || ASSET_MANIFEST.backgrounds["dormitory"];
       const charDef = ASSET_MANIFEST.characters["TRN-0001"];
@@ -2352,8 +2324,10 @@
       const avg = calcPlayerAvg();
       const grade = getGrade(avg);
       document.getElementById("idolStageNameDisplay").innerText = G.player.stageName;
+      document.getElementById("idolGenderBadge").innerText = G.player.gender === "MALE" ? "♂️" : "♀️";
+      document.getElementById("idolNationalityFlag").innerText = `${G.player.nationality}`;
       document.getElementById("idolRankBadge").innerText = `Rank ${grade.label} (${avg})`;
-      document.getElementById("idolSubInfoDisplay").innerText = `${G.player.legalName} • ${G.player.personality}`;
+      document.getElementById("idolSubInfoDisplay").innerText = `${G.player.legalName} • ${G.player.hometown} • ${G.player.personality}`;
       document.getElementById("idolStylingDisplay").innerText = G.player.outfit;
       document.getElementById("idolChapterDisplay").innerText = stageText;
 
@@ -2361,7 +2335,7 @@
       document.getElementById("activityFeedbackBar").innerText = G.scene.lastFeedback || "✔ Select an activity below to train and transition scenes.";
       document.getElementById("evalCountdownText").innerText = `Evaluation in ${5 - G.week} Week(s)`;
 
-      // Core Skills
+      // Skills
       const perfLabels = [
         ["vocal", "🎤 Vocal", "bg-[#22D3EE]"],
         ["dance", "💃 Dance", "bg-[#EC4899]"],
@@ -2385,13 +2359,16 @@
         <div class="bg-[#101426] p-2 rounded-xl border border-slate-800"><div class="text-slate-400 text-[10px]">Resilience</div><div class="font-bold text-[#8B5CF6]">${G.player.pers.resilience}%</div></div>
       `;
 
-      // Relationships
+      // Relationships in Tab 1
       document.getElementById("relationshipsList").innerHTML = G.trainees.map((t, idx) => `
         <div onclick="inspectTraineeProfile('${t.id}')" class="p-2 rounded-xl bg-[#101426] hover:bg-slate-900 border border-slate-800 cursor-pointer flex items-center justify-between gap-2 transition">
           <div class="flex items-center gap-2.5">
             <img src="${getTraineePortraitUrl(t, idx)}" class="w-9 h-9 rounded-xl object-cover border border-slate-700 shrink-0" />
             <div>
-              <div class="font-bold text-white">${t.name} <span class="text-[10px] text-slate-400">(${t.trait})</span></div>
+              <div class="font-bold text-white flex items-center gap-1.5">
+                <span>${t.name}</span>
+                <span class="text-[10px] text-[#22D3EE]">${t.nationality}</span>
+              </div>
               <div class="text-[10px] text-slate-400 truncate max-w-[200px]">"${t.memory}"</div>
             </div>
           </div>
@@ -2399,7 +2376,7 @@
         </div>
       `).join("");
 
-      // Tab 2: Trainees
+      // Tab 2: Trainee cards with DEDICATED NATIONALITY COLUMN
       document.getElementById("traineeList").innerHTML = G.trainees.map((t, idx) => {
         const tAvg = calcTraineeAvg(t);
         const tg = getGrade(tAvg);
@@ -2409,22 +2386,31 @@
               <img src="${getTraineePortraitUrl(t, idx)}" class="w-14 h-16 rounded-2xl object-cover border border-[#8B5CF6]/50 shrink-0" />
               <div class="flex-1">
                 <div class="flex justify-between items-start">
-                  <span class="font-extrabold text-white text-sm">${t.name}</span>
+                  <div>
+                    <span class="font-extrabold text-white text-sm">${t.name}</span>
+                    <span class="text-[11px] text-slate-400 ml-1">${t.gender === 'MALE' ? '♂️' : '♀️'}</span>
+                  </div>
                   <span class="px-2 py-0.5 rounded-md text-[10px] font-bold ${tg.color}">Rank ${tg.label}</span>
                 </div>
-                <div class="text-[10px] text-slate-400 mt-0.5">${t.origin} • ${t.trait}</div>
-                <div class="text-[10px] text-emerald-400 mt-1">Trust ${t.trust} • Stamina ${t.stamina}%</div>
+                <!-- SEPARATE DEDICATED NATIONALITY ROW/COLUMN -->
+                <div class="mt-1 flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded-md bg-[#1B2038] border border-slate-700 text-[10px] font-bold text-[#22D3EE]">
+                    🌍 ${t.nationality}
+                  </span>
+                  <span class="text-[10px] text-slate-400 font-medium">${t.hometown || 'Global'}</span>
+                </div>
+                <div class="text-[10px] text-slate-400 mt-1">Specialty: ${t.trait} • Trust ${t.trust} • Stamina ${t.stamina}%</div>
               </div>
             </div>
           </div>
         `;
       }).join("");
 
-      // Tab 3: Evaluation Log
+      // Tab 3
       document.getElementById("lastDrillBadge").innerText = `Last Drill: ${G.lastDrill.toUpperCase()}`;
       document.getElementById("evalHistoryBox").innerHTML = G.evalHistory.map(e => `<div class="p-2 rounded-xl bg-[#1B2038] border border-slate-700">${e}</div>`).join("");
 
-      // Tab 4: Studio
+      // Tab 4
       document.getElementById("recordingBonusText").innerText = `+${G.recordingBonus} pts`;
       const groupOpts = G.groups.length
         ? G.groups.map((g, i) => `<option value="${i}">${g.name} (Avg ${g.avgStat})</option>`).join("")
@@ -2444,7 +2430,7 @@
           `).join("")
         : `<div class="text-slate-500 text-center py-4">No releases yet.</div>`;
 
-      // Tab 5: Groups
+      // Tab 5
       document.getElementById("groupList").innerHTML = G.groups.length
         ? G.groups.map((g, idx) => `
             <div class="bg-[#101426] border border-slate-800 rounded-2xl p-4 space-y-3 text-xs">
@@ -2467,7 +2453,7 @@
 
       renderSurvivalArena();
 
-      // Tab 8: Agency & Fan Segments
+      // Tab 8
       ["dorm", "studio", "gear", "pr"].forEach(k => {
         document.getElementById(k + "LevelBadge").innerText = `Level ${G.facilities[k]}`;
       });
@@ -2501,6 +2487,7 @@
       renderMediaPanel();
     }
 
+    // SURVIVAL ARENA WITH DEDICATED NATIONALITY COLUMN
     function renderSurvivalArena() {
       const box = document.getElementById("survivalArena");
       const badge = document.getElementById("survivalStatusBadge");
@@ -2512,15 +2499,33 @@
           <div class="space-y-3 text-xs">
             <div class="p-3.5 rounded-2xl bg-[#1B2038] border border-slate-700">
               <div class="font-extrabold text-white text-sm">IDOL SURVIVAL: DREAM STAGE (24 Trainees → 7 Debut)</div>
-              <p class="text-[11px] text-slate-300 mt-0.5">Airs annually across March (Weeks 1–4) & April (Weeks 1–4). Train your skills in My Life before Month 3!</p>
+              <p class="text-[11px] text-slate-300 mt-0.5">Airs annually across March (Weeks 1–4) & April (Weeks 1–4). Featuring multi-national trainees from across Asia!</p>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 max-h-48 overflow-y-auto text-[11px]">
-              ${G.survival.contestants.slice(0, 10).map(c => `
-                <div class="flex justify-between bg-[#1B2038] px-3 py-1.5 rounded-xl">
-                  <span><b>#${c.rank} ${c.name}</b> (${c.agency})</span>
-                  <span class="text-[#22D3EE] font-bold">${c.totalScore} pts</span>
-                </div>
-              `).join("")}
+            
+            <!-- TABLE WITH DEDICATED NATIONALITY COLUMN -->
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-[11px]">
+                <thead class="text-slate-400 uppercase text-[9px] border-b border-slate-800">
+                  <tr>
+                    <th class="py-2 px-2">Rank</th>
+                    <th class="py-2 px-2">Contestant</th>
+                    <th class="py-2 px-2">Nationality</th>
+                    <th class="py-2 px-2">Agency</th>
+                    <th class="py-2 px-2 text-right">Score</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800/60">
+                  ${G.survival.contestants.slice(0, 10).map(c => `
+                    <tr class="hover:bg-[#1B2038]">
+                      <td class="py-2 px-2 font-bold text-amber-300">#${c.rank}</td>
+                      <td class="py-2 px-2 font-extrabold text-white">${c.name}</td>
+                      <td class="py-2 px-2 text-[#22D3EE] font-medium">${c.nationality}</td>
+                      <td class="py-2 px-2 text-slate-400">${c.agency}</td>
+                      <td class="py-2 px-2 text-right font-bold text-[#EC4899]">${c.totalScore} pts</td>
+                    </tr>
+                  `).join("")}
+                </tbody>
+              </table>
             </div>
           </div>
         `;
@@ -2530,7 +2535,6 @@
       const wIdx = getSurvivalWeekIndex(G.month, G.week);
       const plan = SURVIVAL_WEEKS_PLAN[wIdx];
       badge.innerText = `LIVE: Week ${wIdx}/8 • ${plan.episodes}`;
-      const supported = G.survival.contestants.find(c => c.id === G.survival.supportedTraineeId) || G.survival.contestants[0];
 
       box.innerHTML = `
         <div class="space-y-3 text-xs">
@@ -2547,13 +2551,35 @@
               </button>
             `).join("")}
           </div>
-          <div class="space-y-1 max-h-48 overflow-y-auto text-[11px]">
-            ${G.survival.contestants.slice().sort((a,b) => a.rank - b.rank).map(c => `
-              <div class="flex justify-between px-3 py-1.5 rounded-xl ${c.eliminated ? 'opacity-40 bg-slate-900' : c.rank <= 7 ? 'bg-amber-950/30 border border-amber-500/40' : 'bg-[#1B2038]'}">
-                <span><b>${c.eliminated ? 'OUT' : '#' + c.rank} ${c.name}</b> (${c.agency})</span>
-                <span class="font-bold text-[#22D3EE]">${c.totalScore} pts</span>
-              </div>
-            `).join("")}
+          
+          <!-- LIVE SURVIVAL TABLE WITH DEDICATED NATIONALITY COLUMN -->
+          <div class="overflow-x-auto max-h-52 overflow-y-auto">
+            <table class="w-full text-left text-[11px]">
+              <thead class="text-slate-400 uppercase text-[9px] border-b border-slate-800 sticky top-0 bg-[#101426]">
+                <tr>
+                  <th class="py-1.5 px-2">Rank</th>
+                  <th class="py-1.5 px-2">Contestant</th>
+                  <th class="py-1.5 px-2">Nationality</th>
+                  <th class="py-1.5 px-2">Agency</th>
+                  <th class="py-1.5 px-2 text-right">Score</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/60">
+                ${G.survival.contestants.slice().sort((a,b) => a.rank - b.rank).map(c => `
+                  <tr class="${c.eliminated ? 'opacity-35 bg-slate-900' : c.rank <= 7 ? 'bg-amber-950/20 text-white' : 'hover:bg-[#1B2038]'}">
+                    <td class="py-1.5 px-2 font-bold ${c.rank <= 7 ? 'text-amber-300' : 'text-slate-400'}">
+                      ${c.eliminated ? 'OUT' : '#' + c.rank}
+                    </td>
+                    <td class="py-1.5 px-2 font-extrabold ${c.isPlayer ? 'text-[#22D3EE]' : 'text-white'}">
+                      ${c.name} ${c.isPlayer ? '🌟' : ''}
+                    </td>
+                    <td class="py-1.5 px-2 text-[#22D3EE] font-medium">${c.nationality}</td>
+                    <td class="py-1.5 px-2 text-slate-400">${c.agency}</td>
+                    <td class="py-1.5 px-2 text-right font-bold text-[#EC4899]">${c.totalScore} pts</td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
           </div>
         </div>
       `;
